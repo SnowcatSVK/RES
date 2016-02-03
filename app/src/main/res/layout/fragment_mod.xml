@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,20 +16,20 @@
         android:elevation="4dp"
         android:fadeScrollbars="false"
         android:listSelector="@color/colorAccent"
-        android:paddingStart="4dp"
+        android:paddingBottom="10dp"
         android:paddingEnd="4dp"
+        android:paddingStart="4dp"
+        android:paddingTop="10dp"
         android:scrollbarSize="20dp"
         android:scrollbarThumbVertical="@drawable/custom_scrollbar"
-        android:verticalScrollbarPosition="right"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+        android:verticalScrollbarPosition="right" />
 
     <RelativeLayout
         android:id="@+id/folder_detail_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@+id/folders_listView"
         android:layout_above="@+id/player_layout"
+        android:layout_toEndOf="@+id/folders_listView"
         android:background="#DDFFFFFF">
 
         <ImageView
@@ -36,36 +37,75 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_marginLeft="28dp"
-            android:layout_marginTop="16dp"
             android:layout_marginRight="28dp"
+            android:layout_marginTop="16dp"
             android:layout_toStartOf="@+id/songs_listView"
-            android:src="@drawable/mod"/>
+            android:src="@drawable/mod" />
+
+        <TextView
+            android:id="@+id/artists_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/album_picture_imageView"
+            android:layout_below="@+id/album_picture_imageView"
+            android:layout_marginTop="4dp"
+            android:layout_toStartOf="@+id/songs_listView"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:text="Mike Oldfield"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/album_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/album_picture_imageView"
+            android:layout_below="@+id/artists_textView"
+            android:layout_toStartOf="@+id/songs_listView"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:text="The Songs of Distant Earth"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/year_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/album_picture_imageView"
+            android:layout_below="@+id/album_textView"
+            android:layout_toStartOf="@+id/songs_listView"
+            android:fontFamily="sans-serif-light"
+            android:text="1994"
+            android:textSize="18sp" />
 
         <ListView
             android:id="@+id/songs_listView"
             android:layout_width="385dp"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="21dp"
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
             android:fadeScrollbars="false"
             android:listSelector="@color/colorAccent"
-            android:paddingStart="4dp"
+            android:paddingBottom="10dp"
             android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:paddingTop="10dp"
             android:scrollbarSize="20dp"
             android:scrollbarThumbVertical="@drawable/custom_scrollbar"
-            android:verticalScrollbarPosition="right"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="24dp"/>
+            android:verticalScrollbarPosition="right" />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/player_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/folders_listView"
-        android:layout_alignParentBottom="true"/>
+        android:background="#DD000000" />
 
 </RelativeLayout>
