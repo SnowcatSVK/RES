@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/radio_listView"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:background="#EEFFFFFF"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:elevation="4dp"
+        android:fadeScrollbars="false"
+        android:listSelector="@color/colorAccent"
+        android:paddingStart="4dp"
+        android:scrollbarSize="20dp"
+        android:scrollbarThumbVertical="@drawable/custom_scrollbar"
+        android:verticalScrollbarPosition="left" />
+
+    <FrameLayout
+        android:id="@+id/surfaceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/radio_listView"
+        android:background="@drawable/radio_dummy_background"
+        android:gravity="center">
+
+        <com.google.android.exoplayer.AspectRatioFrameLayout
+            android:id="@+id/surfaceFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <SurfaceView
+                android:id="@+id/surface_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="onTVClick" />
+
+        </com.google.android.exoplayer.AspectRatioFrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/player_controls_layout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:layout_toEndOf="@+id/channels_listView"
+            android:background="#80000000">
+
+            <ImageButton
+                android:id="@+id/radio_play_pause_button"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:background="#0fff"
+                android:contentDescription="Play/Pause button"
+                android:src="@drawable/ic_play_arrow" />
+
+            <ImageView
+                android:id="@+id/volume_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/radio_play_pause_button"
+                android:src="@drawable/ic_volume_up" />
+
+            <SeekBar
+                android:id="@+id/radio_volume_seekBar"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/volume_imageView"
+                android:progressBackgroundTint="#aaa"
+                android:progressTint="#aaa"
+                android:thumbTint="@color/colorAccent" />
+        </RelativeLayout>
+    </FrameLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/folder_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_folder"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/folder_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ABBA - Arrival"
+        android:layout_toEndOf="@+id/folder_imageView"
+        android:layout_alignBottom="@+id/folder_imageView"
+        android:paddingBottom="8dp"
+        android:textSize="20sp"
+        android:maxLines="1" />
+
+</RelativeLayout>

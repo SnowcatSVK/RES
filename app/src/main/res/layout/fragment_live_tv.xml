@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/liveTV_parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/channels_listView"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:background="#EEFFFFFF"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:elevation="4dp"
+        android:fadeScrollbars="false"
+        android:listSelector="@color/colorAccent"
+        android:paddingStart="4dp"
+        android:scrollbarSize="20dp"
+        android:scrollbarThumbVertical="@drawable/custom_scrollbar"
+        android:verticalScrollbarPosition="left" />
+
+    <FrameLayout
+        android:id="@+id/surfaceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/channels_listView"
+        android:elevation="2dp"
+        android:background="#000"
+        android:gravity="center">
+
+        <com.google.android.exoplayer.AspectRatioFrameLayout
+            android:id="@+id/surfaceFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#000">
+
+            <SurfaceView
+                android:id="@+id/surface_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#000"
+                android:onClick="onTVClick" />
+
+        </com.google.android.exoplayer.AspectRatioFrameLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/player_controls_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:elevation="3dp"
+        android:layout_toEndOf="@+id/channels_listView"
+        android:background="#AA000000">
+
+        <ImageButton
+            android:id="@+id/channel_list_button"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="#0fff"
+            android:contentDescription="Channel list"
+            android:onClick="onChannelListButtonClick"
+            android:src="@drawable/ic_list"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/button_separator_linear_layout"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@id/channel_list_button"
+            android:background="@color/colorAccent"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/video_play_pause_button"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/channel_list_button"
+            android:background="#0fff"
+            android:contentDescription="Play/Pause button"
+            android:src="@drawable/ic_play_arrow" />
+
+        <ImageView
+            android:id="@+id/volume_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/video_play_pause_button"
+            android:src="@drawable/ic_volume_up" />
+
+        <SeekBar
+            android:id="@+id/tv_volume_seekBar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/volume_imageView"
+            android:progressBackgroundTint="#aaa"
+            android:progressTint="#aaa"
+            android:thumbTint="@color/colorAccent" />
+
+        <ImageButton
+            android:id="@+id/full_screen_tv_imageButton"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="#0fff"
+            android:contentDescription="Fullscreen toggle"
+            android:onClick="onFullScreenButtonClick"
+            android:src="@drawable/ic_fullscreen" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/separator_linear_layout"
+        android:layout_width="300dp"
+        android:layout_height="1dp"
+        android:layout_above="@+id/player_controls_layout"
+        android:background="@color/colorAccent"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:visibility="gone"/>
+</RelativeLayout>

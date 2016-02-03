@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sk.antik.res.VODFragment"
+    android:background="#EEFFFFFF">
+
+    <ImageView
+        android:id="@+id/left_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_keyboard_arrow_left"
+        android:layout_centerVertical="true"/>
+
+    <org.lucasr.twowayview.TwoWayView
+        android:id="@+id/vod_twoWayView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="false"
+        style="@style/TwoWayView"
+        android:layout_toRightOf="@+id/left_imageButton"
+        android:layout_toLeftOf="@+id/right_imageButton"/>
+
+    <ImageView
+        android:id="@+id/right_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_keyboard_arrow_right"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

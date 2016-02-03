@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/channel_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <RelativeLayout
+        android:id="@+id/channel_number_layout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#000"
+        >
+
+        <TextView
+            android:id="@+id/channel_number_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif"
+            android:text="1"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/channel_name_textView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:textColor="#000"
+        android:text="BBC World"
+        android:textSize="24sp"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/channel_number_layout"
+        />
+
+
+</RelativeLayout>

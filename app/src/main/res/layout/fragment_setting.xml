@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/settings_listView"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="#EEFFFFFF"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8.0dp"
+        android:fadeScrollbars="false"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp" />
+
+    <ListView
+        android:id="@+id/languages_listView"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/settings_listView"
+        android:background="#CCFFFFFF"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8.0dp"
+        android:fadeScrollbars="false"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:visibility="gone" />
+
+    <SeekBar
+        android:id="@+id/volume_settings_seekBar"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="137dp"
+        android:background="#CCFFFFFF"
+        android:progressBackgroundTint="#aaa"
+        android:progressTint="#aaa"
+        android:rotation="270"
+        android:thumbTint="@color/colorAccent"
+        android:visibility="gone"/>
+
+    <SeekBar
+        android:id="@+id/brightness_settings_seekBar"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="137dp"
+        android:background="#CCFFFFFF"
+        android:progressBackgroundTint="#aaa"
+        android:progressTint="#aaa"
+        android:rotation="270"
+        android:thumbTint="@color/colorAccent"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

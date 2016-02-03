@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sk.antik.res.MODFragment">
+
+    <ListView
+        android:id="@+id/folders_listView"
+        android:layout_width="345dp"
+        android:layout_height="match_parent"
+        android:background="#EEFFFFFF"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:elevation="4dp"
+        android:fadeScrollbars="false"
+        android:listSelector="@color/colorAccent"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:scrollbarSize="20dp"
+        android:scrollbarThumbVertical="@drawable/custom_scrollbar"
+        android:verticalScrollbarPosition="right"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+
+    <RelativeLayout
+        android:id="@+id/folder_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/folders_listView"
+        android:layout_above="@+id/player_layout"
+        android:background="#DDFFFFFF">
+
+        <ImageView
+            android:id="@+id/album_picture_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="28dp"
+            android:layout_toStartOf="@+id/songs_listView"
+            android:src="@drawable/mod"/>
+
+        <ListView
+            android:id="@+id/songs_listView"
+            android:layout_width="385dp"
+            android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:fadeScrollbars="false"
+            android:listSelector="@color/colorAccent"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:scrollbarSize="20dp"
+            android:scrollbarThumbVertical="@drawable/custom_scrollbar"
+            android:verticalScrollbarPosition="right"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="24dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/player_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_toEndOf="@+id/folders_listView"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
