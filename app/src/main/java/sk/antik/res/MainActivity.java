@@ -66,9 +66,9 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*getWindow().getDecorView().setSystemUiVisibility(
+        getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);*/
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_main);
         getLoaderManager().initLoader(0, null, this);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
@@ -97,6 +97,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         imageButtons.add((ImageButton) findViewById(R.id.setting_imageButton));
         timeTextView = (TextView) findViewById(R.id.time_main_activity_textView);
         dateTextView = (TextView) findViewById(R.id.date_main_activity_textView);
+//        loadVOD();
+        loadMOD();
     }
 
     @Override
@@ -112,8 +114,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         setupTime();
         registerReceiver();
 
-        loadVOD();
-        loadMOD();
+
         //AppKillerService.startingForbiddenApp = false;
     }
 
@@ -329,51 +330,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         dateTextView.setText(dmy);
     }
 
-    public void loadVOD() {
-        final RequestHandler handler = new RequestHandler("http://posa.res_api.dev3.antik.sk");
 
-        new AsyncTask<Void, Void, Void>() {
-            JSONObject responseJson;
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                JSONObject json = new JSONObject();
-                try {
-                    json.put("function", "GetContent");
-                    json.put("content_type_id", 4);
-                    responseJson = handler.handleRequest(json);
-                } catch (JSONException | IOException e) {
-                    e.printStackTrace();
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-
-                if (responseJson != null) {
-                    try {
-                        JSONArray list = responseJson.getJSONArray("Content list");
-                        JSONObject json = list.getJSONObject(0);
-                        JSONArray vodJsonArray = json.getJSONArray("content");
-                        ArrayList<VOD> vods = new ArrayList<>();
-                        for (int i = 0; i < vodJsonArray.length(); i++) {
-                            JSONObject vodJson = vodJsonArray.getJSONObject(i);
-                            VOD vod = new VOD(vodJson.getInt("id"),
-                                    vodJson.getString("name"),
-                                    vodJson.getString("source"));
-                            vods.add(vod);
-                        }
-                        vodFragment.setVods(vods);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.execute();
-    }
 
     public void loadMOD() {
         final RequestHandler handler = new RequestHandler("http://posa.res_api.dev3.antik.sk");
@@ -388,6 +345,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("function", "GetContent");
                     json.put("content_type_id", 5);
                     responseJson = handler.handleRequest(json);
+                    Log.i("MODResponse", responseJson.toString());
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
@@ -400,6 +358,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 super.onPostExecute(aVoid);
 
                 if (responseJson != null) {
+
                     try {
                         JSONArray list = responseJson.getJSONArray("Content list");
                         JSONObject json = list.getJSONObject(0);

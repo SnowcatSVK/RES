@@ -45,7 +45,7 @@ public class VODFragment extends Fragment {
 
         vod = (TwoWayView) view.findViewById(R.id.vod_twoWayView);
 
-        VODAdapter adapter = new VODAdapter(getActivity(), vods);
+
 
         /*ArrayList<VOD> vods = new ArrayList<>();
         vods.add(new VOD("Twilight", "2008", R.drawable.vod1));
@@ -85,11 +85,60 @@ public class VODFragment extends Fragment {
 
 
         ArrayAdapter<String> aItems = new ArrayAdapter<String>(getActivity(), R.layout.simple_list_item_1, items);*/
+        loadVOD();
 
         return view;
     }
 
     public void setVods(ArrayList<VOD> vods) {
         this.vods = vods;
+        VODAdapter adapter = new VODAdapter(getActivity(), vods);
+        vod.setAdapter(adapter);
+    }
+
+    public void loadVOD() {
+        final RequestHandler handler = new RequestHandler("http://posa.res_api.dev3.antik.sk");
+
+        new AsyncTask<Void, Void, Void>() {
+            JSONObject responseJson;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("function", "GetContent");
+                    json.put("content_type_id", 4);
+                    responseJson = handler.handleRequest(json);
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                if (responseJson != null) {
+                    try {
+                        JSONArray list = responseJson.getJSONArray("Content list");
+                        JSONObject json = list.getJSONObject(0);
+                        JSONArray vodJsonArray = json.getJSONArray("content");
+                        ArrayList<VOD> vods = new ArrayList<>();
+                        for (int i = 0; i < vodJsonArray.length(); i++) {
+                            JSONObject vodJson = vodJsonArray.getJSONObject(i);
+                            VOD vod = new VOD(vodJson.getInt("id"),
+                                    vodJson.getString("name"),
+                                    vodJson.getString("source"));
+                            vods.add(vod);
+                        }
+                        setVods(vods);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
     }
 }
