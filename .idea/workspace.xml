@@ -90,52 +90,10 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69777c7f-2ab9-444d-94f8-4248d1dccfba" name="Default" comment="request handler">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/ChannelFactory.java" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\taskArtifacts\cache.properties" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\taskArtifacts\cache.properties.lock" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\taskArtifacts\fileHashes.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\taskArtifacts\fileSnapshots.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\taskArtifacts\outputFileStates.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\taskArtifacts\taskArtifacts.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\tasks\_app_compileDebugAndroidTestJavaWithJavac\localClassSetAnalysis\localClassSetAnalysis.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\tasks\_app_compileDebugAndroidTestJavaWithJavac\localClassSetAnalysis\localClassSetAnalysis.lock" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\tasks\_app_compileDebugAndroidTestJavaWithJavac\localJarClasspathSnapshot\localJarClasspathSnapshot.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\tasks\_app_compileDebugAndroidTestJavaWithJavac\localJarClasspathSnapshot\localJarClasspathSnapshot.lock" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\tasks\_app_compileDebugJavaWithJavac\localClassSetAnalysis\localClassSetAnalysis.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\tasks\_app_compileDebugJavaWithJavac\localClassSetAnalysis\localClassSetAnalysis.lock" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\tasks\_app_compileDebugJavaWithJavac\localJarClasspathSnapshot\localJarClasspathSnapshot.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.10\tasks\_app_compileDebugJavaWithJavac\localJarClasspathSnapshot\localJarClasspathSnapshot.lock" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.8\taskArtifacts\cache.properties" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.8\taskArtifacts\cache.properties.lock" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.8\taskArtifacts\fileHashes.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.8\taskArtifacts\fileSnapshots.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.8\taskArtifacts\outputFileStates.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.gradle\2.8\taskArtifacts\taskArtifacts.bin" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\.name" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\copyright\profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\gradle.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\appcompat_v7_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\design_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\exoplayer_r1_5_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\recyclerview_v7_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\support_annotations_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\support_v4_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\twowayview_0_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\runConfigurations.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Channel.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Channel.java" />
+    <list default="true" id="69777c7f-2ab9-444d-94f8-4248d1dccfba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/LiveTVFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/LiveTVFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/RadioFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/RadioFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RES.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -207,18 +165,32 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/LiveTVFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="83" column="93" selection-start-line="83" selection-start-column="93" selection-end-line="83" selection-end-column="93" />
-              <folding />
+              <caret line="95" column="43" selection-start-line="95" selection-start-column="43" selection-end-line="95" selection-end-column="43" />
+              <folding>
+                <element signature="e#3880#4308#0" expanded="true" />
+                <element signature="e#4307#4308#0" expanded="true" />
+                <element signature="e#6669#6670#0" expanded="true" />
+                <element signature="e#6710#6711#0" expanded="true" />
+                <element signature="e#9550#10208#0" expanded="true" />
+                <element signature="e#10207#10208#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RadioFragment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RadioFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/RadioFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
-              <folding />
+            <state vertical-scroll-proportion="-0.08471761">
+              <caret line="63" column="44" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
+              <folding>
+                <element signature="e#3755#4183#0" expanded="true" />
+                <element signature="e#4182#4183#0" expanded="true" />
+                <element signature="e#6373#6374#0" expanded="true" />
+                <element signature="e#6414#6415#0" expanded="true" />
+                <element signature="e#9293#9951#0" expanded="true" />
+                <element signature="e#9950#9951#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -281,13 +253,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChannelFactory.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChannelFactory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/ChannelFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48006645">
-              <caret line="32" column="42" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="docComment;class#ChannelFactory#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1965,10 +1938,10 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Channel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/LiveTVFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/RadioFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/ChannelFactory.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/LiveTVFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/RadioFragment.java" />
       </list>
     </option>
   </component>
@@ -2504,12 +2477,18 @@
       <option name="project" value="LOCAL" />
       <updated>1454596394249</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="LiveTV a Radio API">
+      <created>1454606694913</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1454606694913</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2519,7 +2498,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1736" height="896" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3290735" sideWeight="0.46695095" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3290735" sideWeight="0.46695095" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.47867805" order="2" side_tool="false" content_ui="tabs" />
@@ -2590,7 +2569,8 @@
     <MESSAGE value="settings" />
     <MESSAGE value="MOD + uprava rozmerov" />
     <MESSAGE value="request handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="request handler" />
+    <MESSAGE value="LiveTV a Radio API" />
+    <option name="LAST_COMMIT_MESSAGE" value="LiveTV a Radio API" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3022,22 +3002,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/LiveTVFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="83" column="93" selection-start-line="83" selection-start-column="93" selection-end-line="83" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/RadioFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3063,10 +3027,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/ChannelFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48006645">
-          <caret line="32" column="42" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="docComment;class#ChannelFactory#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/LiveTVFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="95" column="43" selection-start-line="95" selection-start-column="43" selection-end-line="95" selection-end-column="43" />
+          <folding>
+            <element signature="e#3880#4308#0" expanded="true" />
+            <element signature="e#4307#4308#0" expanded="true" />
+            <element signature="e#6669#6670#0" expanded="true" />
+            <element signature="e#6710#6711#0" expanded="true" />
+            <element signature="e#9550#10208#0" expanded="true" />
+            <element signature="e#10207#10208#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/RadioFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.08471761">
+          <caret line="63" column="44" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
+          <folding>
+            <element signature="e#3755#4183#0" expanded="true" />
+            <element signature="e#4182#4183#0" expanded="true" />
+            <element signature="e#6373#6374#0" expanded="true" />
+            <element signature="e#6414#6415#0" expanded="true" />
+            <element signature="e#9293#9951#0" expanded="true" />
+            <element signature="e#9950#9951#0" expanded="true" />
           </folding>
         </state>
       </provider>
