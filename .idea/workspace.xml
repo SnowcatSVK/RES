@@ -92,22 +92,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69777c7f-2ab9-444d-94f8-4248d1dccfba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/io/RequestHandler.java" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\appcompat_v7_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\design_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\exoplayer_r1_5_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\recyclerview_v7_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\support_annotations_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\support_v4_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Snowcat\AndroidStudioProjects\RES\.idea\libraries\twowayview_0_1_1.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_mod_song.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_mod_song.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/io/RequestHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/io/RequestHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RES.iws" />
@@ -212,9 +197,11 @@
       <file leaf-file-name="RequestHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/io/RequestHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50830567">
-              <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
-              <folding />
+            <state vertical-scroll-proportion="0.22591361">
+              <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+              <folding>
+                <element signature="docComment;class#RequestHandler#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2313,7 +2300,13 @@
       <option name="project" value="LOCAL" />
       <updated>1454077918537</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="request handler">
+      <created>1454575038365</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1454575038365</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2398,7 +2391,8 @@
     <MESSAGE value="radio+VOD" />
     <MESSAGE value="settings" />
     <MESSAGE value="MOD + uprava rozmerov" />
-    <option name="LAST_COMMIT_MESSAGE" value="MOD + uprava rozmerov" />
+    <MESSAGE value="request handler" />
+    <option name="LAST_COMMIT_MESSAGE" value="request handler" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2828,9 +2822,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/io/RequestHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50830567">
-          <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
-          <folding />
+        <state vertical-scroll-proportion="0.22591361">
+          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+          <folding>
+            <element signature="docComment;class#RequestHandler#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
