@@ -53,7 +53,7 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
     public Uri contentUri;
     private AudioCapabilities audioCapabilities;
     public ListView channelsListView;
-    private ArrayList<Channel> channels;
+    public ArrayList<Channel> channels;
     private ChannelAdapter adapter;
     private SeekBar volumeSeekbar = null;
     private AudioManager audioManager = null;
@@ -76,17 +76,6 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
         tvFrame = (FrameLayout) rootView.findViewById(R.id.surfaceHolder);
         channelsListView = (ListView) rootView.findViewById(R.id.radio_listView);
         controlsLayout = (RelativeLayout) rootView.findViewById(R.id.player_controls_layout);
-        channels = new ArrayList<>();
-        channels.add(new Channel("Europa 2"));
-        channels.get(0).streamURL = "http://88.212.15.22/live/m_europa/playlist.m3u8";
-        channels.add(new Channel("Funradio"));
-        channels.get(1).streamURL = "http://88.212.15.22/live/fun_radio/playlist.m3u8";
-        channels.add(new Channel("Express"));
-        channels.get(2).streamURL = "http://88.212.15.22/live/express_radio/playlist.m3u8";
-        channels.add(new Channel("Rádio Košice"));
-        channels.get(3).streamURL = "http://88.212.15.22/live/kosice_radio/playlist.m3u8";
-        channels.add(new Channel("BestFM"));
-        channels.get(4).streamURL = "http://88.212.15.22/live/bestfm_radio/playlist.m3u8";
         adapter = new ChannelAdapter(getActivity(), channels);
         channelsListView.setAdapter(adapter);
         channelsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

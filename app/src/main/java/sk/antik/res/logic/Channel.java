@@ -10,9 +10,6 @@ public class Channel {
     public boolean selected;
     public boolean fullScreen;
 
-    public Channel(String name) {
-        this.name = name;
-        selected = false;
-        streamURL = "http://88.212.15.23/live/doma_1200/playlist.m3u8";
+    public Channel() {
     }
 }

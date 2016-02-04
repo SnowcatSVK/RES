@@ -82,18 +82,6 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
         channelsListView = (ListView) rootView.findViewById(R.id.channels_listView);
         parent = (RelativeLayout) rootView.findViewById(R.id.liveTV_parent_layout);
         controlsLayout = (RelativeLayout) rootView.findViewById(R.id.player_controls_layout);
-        channels = new ArrayList<>();
-        channels.add(new Channel("Sky Sports"));
-        channels.add(new Channel("BBC World"));
-        channels.add(new Channel("CNN"));
-        channels.add(new Channel("Discovery Channel"));
-        channels.add(new Channel("VH-1"));
-        channels.add(new Channel("Hallmark TV"));
-        channels.add(new Channel("Music Channel"));
-        channels.add(new Channel("History Channel"));
-        channels.add(new Channel("BBC One"));
-        channels.add(new Channel("Sky News"));
-        channels.add(new Channel("ITV"));
         adapter = new ChannelAdapter(getActivity(), channels);
         channelsListView.setAdapter(adapter);
         channelsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

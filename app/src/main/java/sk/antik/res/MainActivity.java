@@ -41,6 +41,7 @@ import sk.antik.res.loader.AppLoader;
 import sk.antik.res.loader.AppModel;
 import sk.antik.res.logic.Album;
 import sk.antik.res.logic.Channel;
+import sk.antik.res.logic.ChannelFactory;
 import sk.antik.res.logic.MODFolderAdapter;
 import sk.antik.res.logic.Song;
 import sk.antik.res.logic.VOD;
@@ -62,6 +63,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private ArrayList<ImageButton> imageButtons;
     private TextView timeTextView;
     private TextView dateTextView;
+    private final RequestHandler handler = new RequestHandler("http://posa.resapi.dev3.antik.sk");
+    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +100,10 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         imageButtons.add((ImageButton) findViewById(R.id.setting_imageButton));
         timeTextView = (TextView) findViewById(R.id.time_main_activity_textView);
         dateTextView = (TextView) findViewById(R.id.date_main_activity_textView);
-//        loadVOD();
+        loadVOD();
         loadMOD();
+        loadChannels();
+        loadRadios();
     }
 
     @Override
@@ -331,10 +336,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     }
 
 
-
     public void loadMOD() {
-        final RequestHandler handler = new RequestHandler("http://posa.res_api.dev3.antik.sk");
-
         new AsyncTask<Void, Void, Void>() {
             JSONObject responseJson;
 
@@ -383,6 +385,114 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             albums.add(album);
                         }
                         modFragment.setAlbums(albums);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
+    }
+
+    public void loadVOD() {
+        new AsyncTask<Void, Void, Void>() {
+            JSONObject responseJson;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("function", "GetContent");
+                    json.put("content_type_id", 4);
+                    responseJson = handler.handleRequest(json);
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                if (responseJson != null) {
+                    try {
+                        JSONArray list = responseJson.getJSONArray("Content list");
+                        JSONObject json = list.getJSONObject(0);
+                        JSONArray vodJsonArray = json.getJSONArray("content");
+                        ArrayList<VOD> vods = new ArrayList<>();
+                        for (int i = 0; i < vodJsonArray.length(); i++) {
+                            JSONObject vodJson = vodJsonArray.getJSONObject(i);
+                            VOD vod = new VOD(vodJson.getInt("id"),
+                                    vodJson.getString("name"),
+                                    vodJson.getString("source"));
+                            vods.add(vod);
+                        }
+                        vodFragment.setVods(vods);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
+    }
+
+    public void loadChannels() {
+        new AsyncTask<Void, Void, Void>() {
+            JSONObject responseJson;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("function", "GetContent");
+                    json.put("content_type_id", 1);
+                    responseJson = handler.handleRequest(json);
+                    Log.i("MODResponse", responseJson.toString());
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                if (responseJson != null) {
+                    try {
+                        tvFragment.channels = ChannelFactory.fromJSON(responseJson.getJSONArray("Content list"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
+    }
+
+    public void loadRadios() {
+        new AsyncTask<Void, Void, Void>() {
+            JSONObject responseJson;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("function", "GetContent");
+                    json.put("content_type_id", 2);
+                    responseJson = handler.handleRequest(json);
+                    Log.i("MODResponse", responseJson.toString());
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                if (responseJson != null) {
+                    try {
+                        radioFragment.channels = ChannelFactory.fromJSON(responseJson.getJSONArray("Content list"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
