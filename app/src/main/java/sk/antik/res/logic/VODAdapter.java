@@ -28,12 +28,14 @@ public class VODAdapter extends ArrayAdapter<VOD> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_vod, parent, false);
         }
         TextView name = (TextView) convertView.findViewById(R.id.name_textView);
-        TextView year = (TextView) convertView.findViewById(R.id.year_textView);
         ImageView image = (ImageView) convertView.findViewById(R.id.vod_imageView);
 
         name.setText(vod.getName());
-        year.setText(vod.getYear());
-        image.setImageResource(vod.getImage());
+        if (vod.getSource() == null) {
+            image.setImageResource(R.drawable.vod1);
+        } else {
+            image.setImageResource(R.drawable.vod3);
+        }
 
         return convertView;
     }

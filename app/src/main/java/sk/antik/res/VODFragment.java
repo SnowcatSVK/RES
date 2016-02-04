@@ -1,6 +1,7 @@
 package sk.antik.res;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,10 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.lucasr.twowayview.TwoWayView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import sk.antik.res.io.RequestHandler;
 import sk.antik.res.logic.VOD;
 import sk.antik.res.logic.VODAdapter;
 
@@ -37,7 +43,7 @@ public class VODFragment extends Fragment {
 
         vod = (TwoWayView) view.findViewById(R.id.vod_twoWayView);
 
-        ArrayList<VOD> vods = new ArrayList<>();
+        /*ArrayList<VOD> vods = new ArrayList<>();
         vods.add(new VOD("Twilight", "2008", R.drawable.vod1));
         vods.add(new VOD("AVATAR", "2009", R.drawable.vod2));
         vods.add(new VOD("TITANIC", "1997", R.drawable.vod3));
@@ -47,7 +53,7 @@ public class VODFragment extends Fragment {
         vods.add(new VOD("The Green Mile", "1999", R.drawable.vod7));
 
 
-        VODAdapter adapter = new VODAdapter(getActivity(), vods);
+        VODAdapter adapter = new VODAdapter(getActivity(), vods);*/
 
         ImageView leftArrowImageView = (ImageView) view.findViewById(R.id.left_imageButton);
         ImageView rightArrowImageView = (ImageView) view.findViewById(R.id.right_imageButton);
@@ -75,10 +81,61 @@ public class VODFragment extends Fragment {
 
 
         ArrayAdapter<String> aItems = new ArrayAdapter<String>(getActivity(), R.layout.simple_list_item_1, items);*/
-        vod.setAdapter(adapter);
 
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
+        loadVOD();
+    }
+
+    public void loadVOD() {
+        final RequestHandler handler = new RequestHandler("http://posa.res_api.dev3.antik.sk");
+
+        new AsyncTask<Void, Void, Void>() {
+            JSONObject responseJson;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("function", "GetContent");
+                    json.put("content_type_id", 4);
+                    responseJson = handler.handleRequest(json);
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                if (responseJson != null) {
+                    try {
+                        JSONArray list = responseJson.getJSONArray("Content list");
+                        JSONObject json = list.getJSONObject(0);
+                        JSONArray vodJsonArray = json.getJSONArray("content");
+                        ArrayList<VOD> vods = new ArrayList<>();
+                        for (int i = 0; i < vodJsonArray.length(); i++) {
+                            JSONObject vodJson = vodJsonArray.getJSONObject(i);
+                            VOD vod = new VOD(vodJson.getInt("id"),
+                                    vodJson.getString("name"),
+                                    vodJson.getString("source"));
+                            vods.add(vod);
+                        }
+                        VODAdapter adapter = new VODAdapter(getActivity(), vods);
+                        vod.setAdapter(adapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
+    }
 }

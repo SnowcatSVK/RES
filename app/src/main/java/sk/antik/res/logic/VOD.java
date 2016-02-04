@@ -5,25 +5,25 @@ package sk.antik.res.logic;
  */
 public class VOD {
 
+    private int id;
     private String name;
-    private String year;
-    private int image;
+    private String source;
 
-    public VOD(String name, String year, int image) {
+    public VOD(int id, String name, String source) {
+        this.id = id;
         this.name = name;
-        this.year = year;
-        this.image = image;
+        this.source = source;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getImage() {
-        return image;
-    }
-
-    public String getYear() {
-        return year;
+    public String getSource() {
+        return source;
     }
 }
