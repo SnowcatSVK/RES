@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +24,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,9 +36,15 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import sk.antik.res.io.RequestHandler;
 import sk.antik.res.loader.AppLoader;
 import sk.antik.res.loader.AppModel;
+import sk.antik.res.logic.Album;
 import sk.antik.res.logic.Channel;
+import sk.antik.res.logic.MODFolderAdapter;
+import sk.antik.res.logic.Song;
+import sk.antik.res.logic.VOD;
+import sk.antik.res.logic.VODAdapter;
 
 public class MainActivity extends Activity implements LoaderManager.LoaderCallbacks<ArrayList<AppModel>> {
 
@@ -99,6 +111,9 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         }
         setupTime();
         registerReceiver();
+
+        loadVOD();
+        loadMOD();
         //AppKillerService.startingForbiddenApp = false;
     }
 
@@ -312,5 +327,108 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         String dmy = date.substring(6);
         timeTextView.setText(time);
         dateTextView.setText(dmy);
+    }
+
+    public void loadVOD() {
+        final RequestHandler handler = new RequestHandler("http://posa.res_api.dev3.antik.sk");
+
+        new AsyncTask<Void, Void, Void>() {
+            JSONObject responseJson;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("function", "GetContent");
+                    json.put("content_type_id", 4);
+                    responseJson = handler.handleRequest(json);
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                if (responseJson != null) {
+                    try {
+                        JSONArray list = responseJson.getJSONArray("Content list");
+                        JSONObject json = list.getJSONObject(0);
+                        JSONArray vodJsonArray = json.getJSONArray("content");
+                        ArrayList<VOD> vods = new ArrayList<>();
+                        for (int i = 0; i < vodJsonArray.length(); i++) {
+                            JSONObject vodJson = vodJsonArray.getJSONObject(i);
+                            VOD vod = new VOD(vodJson.getInt("id"),
+                                    vodJson.getString("name"),
+                                    vodJson.getString("source"));
+                            vods.add(vod);
+                        }
+                        vodFragment.setVods(vods);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
+    }
+
+    public void loadMOD() {
+        final RequestHandler handler = new RequestHandler("http://posa.res_api.dev3.antik.sk");
+
+        new AsyncTask<Void, Void, Void>() {
+            JSONObject responseJson;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("function", "GetContent");
+                    json.put("content_type_id", 5);
+                    responseJson = handler.handleRequest(json);
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                if (responseJson != null) {
+                    try {
+                        JSONArray list = responseJson.getJSONArray("Content list");
+                        JSONObject json = list.getJSONObject(0);
+                        JSONArray modJsonArray = json.getJSONArray("content");
+                        ArrayList<Album> albums = new ArrayList<Album>();
+                        for (int i = 0; i < modJsonArray.length(); i++) {
+                            JSONObject albumJson = modJsonArray.getJSONObject(i);
+                            JSONArray songJsonArray = albumJson.getJSONArray("item");
+                            ArrayList<Song> songs = new ArrayList<Song>();
+                            for (int j = 0; j < songJsonArray.length(); j++) {
+                                JSONObject songJson = songJsonArray.getJSONObject(j);
+                                Song song = new Song(songJson.getInt("id"),
+                                        songJson.getInt("parent_id"),
+                                        songJson.getString("name"),
+                                        songJson.getString("source"));
+                                songs.add(song);
+                            }
+                            Album album = new Album(albumJson.getInt("id"),
+                                    albumJson.getString("name"),
+                                    albumJson.getString("source"),
+                                    songs);
+                            albums.add(album);
+                        }
+                        modFragment.setAlbums(albums);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
     }
 }

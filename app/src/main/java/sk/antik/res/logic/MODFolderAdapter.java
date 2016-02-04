@@ -15,20 +15,25 @@ import sk.antik.res.R;
 /**
  * Created by Admin on 28.01.2016.
  */
-public class MODFolderAdapter extends ArrayAdapter<String> {
+public class MODFolderAdapter extends ArrayAdapter<Album> {
 
-    public MODFolderAdapter(Context context, ArrayList<String> folders) {
-        super(context, R.layout.item_mod_folder, folders);
+    public MODFolderAdapter(Context context, ArrayList<Album> albums) {
+        super(context, R.layout.item_mod_folder, albums);
+    }
+
+    @Override
+    public Album getItem(int position) {
+        return super.getItem(position);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final String folderName = getItem(position);
+        final Album album = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_mod_folder, parent, false);
         }
         TextView folderTextView = (TextView) convertView.findViewById(R.id.folder_textView);
-        folderTextView.setText(folderName);
+        folderTextView.setText(album.getName());
 
         return convertView;
     }

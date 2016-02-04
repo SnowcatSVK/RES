@@ -5,25 +5,31 @@ package sk.antik.res.logic;
  */
 public class Song {
 
-    private String number;
+    private int id;
+    private int albumId;
     private String name;
-    private String lenght;
+    private String source;
 
-    public Song(String number, String name, String lenght) {
-        this.number = number;
+    public Song(int id, int albumId, String name, String source) {
+        this.id = id;
+        this.albumId = albumId;
         this.name = name;
-        this.lenght = lenght;
-    }
-
-    public String getNumber() {
-        return number;
+        this.source = source;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getLenght() {
-        return lenght;
+    public int getId() {
+        return id;
+    }
+
+    public int getAlbumId() {
+        return albumId;
+    }
+
+    public String getSource() {
+        return source;
     }
 }

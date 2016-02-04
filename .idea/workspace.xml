@@ -92,16 +92,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69777c7f-2ab9-444d-94f8-4248d1dccfba" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/VOD.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/VOD.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/VODAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/VODAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Album.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODFolderAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODFolderAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MODFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MODFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODSongAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODSongAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Song.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Song.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/design_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/design_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_vod.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_vod.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_23_1_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RES.iws" />
@@ -130,30 +127,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Song.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Song.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#357#358#0" expanded="false" />
-                <element signature="e#386#387#0" expanded="false" />
-                <element signature="e#417#418#0" expanded="false" />
-                <element signature="e#444#445#0" expanded="false" />
-                <element signature="e#477#478#0" expanded="false" />
-                <element signature="e#506#507#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MODFolderAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODFolderAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
               <folding>
-                <element signature="imports" expanded="false" />
+                <element signature="e#649#650#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -163,9 +143,22 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODSongAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="34" column="25" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MODFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MODFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8471761">
+              <caret line="52" column="47" selection-start-line="52" selection-start-column="47" selection-end-line="52" selection-end-column="47" />
               <folding>
-                <element signature="imports" expanded="false" />
+                <element signature="e#3448#3858#0" expanded="true" />
+                <element signature="e#3857#3858#0" expanded="true" />
+                <element signature="e#3941#3942#0" expanded="true" />
+                <element signature="e#3977#3978#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -175,46 +168,30 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="122" column="53" selection-start-line="122" selection-start-column="53" selection-end-line="122" selection-end-column="53" />
+              <caret line="47" column="65" selection-start-line="47" selection-start-column="65" selection-end-line="47" selection-end-column="65" />
               <folding>
-                <element signature="e#1928#2079#0" expanded="true" />
-                <element signature="e#2078#2079#0" expanded="true" />
-                <element signature="e#2130#2282#0" expanded="true" />
-                <element signature="e#2281#2282#0" expanded="true" />
+                <element signature="e#2786#2787#0" expanded="true" />
+                <element signature="e#2818#2819#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="item_vod.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_vod.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7626527">
-              <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VODAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/VODAdapter.java">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="50" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MODFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MODFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
-              <folding />
+              <caret line="425" column="52" selection-start-line="425" selection-start-column="52" selection-end-line="425" selection-end-column="52" />
+              <folding>
+                <element signature="e#9197#9198#0" expanded="true" />
+                <element signature="e#9233#9234#0" expanded="true" />
+                <element signature="e#9282#9283#0" expanded="true" />
+                <element signature="e#9318#9319#0" expanded="true" />
+                <element signature="e#9729#9730#0" expanded="true" />
+                <element signature="e#9765#9766#0" expanded="true" />
+                <element signature="e#17274#17281#0" expanded="true" />
+                <element signature="e#17592#17598#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -229,16 +206,6 @@
           </provider>
           <provider editor-type-id="android-designer">
             <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Channel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Channel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="69" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="69" />
-              <folding />
-            </state>
           </provider>
         </entry>
       </file>
@@ -262,8 +229,8 @@
       <list>
         <option value="resourceFile" />
         <option value="layoutResourceFile_vertical" />
-        <option value="Class" />
         <option value="valueResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -1868,10 +1835,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/player/CustomPlayer.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_pause.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_channel_fullscreen.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Channel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/ChannelAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_list.xml" />
@@ -1907,18 +1870,22 @@
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/RadioFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/LiveTVFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_mod.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_vod.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_mod_folder.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MODFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_mod_song.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/io/RequestHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/VOD.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/VODAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_vod.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Song.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Album.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODFolderAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODSongAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MODFragment.java" />
       </list>
     </option>
   </component>
@@ -2371,7 +2338,13 @@
       <option name="project" value="LOCAL" />
       <updated>1454575038365</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="vod z api">
+      <created>1454593244748</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1454593244748</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2386,7 +2359,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3290735" sideWeight="0.46695095" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.47867805" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2457,7 +2430,8 @@
     <MESSAGE value="settings" />
     <MESSAGE value="MOD + uprava rozmerov" />
     <MESSAGE value="request handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="request handler" />
+    <MESSAGE value="vod z api" />
+    <option name="LAST_COMMIT_MESSAGE" value="vod z api" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2466,13 +2440,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/dot_black.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.230769">
-          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/dot_orange.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.230769">
@@ -2738,13 +2705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="284" column="0" selection-start-line="284" selection-start-column="0" selection-end-line="284" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_vod.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.94938916">
@@ -2786,49 +2746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Song.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#357#358#0" expanded="false" />
-            <element signature="e#386#387#0" expanded="false" />
-            <element signature="e#417#418#0" expanded="false" />
-            <element signature="e#444#445#0" expanded="false" />
-            <element signature="e#477#478#0" expanded="false" />
-            <element signature="e#506#507#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODFolderAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODSongAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MODFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_play_arrow_white.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2840,6 +2757,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2894,19 +2812,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="122" column="53" selection-start-line="122" selection-start-column="53" selection-end-line="122" selection-end-column="53" />
-          <folding>
-            <element signature="e#1928#2079#0" expanded="true" />
-            <element signature="e#2078#2079#0" expanded="true" />
-            <element signature="e#2130#2282#0" expanded="true" />
-            <element signature="e#2281#2282#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_vod.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7626527">
@@ -2916,6 +2821,93 @@
       </provider>
       <provider editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Song.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73421925">
+          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="22" />
+          <folding>
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#604#605#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Album.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9883721">
+          <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+          <folding>
+            <element signature="e#445#446#0" expanded="true" />
+            <element signature="e#470#471#0" expanded="true" />
+            <element signature="e#501#502#0" expanded="true" />
+            <element signature="e#528#529#0" expanded="true" />
+            <element signature="e#561#562#0" expanded="true" />
+            <element signature="e#590#591#0" expanded="true" />
+            <element signature="e#631#632#0" expanded="true" />
+            <element signature="e#659#660#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODFolderAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+          <folding>
+            <element signature="e#649#650#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/MODSongAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="25" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="425" column="52" selection-start-line="425" selection-start-column="52" selection-end-line="425" selection-end-column="52" />
+          <folding>
+            <element signature="e#9197#9198#0" expanded="true" />
+            <element signature="e#9233#9234#0" expanded="true" />
+            <element signature="e#9282#9283#0" expanded="true" />
+            <element signature="e#9318#9319#0" expanded="true" />
+            <element signature="e#9729#9730#0" expanded="true" />
+            <element signature="e#9765#9766#0" expanded="true" />
+            <element signature="e#17274#17281#0" expanded="true" />
+            <element signature="e#17592#17598#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="65" selection-start-line="47" selection-start-column="65" selection-end-line="47" selection-end-column="65" />
+          <folding>
+            <element signature="e#2786#2787#0" expanded="true" />
+            <element signature="e#2818#2819#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MODFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8471761">
+          <caret line="52" column="47" selection-start-line="52" selection-start-column="47" selection-end-line="52" selection-end-column="47" />
+          <folding>
+            <element signature="e#3448#3858#0" expanded="true" />
+            <element signature="e#3857#3858#0" expanded="true" />
+            <element signature="e#3941#3942#0" expanded="true" />
+            <element signature="e#3977#3978#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
