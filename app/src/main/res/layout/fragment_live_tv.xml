@@ -26,8 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toEndOf="@id/channels_listView"
-        android:elevation="2dp"
         android:background="#000"
+        android:elevation="2dp"
         android:gravity="center">
 
         <com.google.android.exoplayer.AspectRatioFrameLayout
@@ -46,6 +46,18 @@
                 android:onClick="onTVClick" />
 
         </com.google.android.exoplayer.AspectRatioFrameLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorAccent"
+            android:indeterminateTintMode="src_in"
+            />
     </FrameLayout>
 
     <RelativeLayout
@@ -53,9 +65,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:elevation="3dp"
         android:layout_toEndOf="@+id/channels_listView"
-        android:background="#AA000000">
+        android:background="#AA000000"
+        android:elevation="3dp">
 
         <ImageButton
             android:id="@+id/channel_list_button"
@@ -125,5 +137,5 @@
         android:background="@color/colorAccent"
         android:elevation="5dp"
         android:orientation="horizontal"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
@@ -64,6 +65,7 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
     public ImageButton channelListButton;
     public LinearLayout buttonSeparatorLayout;
     public LinearLayout separatorLayout;
+    private ProgressBar progressBar;
 
     public LiveTVFragment() {
         // Required empty public constructor
@@ -82,6 +84,7 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
         channelsListView = (ListView) rootView.findViewById(R.id.channels_listView);
         parent = (RelativeLayout) rootView.findViewById(R.id.liveTV_parent_layout);
         controlsLayout = (RelativeLayout) rootView.findViewById(R.id.player_controls_layout);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         /*channels = new ArrayList<>();
         channels.add(new Channel("Sky Sports"));
         channels.add(new Channel("BBC World"));
@@ -168,18 +171,22 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
         switch (playbackState) {
             case ExoPlayer.STATE_BUFFERING:
                 Log.e("Status", "buffering");
+                progressBar.setVisibility(View.VISIBLE);
                 break;
             case ExoPlayer.STATE_ENDED:
                 Log.e("Status", "ended");
                 break;
             case ExoPlayer.STATE_IDLE:
                 Log.e("Status", "idle");
+                progressBar.setVisibility(View.INVISIBLE);
                 break;
             case ExoPlayer.STATE_PREPARING:
                 Log.e("Status", "preparing");
+                progressBar.setVisibility(View.VISIBLE);
                 break;
             case ExoPlayer.STATE_READY:
                 Log.e("Status", "ready");
+                progressBar.setVisibility(View.INVISIBLE);
                 break;
             default:
                 break;
