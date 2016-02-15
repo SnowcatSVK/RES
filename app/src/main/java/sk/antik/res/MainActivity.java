@@ -9,11 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
+import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +30,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,10 +48,8 @@ import sk.antik.res.loader.AppModel;
 import sk.antik.res.logic.Album;
 import sk.antik.res.logic.Channel;
 import sk.antik.res.logic.ChannelFactory;
-import sk.antik.res.logic.MODFolderAdapter;
 import sk.antik.res.logic.Song;
 import sk.antik.res.logic.VOD;
-import sk.antik.res.logic.VODAdapter;
 
 public class MainActivity extends Activity implements LoaderManager.LoaderCallbacks<ArrayList<AppModel>> {
 
@@ -54,6 +58,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private VODFragment vodFragment;
     private SettingFragment settingsFragment;
     private MODFragment modFragment;
+    private GamesFragment gamesFragment;
+    private ConnectionFragment connectionFragment;
 
     //private RelativeLayout rootLayout;
     private LinearLayout topBar;
@@ -64,18 +70,19 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private TextView timeTextView;
     private TextView dateTextView;
     private final RequestHandler handler = new RequestHandler("http://posa.resapi.dev3.antik.sk");
-    ;
+    private SharedPreferences prefs = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_main);
         getLoaderManager().initLoader(0, null, this);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
-
+        prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
         lp.screenBrightness = 1.0f;
         getWindow().setAttributes(lp);
         Log.e("Setting test", "onCreate - Main");
@@ -84,6 +91,9 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         vodFragment = new VODFragment();
         settingsFragment = new SettingFragment();
         modFragment = new MODFragment();
+        gamesFragment = new GamesFragment();
+        connectionFragment = new ConnectionFragment();
+
         topBar = (LinearLayout) findViewById(R.id.top_bar_linearLayout);
         bottomBarIcons = (LinearLayout) findViewById(R.id.bottom_bar_linearLayout);
         bottomBarDescription = (LinearLayout) findViewById(R.id.categories_names_layout);
@@ -108,17 +118,22 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
     @Override
     protected void onResume() {
-        super.onResume();
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        super.onResume();
         if (!isMyServiceRunning(AppKillerService.class)) {
             Intent intent = new Intent(this, AppKillerService.class);
             startService(intent);
         }
         setupTime();
         registerReceiver();
-
+        if (prefs.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            // using the following line to edit/commit prefs
+            startInstallations();
+            prefs.edit().putBoolean("firstrun", false).apply();
+        }
 
         //AppKillerService.startingForbiddenApp = false;
     }
@@ -224,10 +239,14 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
     public void onConnectButtonClick(View view) {
         setBackgrounds(view);
+        getFragmentManager().beginTransaction().replace(R.id.root_layout, connectionFragment).commit();
+        tvFragment.releasePlayer();
     }
 
     public void onGamesButtonClick(View view) {
         setBackgrounds(view);
+        getFragmentManager().beginTransaction().replace(R.id.root_layout, gamesFragment).commit();
+        tvFragment.releasePlayer();
     }
 
     public void onVODButtonClick(View view) {
@@ -347,7 +366,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("function", "GetContent");
                     json.put("content_type_id", 5);
                     responseJson = handler.handleRequest(json);
-                    Log.i("MODResponse", responseJson.toString());
+                    Log.e("MODResponse", responseJson.toString());
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
@@ -363,13 +382,14 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
                     try {
                         JSONArray list = responseJson.getJSONArray("Content list");
+                        Log.e("MODJSON", list.toString());
                         JSONObject json = list.getJSONObject(0);
                         JSONArray modJsonArray = json.getJSONArray("content");
-                        ArrayList<Album> albums = new ArrayList<Album>();
+                        ArrayList<Album> albums = new ArrayList<>();
                         for (int i = 0; i < modJsonArray.length(); i++) {
                             JSONObject albumJson = modJsonArray.getJSONObject(i);
                             JSONArray songJsonArray = albumJson.getJSONArray("item");
-                            ArrayList<Song> songs = new ArrayList<Song>();
+                            ArrayList<Song> songs = new ArrayList<>();
                             for (int j = 0; j < songJsonArray.length(); j++) {
                                 JSONObject songJson = songJsonArray.getJSONObject(j);
                                 Song song = new Song(songJson.getInt("id"),
@@ -404,6 +424,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("function", "GetContent");
                     json.put("content_type_id", 4);
                     responseJson = handler.handleRequest(json);
+                    Log.e("VODResponse", responseJson.toString());
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
@@ -448,7 +469,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("function", "GetContent");
                     json.put("content_type_id", 1);
                     responseJson = handler.handleRequest(json);
-                    Log.i("MODResponse", responseJson.toString());
+                    Log.e("ChannelsResponse", responseJson.toString());
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
@@ -480,7 +501,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("function", "GetContent");
                     json.put("content_type_id", 2);
                     responseJson = handler.handleRequest(json);
-                    Log.i("MODResponse", responseJson.toString());
+                    Log.e("RadiosResponse", responseJson.toString());
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
@@ -500,4 +521,42 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             }
         }.execute();
     }
+
+    public void startInstallations() {
+        AssetManager assetManager = getAssets();
+
+        InputStream in = null;
+        OutputStream out = null;
+
+        try {
+            in = assetManager.open("com.mobilityware.spider.apk");
+            out = new FileOutputStream(getExternalFilesDir(null).getPath() + "/com.mobilityware.spider.apk");
+
+            byte[] buffer = new byte[1024];
+
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+
+                out.write(buffer, 0, read);
+
+            }
+
+            in.close();
+            in = null;
+
+            out.flush();
+            out.close();
+            out = null;
+
+            Intent install = new Intent(Intent.ACTION_VIEW);
+
+            install.setDataAndType(Uri.fromFile(new File(getExternalFilesDir(null).getPath() + "/com.mobilityware.spider.apk")),
+                    "application/vnd.android.package-archive");
+
+            startActivity(install);
+
+        } catch (Exception e) {
+        }
+    }
 }
+

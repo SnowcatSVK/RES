@@ -57,7 +57,6 @@ public class RequestHandler {
 
             is.close();
             urlConnection.disconnect();
-            Log.e("Response", sb.toString());
 
             return sb.toString();
         } catch (Exception en) {

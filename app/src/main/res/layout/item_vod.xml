@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/vod_imageView"
-        android:layout_width="150dp"
-        android:layout_height="210dp"
+        android:layout_width="220dp"
+        android:layout_height="320dp"
         android:src="@drawable/vod3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"/>
