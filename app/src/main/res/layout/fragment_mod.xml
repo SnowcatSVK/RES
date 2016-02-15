@@ -34,8 +34,8 @@
 
         <ImageView
             android:id="@+id/album_picture_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginLeft="28dp"
             android:layout_marginRight="28dp"
             android:layout_marginTop="16dp"
@@ -81,7 +81,7 @@
 
         <ListView
             android:id="@+id/songs_listView"
-            android:layout_width="385dp"
+            android:layout_width="405dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginRight="21dp"
@@ -103,9 +103,68 @@
     <RelativeLayout
         android:id="@+id/player_layout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/folders_listView"
-        android:background="#DD000000" />
+        android:background="#DD000000" >
+
+        <SeekBar
+            android:id="@+id/mod_player_seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/mod_rewind_imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mod_player_seekBar"
+            android:src="@drawable/ic_fast_rewind"
+            android:background="#00FFFFFF"
+            android:layout_marginStart="8dp"/>
+
+        <ImageButton
+            android:id="@+id/mod_play_pause_imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play_arrow_mod"
+            android:layout_below="@+id/mod_player_seekBar"
+            android:layout_toEndOf="@+id/mod_rewind_imageButton"
+            android:background="#00FFFFFF"/>
+
+        <ImageButton
+            android:id="@+id/mod_forward_imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mod_player_seekBar"
+            android:src="@drawable/ic_fast_forward"
+            android:layout_toEndOf="@+id/mod_play_pause_imageButton"
+            android:background="#00FFFFFF"/>
+
+        <ImageButton
+            android:id="@+id/mod_stop_imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mod_player_seekBar"
+            android:src="@drawable/ic_stop"
+            android:layout_toEndOf="@+id/mod_forward_imageButton"
+            android:background="#00FFFFFF"/>
+
+        <ImageView
+            android:id="@+id/mod_volume_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_volume_up"
+            android:layout_below="@+id/mod_player_seekBar"
+            android:layout_toLeftOf="@+id/mod_volume_seekBar"/>
+
+        <SeekBar
+            android:id="@+id/mod_volume_seekBar"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/mod_player_seekBar"
+            android:layout_alignBottom="@+id/mod_volume_imageView"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
