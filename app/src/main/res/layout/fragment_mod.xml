@@ -111,7 +111,10 @@
         <SeekBar
             android:id="@+id/mod_player_seekBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:progressBackgroundTint="#aaa"
+            android:progressTint="@color/colorAccent"
+            android:thumbTint="@color/colorAccent"/>
 
         <ImageButton
             android:id="@+id/mod_rewind_imageButton"
@@ -163,7 +166,10 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/mod_player_seekBar"
-            android:layout_alignBottom="@+id/mod_volume_imageView"/>
+            android:layout_alignBottom="@+id/mod_volume_imageView"
+            android:progressBackgroundTint="#aaa"
+            android:progressTint="#aaa"
+            android:thumbTint="@color/colorAccent"/>
 
     </RelativeLayout>
 
