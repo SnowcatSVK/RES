@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import sk.antik.res.loader.AppModel;
 import sk.antik.res.logic.Channel;
 import sk.antik.res.logic.ChannelAdapter;
 import sk.antik.res.player.CustomPlayer;
@@ -66,6 +67,7 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
     public LinearLayout buttonSeparatorLayout;
     public LinearLayout separatorLayout;
     private ProgressBar progressBar;
+
 
     public LiveTVFragment() {
         // Required empty public constructor

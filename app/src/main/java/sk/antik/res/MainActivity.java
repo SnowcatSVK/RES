@@ -71,6 +71,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private TextView dateTextView;
     private final RequestHandler handler = new RequestHandler("http://posa.resapi.dev3.antik.sk");
     private SharedPreferences prefs = null;
+    private ArrayList<AppModel> installedGames;
+    private ArrayList<AppModel> installedNetworks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_main);
-        getLoaderManager().initLoader(0, null, this);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
         lp.screenBrightness = 1.0f;
@@ -93,12 +94,10 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         modFragment = new MODFragment();
         gamesFragment = new GamesFragment();
         connectionFragment = new ConnectionFragment();
-
+        getLoaderManager().initLoader(0, null, this);
         topBar = (LinearLayout) findViewById(R.id.top_bar_linearLayout);
         bottomBarIcons = (LinearLayout) findViewById(R.id.bottom_bar_linearLayout);
         bottomBarDescription = (LinearLayout) findViewById(R.id.categories_names_layout);
-        //rootLayout = (RelativeLayout) findViewById(R.id.root_layout);
-        //getFragmentManager().beginTransaction().add(R.id.root_layout, tvFragment).commit();
         imageButtons = new ArrayList<>();
         imageButtons.add((ImageButton) findViewById(R.id.watch_imageButton));
         imageButtons.add((ImageButton) findViewById(R.id.radio_imageButton));
@@ -131,7 +130,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         if (prefs.getBoolean("firstrun", true)) {
             // Do first run stuff here then set 'firstrun' as false
             // using the following line to edit/commit prefs
-            startInstallations();
+            //startInstallations();
             prefs.edit().putBoolean("firstrun", false).apply();
         }
 
@@ -167,8 +166,26 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
     @Override
     public void onLoadFinished(Loader<ArrayList<AppModel>> loader, ArrayList<AppModel> data) {
+        installedGames = new ArrayList<>();
+        installedNetworks = new ArrayList<>();
         for (AppModel app : data) {
-            Log.e("App package", "Name: " + app.getLabel() + ", package name: " + app.getApplicationPackageName());
+            switch (app.getLabel()) {
+                case "Candy Crush Saga":
+                    gamesFragment.candyCrushInstalled = true;
+                    break;
+                case "Angry Birds":
+                    gamesFragment.angryBirdsInstalled = true;
+                    break;
+                case "Spider Solitaire":
+                    gamesFragment.spiderSolitaireInstalled = true;
+                    break;
+                case "Twitter":
+                    connectionFragment.twitterInstalled = true;
+                    break;
+                case "Chrome":
+                    connectionFragment.chromeInstalled = true;
+                    break;
+            }
         }
     }
 
@@ -340,6 +357,10 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 setupTime();
             }
         }, new IntentFilter(Intent.ACTION_TIME_TICK));
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.intent.action.PACKAGE_ADDED");
+        filter.addDataScheme("package");
+        registerReceiver(new AppInstallReceiver(),filter);
     }
 
     public void setupTime() {
@@ -556,6 +577,47 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             startActivity(install);
 
         } catch (Exception e) {
+        }
+    }
+
+    public class AppInstallReceiver extends BroadcastReceiver {
+
+        public AppInstallReceiver() {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String packageName = intent.getData().getEncodedSchemeSpecificPart();
+            Log.e("Installations", packageName);
+            File file;
+            switch (packageName) {
+                case "com.mobilityware.spider":
+                    file = new File(context.getExternalFilesDir(null).getPath() + "/com.mobilityware.spider.apk");
+                    file.delete();
+                    gamesFragment.switchIcon("Spider Solitaire");
+                    break;
+                case "com.rovio.angrybirds":
+                    file = new File(context.getExternalFilesDir(null).getPath() + "/com.rovio.angrybirds.apk");
+                    file.delete();
+                    gamesFragment.switchIcon("Angry Birds");
+                    break;
+                case "com.king.candycrushsaga":
+                    file = new File(context.getExternalFilesDir(null).getPath() + "/candycrush.apk");
+                    file.delete();
+                    gamesFragment.switchIcon("Candy Crush");
+                    break;
+                case "com.twitter.android":
+                    file = new File(context.getExternalFilesDir(null).getPath() + "/com.twitter.android.apk");
+                    file.delete();
+                    connectionFragment.switchIcon("Twitter");
+                    break;
+                case "com.android,chrome":
+                    file = new File(context.getExternalFilesDir(null).getPath() + "/com.android.chrome.apk");
+                    file.delete();
+                    connectionFragment.switchIcon("Chrome");
+                    connectionFragment.switchIcon("Facebook");
+                    break;
+            }
         }
     }
 }

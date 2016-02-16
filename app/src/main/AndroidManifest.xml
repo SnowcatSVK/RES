@@ -37,17 +37,6 @@
             android:label="@string/title_activity_pin"
             android:parentActivityName=".MainActivity" >
         </activity>
-
-        <receiver
-            android:name=".receivers.AppInstallReceiver"
-            android:enabled="true"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_INSTALL" />
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

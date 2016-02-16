@@ -1,14 +1,26 @@
 package sk.antik.res;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+
+import sk.antik.res.loader.AppModel;
 
 
 /**
@@ -16,6 +28,13 @@ import android.widget.ImageButton;
  */
 public class GamesFragment extends Fragment {
 
+    public boolean candyCrushInstalled = false;
+    public boolean angryBirdsInstalled = false;
+    public boolean spiderSolitaireInstalled = false;
+
+    private ImageButton candyButton;
+    private ImageButton birdsButton;
+    private ImageButton spiderButton;
 
     public GamesFragment() {
         // Required empty public constructor
@@ -27,32 +46,111 @@ public class GamesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_games, container, false);
 
-        ImageButton candyButton = (ImageButton) rootView.findViewById(R.id.candy_crush_button);
+        candyButton = (ImageButton) rootView.findViewById(R.id.candy_crush_button);
+        if (candyCrushInstalled) {
+            candyButton.setImageResource(R.drawable.candy_crush);
+        } else {
+            candyButton.setImageResource(R.drawable.candy_crush_grey);
+        }
         candyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.king.candycrushsaga");
-                startActivity(launchIntent);
+                if (candyCrushInstalled) {
+                    Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.king.candycrushsaga");
+                    startActivity(launchIntent);
+                } else {
+                    installPackage("candycrush.apk",getActivity());
+                }
             }
         });
-        ImageButton birdsButton = (ImageButton) rootView.findViewById(R.id.angry_birds_button);
+        birdsButton = (ImageButton) rootView.findViewById(R.id.angry_birds_button);
+        if (angryBirdsInstalled) {
+            birdsButton.setImageResource(R.drawable.angry_birds);
+        } else {
+            birdsButton.setImageResource(R.drawable.angry_birds_grey);
+        }
         birdsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.rovio.angrybirds");
-                startActivity(launchIntent);
+                if (angryBirdsInstalled) {
+                    Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.rovio.angrybirds");
+                    startActivity(launchIntent);
+                } else {
+                    installPackage("com.rovio.angrybirds.apk",getActivity());
+                }
             }
         });
-        ImageButton spiderButton = (ImageButton) rootView.findViewById(R.id.spider_solitaire_button);
+        spiderButton = (ImageButton) rootView.findViewById(R.id.spider_solitaire_button);
+        if (spiderSolitaireInstalled) {
+            spiderButton.setImageResource(R.drawable.spider_solitaire);
+        } else {
+            spiderButton.setImageResource(R.drawable.spider_solitaire_grey);
+        }
         spiderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.mobilityware.spider");
-                startActivity(launchIntent);
+                if (spiderSolitaireInstalled) {
+                    Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.mobilityware.spider");
+                    startActivity(launchIntent);
+                } else {
+                    installPackage("com.mobilityware.spider.apk",getActivity());
+                }
             }
         });
         return rootView;
     }
 
 
+    public void switchIcon(String name) {
+        switch (name) {
+            case "Angry Birds":
+                birdsButton.setImageResource(R.drawable.angry_birds);
+                break;
+            case "Candy Crush":
+                candyButton.setImageResource(R.drawable.candy_crush);
+                break;
+            case "Spider Solitaire":
+                spiderButton.setImageResource(R.drawable.spider_solitaire);
+                break;
+        }
+    }
+    public void installPackage(String packageName, Context context) {
+        AssetManager assetManager = context.getAssets();
+
+        InputStream in = null;
+        OutputStream out = null;
+
+        try {
+
+            in = assetManager.open(packageName);
+            out = new FileOutputStream(context.getExternalFilesDir(null).getPath() + "/" + packageName);
+
+            byte[] buffer = new byte[1024];
+
+            int read;
+            Log.e("Installations_instPkg", "Transfer start: " + packageName);
+            while ((read = in.read(buffer)) != -1) {
+
+                out.write(buffer, 0, read);
+
+            }
+            Log.e("Installations_instPkg", "Transfer end: " + packageName);
+            in.close();
+            in = null;
+
+            out.flush();
+            out.close();
+            out = null;
+
+            Intent install = new Intent(Intent.ACTION_VIEW);
+
+            install.setDataAndType(Uri.fromFile(new File(context.getExternalFilesDir(null).getPath() + "/" + packageName)),
+                    "application/vnd.android.package-archive");
+            install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(install);
+            Log.e("Installations_instPkg", packageName.substring(0, packageName.length() - 4));
+        } catch (Exception e) {
+        }
+
+    }
 }
