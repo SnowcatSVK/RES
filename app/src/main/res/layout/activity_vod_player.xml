@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sk.antik.res.VODPlayerActivity">
+
+    <FrameLayout
+        android:id="@+id/surfaceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:elevation="2dp"
+        android:gravity="center">
+
+        <com.google.android.exoplayer.AspectRatioFrameLayout
+            android:id="@+id/surfaceFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#000">
+
+            <SurfaceView
+                android:id="@+id/surface_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#000"
+                android:onClick="onTVClick" />
+
+        </com.google.android.exoplayer.AspectRatioFrameLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorAccent"
+            android:indeterminateTintMode="src_in"
+            />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/player_controls_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/channels_listView"
+        android:background="#AA000000"
+        android:elevation="3dp">
+
+        <ImageButton
+            android:id="@+id/video_play_pause_button"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/channel_list_button"
+            android:background="#0fff"
+            android:contentDescription="Play/Pause button"
+            android:src="@drawable/ic_play_arrow" />
+
+        <ImageView
+            android:id="@+id/volume_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/video_play_pause_button"
+            android:src="@drawable/ic_volume_up" />
+
+        <SeekBar
+            android:id="@+id/tv_volume_seekBar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/volume_imageView"
+            android:progressBackgroundTint="#aaa"
+            android:progressTint="#aaa"
+            android:thumbTint="@color/colorAccent" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
