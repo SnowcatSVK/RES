@@ -10,10 +10,10 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.google.android.exoplayer.AspectRatioFrameLayout;
@@ -25,14 +25,15 @@ import com.google.android.exoplayer.util.Util;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import sk.antik.res.player.CustomPlayer;
 import sk.antik.res.player.ExtractorRendererBuilder;
-import sk.antik.res.player.HlsRendererBuilder;
 
 public class VODPlayerActivity extends Activity implements SurfaceHolder.Callback,
         CustomPlayer.Listener, CustomPlayer.CaptionListener, CustomPlayer.Id3MetadataListener,
-        AudioCapabilitiesReceiver.Listener {
+        AudioCapabilitiesReceiver.Listener{
 
     private AspectRatioFrameLayout videoFrame;
     public SurfaceView surfaceView;
@@ -42,14 +43,21 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
     public Uri contentUri;
     private AudioCapabilities audioCapabilities;
     private SeekBar volumeSeekbar = null;
+    private SeekBar progressSeekBar = null;
     private AudioManager audioManager = null;
     private ImageButton playPauseButton = null;
     private boolean playingVideo = false;
     private ProgressBar progressBar;
 
+    private Timer t;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_vodplayer);
         videoFrame = (AspectRatioFrameLayout) findViewById(R.id.surfaceFrame);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
@@ -57,6 +65,7 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
         tvFrame = (FrameLayout) findViewById(R.id.surfaceHolder);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         volumeSeekbar = (SeekBar) findViewById(R.id.tv_volume_seekBar);
+        progressSeekBar = (SeekBar) findViewById(R.id.vod_progress_seekBar);
         playPauseButton = (ImageButton) findViewById(R.id.video_play_pause_button);
         contentUri = Uri.parse(getIntent().getStringExtra("VODSource"));
     }
@@ -120,6 +129,38 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
                 Log.e("Status", "ready");
                 progressBar.setVisibility(View.INVISIBLE);
                 playPauseButton.setImageResource(R.drawable.ic_pause);
+                progressSeekBar.setMax((int) player.getDuration());
+                Log.e("VODPlayer",String.valueOf(player.getDuration()));
+                progressSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        player.seekTo(seekBar.getProgress());
+                    }
+                });
+                t = new Timer();
+                t.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressSeekBar.setProgress((int) player.getCurrentPosition());
+                                Log.e("VODPlayer", String.valueOf(player.getCurrentPosition()));
+                                Log.e("VODPlayer", String.valueOf(player.getDuration()));
+                            }
+                        });
+                    }
+                },0,1000);
                 break;
             default:
                 break;
@@ -225,6 +266,7 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
                         }
                     }
                 }
+
             });
         } catch (Exception e) {
             e.printStackTrace();
