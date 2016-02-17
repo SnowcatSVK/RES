@@ -15,4 +15,5 @@
     <string name="item_voyage">Voyage</string>
     <string name="item_settings">Settings</string>
     <string name="title_activity_vod_player">VodPlayerActivity</string>
+    <string name="title_activity_vodplayer">VODPlayerActivity</string>
 </resources>

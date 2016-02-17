@@ -69,10 +69,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private ArrayList<ImageButton> imageButtons;
     private TextView timeTextView;
     private TextView dateTextView;
-    private final RequestHandler handler = new RequestHandler("http://posa.resapi.dev3.antik.sk");
+    private final RequestHandler handler = new RequestHandler("http://gavron.resapi.dev3.antik.sk");
     private SharedPreferences prefs = null;
-    private ArrayList<AppModel> installedGames;
-    private ArrayList<AppModel> installedNetworks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,8 +164,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
     @Override
     public void onLoadFinished(Loader<ArrayList<AppModel>> loader, ArrayList<AppModel> data) {
-        installedGames = new ArrayList<>();
-        installedNetworks = new ArrayList<>();
         for (AppModel app : data) {
             switch (app.getLabel()) {
                 case "Candy Crush Saga":
@@ -467,7 +463,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             JSONObject vodJson = vodJsonArray.getJSONObject(i);
                             VOD vod = new VOD(vodJson.getInt("id"),
                                     vodJson.getString("name"),
-                                    vodJson.getString("source"));
+                                    "http://gavron.res.dev3.antik.sk" + vodJson.getString("source"));
                             vods.add(vod);
                         }
                         vodFragment.setVods(vods);
