@@ -176,7 +176,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 case "Angry Birds":
                     gamesFragment.angryBirdsInstalled = true;
                     break;
-                case "Spider Solitaire":
+                case "Spider":
                     gamesFragment.spiderSolitaireInstalled = true;
                     break;
                 case "Twitter":
@@ -594,26 +594,31 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 case "com.mobilityware.spider":
                     file = new File(context.getExternalFilesDir(null).getPath() + "/com.mobilityware.spider.apk");
                     file.delete();
+                    gamesFragment.spiderSolitaireInstalled = true;
                     gamesFragment.switchIcon("Spider Solitaire");
                     break;
                 case "com.rovio.angrybirds":
                     file = new File(context.getExternalFilesDir(null).getPath() + "/com.rovio.angrybirds.apk");
                     file.delete();
+                    gamesFragment.angryBirdsInstalled = true;
                     gamesFragment.switchIcon("Angry Birds");
                     break;
                 case "com.king.candycrushsaga":
                     file = new File(context.getExternalFilesDir(null).getPath() + "/candycrush.apk");
                     file.delete();
+                    gamesFragment.candyCrushInstalled = true;
                     gamesFragment.switchIcon("Candy Crush");
                     break;
                 case "com.twitter.android":
                     file = new File(context.getExternalFilesDir(null).getPath() + "/com.twitter.android.apk");
                     file.delete();
+                    connectionFragment.twitterInstalled = true;
                     connectionFragment.switchIcon("Twitter");
                     break;
                 case "com.android,chrome":
                     file = new File(context.getExternalFilesDir(null).getPath() + "/com.android.chrome.apk");
                     file.delete();
+                    connectionFragment.chromeInstalled = true;
                     connectionFragment.switchIcon("Chrome");
                     connectionFragment.switchIcon("Facebook");
                     break;
