@@ -37,6 +37,14 @@
             android:label="@string/title_activity_pin"
             android:parentActivityName=".MainActivity" >
         </activity>
+        <activity
+            android:name=".VODPlayerActivity"
+            android:label="@string/title_activity_vod_player"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sk.antik.res.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

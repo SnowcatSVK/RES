@@ -1,12 +1,14 @@
 package sk.antik.res;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
@@ -47,6 +49,16 @@ public class VODFragment extends Fragment {
 
         VODAdapter adapter = new VODAdapter(getActivity(), vods);
         vod.setAdapter(adapter);
+
+        vod.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                VOD vod = (VOD) parent.getItemAtPosition(position);
+                Intent intent = new Intent(getActivity(), VODPlayerActivity.class);
+                intent.putExtra("VODSource", vod.getSource());
+                startActivity(intent);
+            }
+        });
 
         /*ArrayList<VOD> vods = new ArrayList<>();
         vods.add(new VOD("Twilight", "2008", R.drawable.vod1));
