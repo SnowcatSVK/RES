@@ -85,11 +85,9 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginRight="21dp"
-            android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
             android:fadeScrollbars="false"
-            android:listSelector="@color/colorAccent"
             android:paddingBottom="10dp"
             android:paddingEnd="4dp"
             android:paddingStart="4dp"
@@ -113,60 +111,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:progressBackgroundTint="#aaa"
+            android:layout_alignParentTop="true"
             android:progressTint="@color/colorAccent"
             android:thumbTint="@color/colorAccent"/>
 
         <ImageButton
             android:id="@+id/mod_rewind_imageButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mod_player_seekBar"
+            android:layout_height="60dp"
             android:src="@drawable/ic_fast_rewind"
             android:background="#00FFFFFF"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_alignParentBottom="true"/>
 
         <ImageButton
             android:id="@+id/mod_play_pause_imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/ic_play_arrow_mod"
-            android:layout_below="@+id/mod_player_seekBar"
             android:layout_toEndOf="@+id/mod_rewind_imageButton"
+            android:layout_alignParentBottom="true"
             android:background="#00FFFFFF"/>
 
         <ImageButton
             android:id="@+id/mod_forward_imageButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mod_player_seekBar"
+            android:layout_height="60dp"
             android:src="@drawable/ic_fast_forward"
             android:layout_toEndOf="@+id/mod_play_pause_imageButton"
+            android:layout_alignParentBottom="true"
             android:background="#00FFFFFF"/>
 
         <ImageButton
             android:id="@+id/mod_stop_imageButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mod_player_seekBar"
+            android:layout_height="60dp"
             android:src="@drawable/ic_stop"
             android:layout_toEndOf="@+id/mod_forward_imageButton"
+            android:layout_alignParentBottom="true"
             android:background="#00FFFFFF"/>
 
         <ImageView
             android:id="@+id/mod_volume_imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:src="@drawable/ic_volume_up"
-            android:layout_below="@+id/mod_player_seekBar"
+            android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/mod_volume_seekBar"/>
 
         <SeekBar
             android:id="@+id/mod_volume_seekBar"
             android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/mod_player_seekBar"
-            android:layout_alignBottom="@+id/mod_volume_imageView"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd ="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
             android:progressBackgroundTint="#aaa"
             android:progressTint="#aaa"
             android:thumbTint="@color/colorAccent"/>

@@ -26,6 +26,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,7 +97,18 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         modFragment = new MODFragment();
         gamesFragment = new GamesFragment();
         connectionFragment = new ConnectionFragment();
+
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.writeDebugLogs(); // Remove for release app
+        ImageLoader.getInstance().init(config.build());
+
         getLoaderManager().initLoader(0, null, this);
+
         topBar = (LinearLayout) findViewById(R.id.top_bar_linearLayout);
         bottomBarIcons = (LinearLayout) findViewById(R.id.bottom_bar_linearLayout);
         bottomBarDescription = (LinearLayout) findViewById(R.id.categories_names_layout);
@@ -107,10 +123,13 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         imageButtons.add((ImageButton) findViewById(R.id.setting_imageButton));
         timeTextView = (TextView) findViewById(R.id.time_main_activity_textView);
         dateTextView = (TextView) findViewById(R.id.date_main_activity_textView);
+
         loadVOD();
         loadMOD();
         loadChannels();
         loadRadios();
+
+
     }
 
     @Override
@@ -356,7 +375,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.intent.action.PACKAGE_ADDED");
         filter.addDataScheme("package");
-        registerReceiver(new AppInstallReceiver(),filter);
+        registerReceiver(new AppInstallReceiver(), filter);
     }
 
     public void setupTime() {
@@ -412,7 +431,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                                 Song song = new Song(songJson.getInt("id"),
                                         songJson.getInt("parent_id"),
                                         songJson.getString("name"),
-                                        songJson.getString("source"));
+                                        "http://gavron.res.dev3.antik.sk" + songJson.getString("source"));
                                 songs.add(song);
                             }
                             Album album = new Album(albumJson.getInt("id"),
@@ -463,7 +482,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             JSONObject vodJson = vodJsonArray.getJSONObject(i);
                             VOD vod = new VOD(vodJson.getInt("id"),
                                     vodJson.getString("name"),
-                                    "http://gavron.res.dev3.antik.sk" + vodJson.getString("source"));
+                                    "http://gavron.res.dev3.antik.sk" + vodJson.getString("source"),
+                                    "http://gavron.res.dev3.antik.sk" + vodJson.getString("img_source"));
                             vods.add(vod);
                         }
                         vodFragment.setVods(vods);

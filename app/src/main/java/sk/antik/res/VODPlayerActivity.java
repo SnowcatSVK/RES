@@ -33,7 +33,7 @@ import sk.antik.res.player.ExtractorRendererBuilder;
 
 public class VODPlayerActivity extends Activity implements SurfaceHolder.Callback,
         CustomPlayer.Listener, CustomPlayer.CaptionListener, CustomPlayer.Id3MetadataListener,
-        AudioCapabilitiesReceiver.Listener{
+        AudioCapabilitiesReceiver.Listener {
 
     private AspectRatioFrameLayout videoFrame;
     public SurfaceView surfaceView;
@@ -130,7 +130,7 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
                 progressBar.setVisibility(View.INVISIBLE);
                 playPauseButton.setImageResource(R.drawable.ic_pause);
                 progressSeekBar.setMax((int) player.getDuration());
-                Log.e("VODPlayer",String.valueOf(player.getDuration()));
+                Log.e("VODPlayer", String.valueOf(player.getDuration()));
                 progressSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -139,7 +139,9 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
 
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
-
+                        t.cancel();
+                        t.purge();
+                        t = null;
                     }
 
                     @Override
@@ -148,19 +150,8 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
                     }
                 });
                 t = new Timer();
-                t.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressSeekBar.setProgress((int) player.getCurrentPosition());
-                                Log.e("VODPlayer", String.valueOf(player.getCurrentPosition()));
-                                Log.e("VODPlayer", String.valueOf(player.getDuration()));
-                            }
-                        });
-                    }
-                },0,1000);
+                t.schedule(new ProgressTimerTask()
+                        , 0, 1000);
                 break;
             default:
                 break;
@@ -276,7 +267,29 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
     @Override
     public void onPause() {
         super.onPause();
+        t.cancel();
+        t.purge();
+        t = null;
         releasePlayer();
+    }
+
+    private class ProgressTimerTask extends TimerTask {
+
+        public ProgressTimerTask() {
+
+        }
+
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    progressSeekBar.setProgress((int) player.getCurrentPosition());
+                    Log.e("VODPlayer", String.valueOf(player.getCurrentPosition()));
+                    Log.e("VODPlayer", String.valueOf(player.getDuration()));
+                }
+            });
+        }
     }
 
 }
