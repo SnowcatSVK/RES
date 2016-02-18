@@ -12,10 +12,10 @@
         android:background="#EEFFFFFF"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
+        android:listSelector="#00FFFFFF"
         android:dividerHeight="0dp"
         android:elevation="4dp"
         android:fadeScrollbars="false"
-        android:listSelector="@color/colorAccent"
         android:paddingBottom="10dp"
         android:paddingEnd="4dp"
         android:paddingStart="4dp"
@@ -39,8 +39,8 @@
             android:layout_marginLeft="28dp"
             android:layout_marginRight="28dp"
             android:layout_marginTop="16dp"
-            android:layout_toStartOf="@+id/songs_listView"
-            android:src="@drawable/mod" />
+            android:src="@drawable/image_square"
+            android:layout_toStartOf="@+id/songs_listView" />
 
         <TextView
             android:id="@+id/artists_textView"
@@ -53,7 +53,8 @@
             android:fontFamily="sans-serif-light"
             android:maxLines="1"
             android:text="Mike Oldfield"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/album_textView"
@@ -64,7 +65,6 @@
             android:layout_toStartOf="@+id/songs_listView"
             android:fontFamily="sans-serif-light"
             android:maxLines="1"
-            android:text="The Songs of Distant Earth"
             android:textColor="#000000"
             android:textSize="18sp" />
 
@@ -77,7 +77,8 @@
             android:layout_toStartOf="@+id/songs_listView"
             android:fontFamily="sans-serif-light"
             android:text="1994"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="invisible"/>
 
         <ListView
             android:id="@+id/songs_listView"
@@ -94,7 +95,9 @@
             android:paddingTop="10dp"
             android:scrollbarSize="20dp"
             android:scrollbarThumbVertical="@drawable/custom_scrollbar"
-            android:verticalScrollbarPosition="right" />
+            android:verticalScrollbarPosition="right"
+            android:choiceMode="singleChoice"
+            android:listSelector="#00FFFFFF"/>
 
     </RelativeLayout>
 

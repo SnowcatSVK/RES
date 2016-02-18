@@ -13,7 +13,7 @@
         android:layout_marginStart="10dp"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
-        android:src="@drawable/ic_folder" />
+        android:src="@drawable/mod_folder_image_selector" />
 
     <TextView
         android:id="@+id/folder_textView"
@@ -24,7 +24,7 @@
         android:maxLines="1"
         android:paddingBottom="8dp"
         android:text="ABBA - Arrival"
-        android:textColor="#000000"
+        android:textColor="@drawable/mod_folder_selector"
         android:textSize="24sp" />
 
 </RelativeLayout>

@@ -10,9 +10,10 @@ public class Album {
     private int id;
     private String name;
     private String source;
+    private String imageSource;
     private ArrayList<Song> songs;
 
-    public Album(int id, String name, String source, ArrayList<Song> songs) {
+    public Album(int id, String name, String source, String imageSource, ArrayList<Song> songs) {
         this.id = id;
         this.name = name;
         this.source = source;
@@ -33,5 +34,9 @@ public class Album {
 
     public ArrayList<Song> getSongs() {
         return songs;
+    }
+
+    public String getImageSource() {
+        return imageSource;
     }
 }

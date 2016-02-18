@@ -2,6 +2,7 @@ package sk.antik.res;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,15 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.android.exoplayer.ExoPlayer;
 import com.google.android.exoplayer.audio.AudioCapabilities;
 import com.google.android.exoplayer.audio.AudioCapabilitiesReceiver;
 import com.google.android.exoplayer.text.Cue;
 import com.google.android.exoplayer.util.Util;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -50,14 +62,25 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
     private AudioManager audioManager = null;
     private ImageButton playPauseButton = null;
     private boolean playingVideo = false;
+    private ImageView albumImageView;
+    private TextView albumNameTextView;
+
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+    private DisplayImageOptions options;
 
     private Timer t;
-
 
     private ArrayList<Album> albums;
 
     public MODFragment() {
         // Required empty public constructor
+        options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .resetViewBeforeLoading(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .build();
     }
 
     @Override
@@ -108,12 +131,18 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
         songs.add(new Song("19", "Lament for Atlantis", "01:19"));
         songs.add(new Song("20", "The Chamber", "03:32"));*/
 
+        albumImageView = (ImageView) view.findViewById(R.id.album_picture_imageView);
+        albumNameTextView = (TextView) view.findViewById(R.id.album_textView);
+
         foldersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Album album = (Album) parent.getAdapter().getItem(position);
                 MODSongAdapter songAdapter = new MODSongAdapter(getActivity(), album.getSongs());
                 songsListView.setAdapter(songAdapter);
+
+                ImageLoader.getInstance().displayImage(album.getImageSource(), albumImageView, options, animateFirstListener);
+                albumNameTextView.setText(album.getName());
             }
         });
         songsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -124,6 +153,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                 preparePlayer();
             }
         });
+
         volumeSeekbar = (SeekBar) view.findViewById(R.id.mod_volume_seekBar);
         progressSeekBar = (SeekBar) view.findViewById(R.id.mod_player_seekBar);
         playPauseButton = (ImageButton) view.findViewById(R.id.mod_play_pause_imageButton);
@@ -330,6 +360,23 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                     Log.e("VODPlayer", String.valueOf(player.getDuration()));
                 }
             });
+        }
+    }
+
+    private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+
+        static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
+
+        @Override
+        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+            if (loadedImage != null) {
+                ImageView imageView = (ImageView) view;
+                boolean firstDisplay = !displayedImages.contains(imageUri);
+                if (firstDisplay) {
+                    FadeInBitmapDisplayer.animate(imageView, 0);
+                    displayedImages.add(imageUri);
+                }
+            }
         }
     }
 }

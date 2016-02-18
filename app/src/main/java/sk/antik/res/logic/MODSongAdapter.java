@@ -28,15 +28,8 @@ public class MODSongAdapter extends ArrayAdapter<Song> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_mod_song, parent, false);
         }
         TextView nameTextView = (TextView) convertView.findViewById(R.id.song_name_textView);
-        ImageView playImageView = (ImageView) convertView.findViewById(R.id.play_imageView);
 
         nameTextView.setText(song.getName());
-
-        if (position != 0) {
-            playImageView.setImageResource(R.drawable.ic_play_arrow_white);
-        } else {
-            playImageView.setImageResource(R.drawable.ic_play_arrow_orange);
-        }
 
         return convertView;
     }

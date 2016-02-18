@@ -436,7 +436,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             }
                             Album album = new Album(albumJson.getInt("id"),
                                     albumJson.getString("name"),
-                                    albumJson.getString("source"),
+                                    "http://gavron.res.dev3.antik.sk" + albumJson.getString("source"),
+                                    "http://gavron.res.dev3.antik.sk" + albumJson.getString("img_source"),
                                     songs);
                             albums.add(album);
                         }
