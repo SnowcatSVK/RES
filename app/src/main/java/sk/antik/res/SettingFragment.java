@@ -52,12 +52,10 @@ public class SettingFragment extends Fragment {
         volumeSeekbar = (SeekBar) rootView.findViewById(R.id.volume_settings_seekBar);
         brightnessSeekBar = (SeekBar) rootView.findViewById(R.id.brightness_settings_seekBar);
         final ArrayList<Setting> settings = new ArrayList<>();
-        settings.add(new Setting("Language", getActivity().getResources().getDrawable(R.drawable.ic_translate), getActivity().getResources().getDrawable(R.drawable.ic_translate_white)));
-        settings.add(new Setting("Volume", getActivity().getResources().getDrawable(R.drawable.ic_volume), getActivity().getResources().getDrawable(R.drawable.ic_volume_white)));
-        settings.add(new Setting("Brightness", getActivity().getResources().getDrawable(R.drawable.ic_brightness), getActivity().getResources().getDrawable(R.drawable.ic_brightness_white)));
-        settings.add(new Setting("User Manual", getActivity().getResources().getDrawable(R.drawable.ic_manual), getActivity().getResources().getDrawable(R.drawable.ic_manual_white)));
-        settings.add(new Setting("Kids Mode", getActivity().getResources().getDrawable(R.drawable.ic_kids), getActivity().getResources().getDrawable(R.drawable.ic_kids_white)));
-        settings.add(new Setting("Tech Service", getActivity().getResources().getDrawable(R.drawable.ic_tech_service), getActivity().getResources().getDrawable(R.drawable.ic_tech_service_white)));
+        settings.add(new Setting(getString(R.string.setting_language), getActivity().getResources().getDrawable(R.drawable.ic_translate), getActivity().getResources().getDrawable(R.drawable.ic_translate_white)));
+        settings.add(new Setting(getString(R.string.setting_volume), getActivity().getResources().getDrawable(R.drawable.ic_volume), getActivity().getResources().getDrawable(R.drawable.ic_volume_white)));
+        settings.add(new Setting(getString(R.string.setting_brightness), getActivity().getResources().getDrawable(R.drawable.ic_brightness), getActivity().getResources().getDrawable(R.drawable.ic_brightness_white)));
+        settings.add(new Setting(getString(R.string.settings_tech_service), getActivity().getResources().getDrawable(R.drawable.ic_tech_service), getActivity().getResources().getDrawable(R.drawable.ic_tech_service_white)));
         final SettingsAdapter adapter = new SettingsAdapter(getActivity(), settings);
         settingsListView.setAdapter(adapter);
         settingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,10 +87,12 @@ public class SettingFragment extends Fragment {
         final ArrayList<Language> languages = new ArrayList<>();
         languages.add(new Language("English", "en"));
         languages.add(new Language("Türkçe", "tr"));
+        /*
         languages.add(new Language("Deutsch", "de"));
         languages.add(new Language("Suomi", "fn"));
         languages.add(new Language("Pусский", "ru"));
         languages.add(new Language("中国的", "cn"));
+        */
         final LanguageAdapter languageAdapter = new LanguageAdapter(getActivity(), languages);
         languagesListView.setAdapter(languageAdapter);
         languagesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -40,6 +40,7 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
     private CustomPlayer player;
     public FrameLayout tvFrame;
     private boolean playerNeedsPrepare;
+    private boolean videoPaused;
     public Uri contentUri;
     private AudioCapabilities audioCapabilities;
     private SeekBar volumeSeekbar = null;
@@ -123,12 +124,15 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
                 break;
             case ExoPlayer.STATE_PREPARING:
                 Log.e("Status", "preparing");
-                progressBar.setVisibility(View.VISIBLE);
+                if (!videoPaused)
+                    progressBar.setVisibility(View.VISIBLE);
                 break;
             case ExoPlayer.STATE_READY:
                 Log.e("Status", "ready");
                 progressBar.setVisibility(View.INVISIBLE);
                 playPauseButton.setImageResource(R.drawable.ic_pause);
+                playingVideo = true;
+                videoPaused = false;
                 progressSeekBar.setMax((int) player.getDuration());
                 Log.e("VODPlayer", String.valueOf(player.getDuration()));
                 progressSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -139,9 +143,11 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
 
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
-                        t.cancel();
-                        t.purge();
-                        t = null;
+                        if (t != null) {
+                            t.cancel();
+                            t.purge();
+                            t = null;
+                        }
                     }
 
                     @Override
@@ -249,6 +255,12 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
                         if (playingVideo) {
                             player.stop();
                             playingVideo = false;
+                            videoPaused = true;
+                            if (t != null) {
+                                t.cancel();
+                                t.purge();
+                                t = null;
+                            }
                             playPauseButton.setImageResource(R.drawable.ic_play_arrow);
                         } else {
                             player.prepare();
@@ -267,9 +279,11 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
     @Override
     public void onPause() {
         super.onPause();
-        t.cancel();
-        t.purge();
-        t = null;
+        if (t != null) {
+            t.cancel();
+            t.purge();
+            t = null;
+        }
         releasePlayer();
     }
 

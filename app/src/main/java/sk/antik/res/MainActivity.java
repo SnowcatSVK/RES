@@ -74,7 +74,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private ArrayList<ImageButton> imageButtons;
     private TextView timeTextView;
     private TextView dateTextView;
-    private final RequestHandler handler = new RequestHandler("http://gavron.resapi.dev3.antik.sk");
+    private final String API = "http://10.252.61.83";
+    private final RequestHandler handler = new RequestHandler("http://10.252.61.83:81");
     private SharedPreferences prefs = null;
 
     @Override
@@ -119,7 +120,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         imageButtons.add((ImageButton) findViewById(R.id.games_imageButton));
         imageButtons.add((ImageButton) findViewById(R.id.vod_imageButton));
         imageButtons.add((ImageButton) findViewById(R.id.mod_imageButton));
-        imageButtons.add((ImageButton) findViewById(R.id.voyage_imageButton));
         imageButtons.add((ImageButton) findViewById(R.id.setting_imageButton));
         timeTextView = (TextView) findViewById(R.id.time_main_activity_textView);
         dateTextView = (TextView) findViewById(R.id.date_main_activity_textView);
@@ -266,19 +266,19 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     public void onRadioButtonClick(View view) {
         setBackgrounds(view);
         getFragmentManager().beginTransaction().replace(R.id.root_layout, radioFragment).commit();
-        tvFragment.releasePlayer();
+        //tvFragment.releasePlayer();
     }
 
     public void onConnectButtonClick(View view) {
         setBackgrounds(view);
         getFragmentManager().beginTransaction().replace(R.id.root_layout, connectionFragment).commit();
-        tvFragment.releasePlayer();
+        //tvFragment.releasePlayer();
     }
 
     public void onGamesButtonClick(View view) {
         setBackgrounds(view);
         getFragmentManager().beginTransaction().replace(R.id.root_layout, gamesFragment).commit();
-        tvFragment.releasePlayer();
+        //tvFragment.releasePlayer();
     }
 
     public void onVODButtonClick(View view) {
@@ -290,10 +290,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         setBackgrounds(view);
         getFragmentManager().beginTransaction().replace(R.id.root_layout, modFragment).commit();
 
-    }
-
-    public void onVoyageButtonClick(View view) {
-        setBackgrounds(view);
     }
 
     public void onSettingsButtonClick(View view) {
@@ -431,7 +427,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                                 Song song = new Song(songJson.getInt("id"),
                                         songJson.getInt("parent_id"),
                                         songJson.getString("name"),
-                                        "http://gavron.res.dev3.antik.sk" + songJson.getString("source"));
+                                        API + songJson.getString("source"));
                                 songs.add(song);
                             }
                             Album album = new Album(albumJson.getInt("id"),
@@ -483,8 +479,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             JSONObject vodJson = vodJsonArray.getJSONObject(i);
                             VOD vod = new VOD(vodJson.getInt("id"),
                                     vodJson.getString("name"),
-                                    "http://gavron.res.dev3.antik.sk" + vodJson.getString("source"),
-                                    "http://gavron.res.dev3.antik.sk" + vodJson.getString("img_source"));
+                                    API + vodJson.getString("source"),
+                                    API + vodJson.getString("img_source"));
                             vods.add(vod);
                         }
                         vodFragment.setVods(vods);

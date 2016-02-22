@@ -4,6 +4,7 @@ package sk.antik.res;
 import android.content.Context;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -29,6 +30,7 @@ import com.google.android.exoplayer.audio.AudioCapabilitiesReceiver;
 import com.google.android.exoplayer.text.Cue;
 import com.google.android.exoplayer.util.Util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +45,7 @@ import sk.antik.res.player.HlsRendererBuilder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
+public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener,
         CustomPlayer.Listener, CustomPlayer.CaptionListener, CustomPlayer.Id3MetadataListener,
         AudioCapabilitiesReceiver.Listener {
 
@@ -67,6 +69,9 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
     public LinearLayout buttonSeparatorLayout;
     public LinearLayout separatorLayout;
     private ProgressBar progressBar;
+    private MediaPlayer mediaPlayer;
+    private SurfaceHolder holder;
+
 
 
     public LiveTVFragment() {
@@ -81,7 +86,8 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
         View rootView = inflater.inflate(R.layout.fragment_live_tv, container, false);
         videoFrame = (AspectRatioFrameLayout) rootView.findViewById(R.id.surfaceFrame);
         surfaceView = (SurfaceView) rootView.findViewById(R.id.surface_view);
-        surfaceView.getHolder().addCallback(this);
+        holder = surfaceView.getHolder();
+        holder.addCallback(this);
         tvFrame = (FrameLayout) rootView.findViewById(R.id.surfaceHolder);
         channelsListView = (ListView) rootView.findViewById(R.id.channels_listView);
         parent = (RelativeLayout) rootView.findViewById(R.id.liveTV_parent_layout);
@@ -142,7 +148,6 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
     public void surfaceCreated(SurfaceHolder holder) {
         if (player != null) {
             player.setSurface(holder.getSurface());
-
         }
     }
 
@@ -304,5 +309,10 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
     public void onPause() {
         super.onPause();
         releasePlayer();
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        mediaPlayer.start();
     }
 }

@@ -34,11 +34,11 @@
 
     <SeekBar
         android:id="@+id/volume_settings_seekBar"
-        android:layout_width="358dp"
+        android:layout_width="398dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="137dp"
+        android:layout_marginEnd="117dp"
         android:background="#CCFFFFFF"
         android:progressBackgroundTint="#aaa"
         android:progressTint="#aaa"
@@ -48,11 +48,11 @@
 
     <SeekBar
         android:id="@+id/brightness_settings_seekBar"
-        android:layout_width="358dp"
+        android:layout_width="398dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="137dp"
+        android:layout_marginEnd="117dp"
         android:background="#CCFFFFFF"
         android:progressBackgroundTint="#aaa"
         android:progressTint="#aaa"

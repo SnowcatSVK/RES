@@ -257,7 +257,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
-        android:weightSum="8">
+        android:weightSum="7">
 
         <TextView
             android:layout_width="0dp"
@@ -319,15 +319,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/item_voyage"
-            android:textColor="#fff"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
             android:text="@string/item_settings"
             android:textColor="#fff"
             android:textSize="16sp" />
@@ -355,7 +346,7 @@
         android:layout_height="80dp"
         android:layout_above="@id/categories_names_layout"
         android:background="@color/colorPrimary"
-        android:weightSum="8">
+        android:weightSum="7">
 
         <ImageButton
             android:id="@+id/watch_imageButton"
@@ -410,15 +401,6 @@
             android:background="#0fff"
             android:src="@drawable/ic_music"
             android:onClick="onMODButtonClick"/>
-
-        <ImageButton
-            android:id="@+id/voyage_imageButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#0fff"
-            android:src="@drawable/ic_voyage"
-            android:onClick="onVoyageButtonClick"/>
 
         <ImageButton
             android:id="@+id/setting_imageButton"

@@ -35,7 +35,7 @@
         <activity
             android:name=".restrictors.PINActivity"
             android:label="@string/title_activity_pin"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name="sk.antik.res.VODPlayerActivity"
             android:label="@string/title_activity_vodplayer"

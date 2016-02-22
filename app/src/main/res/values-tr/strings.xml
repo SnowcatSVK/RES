@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RES</string>
-    <string name="item_watch">Seyretmek</string>
-    <string name="item_radio">Radyo</string>
-    <string name="item_connection">Bağlantı</string>
+    <string name="item_watch">İzle</string>
+    <string name="item_radio">Radio</string>
+    <string name="item_connection">Bağlantılar</string>
     <string name="item_games">Oyunlar</string>
-    <string name="item_vod">Talep üzerine video</string>
-    <string name="item_voyage">Yolculuk</string>
+    <string name="item_vod">Video</string>
+    <string name="item_voyage">Sefer</string>
     <string name="item_settings">Ayarlar</string>
-    <string name="item_mod">Talep üzerine müzik</string>
+    <string name="item_mod">Müzik</string>
+    <string name="setting_language">Dil</string>
+    <string name="setting_volume">Ses</string>
+    <string name="setting_brightness">Parlaklık</string>
+    <string name="settings_tech_service">Tek.Servis</string>
 </resources>
