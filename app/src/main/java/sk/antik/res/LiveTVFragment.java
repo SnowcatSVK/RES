@@ -45,7 +45,7 @@ import sk.antik.res.player.HlsRendererBuilder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener,
+public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
         CustomPlayer.Listener, CustomPlayer.CaptionListener, CustomPlayer.Id3MetadataListener,
         AudioCapabilitiesReceiver.Listener {
 
@@ -69,9 +69,8 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback, 
     public LinearLayout buttonSeparatorLayout;
     public LinearLayout separatorLayout;
     private ProgressBar progressBar;
-    private MediaPlayer mediaPlayer;
     private SurfaceHolder holder;
-
+    private boolean videoPaused = false;
 
 
     public LiveTVFragment() {
@@ -189,11 +188,13 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback, 
                 break;
             case ExoPlayer.STATE_PREPARING:
                 Log.e("Status", "preparing");
-                progressBar.setVisibility(View.VISIBLE);
+                if (!videoPaused)
+                    progressBar.setVisibility(View.VISIBLE);
                 break;
             case ExoPlayer.STATE_READY:
                 Log.e("Status", "ready");
                 progressBar.setVisibility(View.INVISIBLE);
+                videoPaused = false;
                 break;
             default:
                 break;
@@ -291,10 +292,12 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback, 
                         if (playingVideo) {
                             player.stop();
                             playingVideo = false;
+                            videoPaused = true;
                             playPauseButton.setImageResource(R.drawable.ic_play_arrow);
                         } else {
                             player.prepare();
                             playingVideo = true;
+                            videoPaused = false;
                             playPauseButton.setImageResource(R.drawable.ic_pause);
                         }
                     }
@@ -309,10 +312,5 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback, 
     public void onPause() {
         super.onPause();
         releasePlayer();
-    }
-
-    @Override
-    public void onPrepared(MediaPlayer mp) {
-        mediaPlayer.start();
     }
 }

@@ -20,4 +20,7 @@
     <string name="setting_volume">Volume</string>
     <string name="setting_brightness">Brightness</string>
     <string name="settings_tech_service">Tech. Service</string>
+    <string name="title_activity_first_setup">FirstSetupActivity</string>
+    <string name="device_ip">API IP Address</string>
+    <string name="seat_number_hint">Seat Number</string>
 </resources>

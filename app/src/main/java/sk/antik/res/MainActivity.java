@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,10 +27,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.decode.ImageDecoder;
+import com.nostra13.universalimageloader.core.decode.ImageDecodingInfo;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,9 +79,10 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private ArrayList<ImageButton> imageButtons;
     private TextView timeTextView;
     private TextView dateTextView;
-    private final String API = "http://10.252.61.83";
-    private final RequestHandler handler = new RequestHandler("http://10.252.61.83:81");
+    private String API;
+    private RequestHandler handler;
     private SharedPreferences prefs = null;
+    private String seatNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,16 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         setContentView(R.layout.activity_main);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
+        if (prefs.getBoolean("FIRST_START",true)) {
+            Intent intent = new Intent(this,FirstSetupActivity.class);
+            prefs.edit().putBoolean("FIRST_START",false).apply();
+            startActivity(intent);
+            finish();
+        } else {
+            API = prefs.getString("API_IP","192.168.0.105");
+            handler = new RequestHandler(API+":81");
+            seatNumber = prefs.getString("SEAT_No","00");
+        }
         lp.screenBrightness = 1.0f;
         getWindow().setAttributes(lp);
         Log.e("Setting test", "onCreate - Main");
@@ -98,12 +114,11 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         modFragment = new MODFragment();
         gamesFragment = new GamesFragment();
         connectionFragment = new ConnectionFragment();
-
+        File cacheDir = StorageUtils.getCacheDirectory(this);
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
-        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
+        config.diskCache(new LimitedAgeDiskCache(cacheDir, 10));
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         config.writeDebugLogs(); // Remove for release app
         ImageLoader.getInstance().init(config.build());

@@ -13,4 +13,6 @@
     <string name="setting_volume">Ses</string>
     <string name="setting_brightness">Parlaklık</string>
     <string name="settings_tech_service">Tek.Servis</string>
+    <string name="seat_number_hint">Koltuk numarası</string>
+    <string name="device_ip">API IP adresi</string>
 </resources>
