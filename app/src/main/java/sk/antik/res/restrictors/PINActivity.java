@@ -10,11 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import sk.antik.res.PINButton;
 import sk.antik.res.R;
+import sk.antik.res.io.SHA_256;
 
 public class PINActivity extends Activity {
 
@@ -22,7 +24,7 @@ public class PINActivity extends Activity {
     private ArrayList<PINButton> buttons = new ArrayList<>();
     private int currentEt = 0;
     private SharedPreferences prefs;
-    private String userPinKey = "antik.com.antikscanner.user.pin";
+    private String userPinKey = "PIN";
     private String pin;
 
     @Override
@@ -33,10 +35,12 @@ public class PINActivity extends Activity {
         setContentView(R.layout.activity_pin);
         final Intent intent = getIntent();
         final String mode = intent.getStringExtra("MODE");
+        prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
         EditText et0 = (EditText) findViewById(R.id.EditText0);
         EditText et1 = (EditText) findViewById(R.id.EditText1);
         EditText et2 = (EditText) findViewById(R.id.EditText2);
         EditText et3 = (EditText) findViewById(R.id.EditText3);
+        final TextView wrongPinTextView = (TextView) findViewById(R.id.wrong_pin_textView);
 
         fields.add(et0);
         fields.add(et1);
@@ -69,7 +73,6 @@ public class PINActivity extends Activity {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setNumber("" + i);
         }
-        ;
         buttons.add(pinButtonDel);
         for (int i = 0; i < buttons.size() - 2; i++) {
             buttons.get(i).setOnClickListener(new View.OnClickListener() {
@@ -96,9 +99,16 @@ public class PINActivity extends Activity {
                                     for (EditText et : fields) {
                                         pin = pin + et.getText().toString();
                                     }
-                                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.settings");
-                                    startActivity(launchIntent);
-                                    finish();
+                                    String userPin = prefs.getString("PIN", "bullshit");
+                                    if (userPin.equalsIgnoreCase(SHA_256.getHashString(pin))) {
+                                        if (mode.equalsIgnoreCase("settings")) {
+                                            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.settings");
+                                            startActivity(launchIntent);
+                                            finish();
+                                        }
+                                    } else {
+                                        wrongPinTextView.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                         }
@@ -120,6 +130,7 @@ public class PINActivity extends Activity {
                     } else {
                         if (currentEt == 3) {
                             btn.deleteText(fields.get(currentEt));
+                            wrongPinTextView.setVisibility(View.INVISIBLE);
                         } else {
                             currentEt--;
                             btn.deleteText(fields.get(currentEt));

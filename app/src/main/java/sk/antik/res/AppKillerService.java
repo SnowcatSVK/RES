@@ -78,6 +78,7 @@ public class AppKillerService extends Service {
                                 if (apkInfo.packageName.equals(packagename)) {
                                     Intent intent = new Intent(this, PINActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.putExtra("MODE", "Settings");
                                     startActivity(intent);
                                     t.cancel();
                                     t.purge();

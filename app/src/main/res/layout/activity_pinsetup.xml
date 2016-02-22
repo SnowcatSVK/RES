@@ -8,45 +8,57 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="sk.antik.res.FirstSetupActivity">
+    tools:context="sk.antik.res.PINSetupActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/setup_pin"
+        android:textColor="@color/colorPrimary"
+        android:textSize="60sp" />
 
     <LinearLayout
-        android:layout_width="600dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/device_ip_textInputLayout"
+            android:id="@+id/pin_textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/device_ip_editText"
+                android:id="@+id/pin_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:hint="@string/device_ip"
-                android:inputType="date"
+                android:hint="PIN"
+                android:inputType="numberPassword"
+                android:maxLength="4"
                 android:textSize="32sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/seat_number_textInputLayout"
+            android:id="@+id/repeat_pin_textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/seat_number_editText"
+                android:id="@+id/repeat_pin_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:hint="@string/seat_number_hint"
-                android:inputType="number"
+                android:hint="@string/repeat_pin"
+                android:inputType="numberPassword"
+                android:maxLength="4"
                 android:textSize="32sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -64,5 +76,19 @@
         android:src="@drawable/ic_done"
         app:elevation="6dp" />
 
+    <CheckBox
+        android:id="@+id/pin_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/linearLayout"
+        android:layout_marginTop="38dp"
+        android:layout_toEndOf="@+id/linearLayout" />
+
+    <CheckBox
+        android:id="@+id/repeat_pin_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linearLayout"
+        android:layout_toEndOf="@+id/linearLayout" />
 
 </RelativeLayout>

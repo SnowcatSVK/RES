@@ -15,4 +15,7 @@
     <string name="settings_tech_service">Tek.Servis</string>
     <string name="seat_number_hint">Koltuk numarası</string>
     <string name="device_ip">API IP adresi</string>
+    <string name="repeat_pin">Tekrarlama PIN</string>
+    <string name="setup_pin">Lütfen kurulum PIN</string>
+    <string name="wrong_pin">YANLIŞ PIN</string>
 </resources>

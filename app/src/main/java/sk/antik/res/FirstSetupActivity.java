@@ -32,7 +32,7 @@ public class FirstSetupActivity extends Activity {
         String ipAddr = "http://" + ipAddrEditText.getText().toString();
         String seatNumber = seatNumberEditText.getText().toString();
         prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).apply();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, PINSetupActivity.class);
         startActivity(intent);
         finish();
     }

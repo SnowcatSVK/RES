@@ -48,6 +48,10 @@
             android:name=".FirstSetupActivity"
             android:label="@string/title_activity_first_setup" >
         </activity>
+        <activity
+            android:name=".PINSetupActivity"
+            android:label="@string/title_activity_pinsetup" >
+        </activity>
     </application>
 
 </manifest>
