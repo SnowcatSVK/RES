@@ -398,7 +398,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("function", "GetContent");
                     json.put("content_type_id", 5);
                     responseJson = handler.handleRequest(json);
-                    Log.e("MODResponse", responseJson.toString());
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
@@ -411,7 +410,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 super.onPostExecute(aVoid);
 
                 if (responseJson != null) {
-
+                    Log.e("MODResponse", responseJson.toString());
                     try {
                         JSONArray list = responseJson.getJSONArray("Content list");
                         Log.e("MODJSON", list.toString());
@@ -432,9 +431,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             }
                             Album album = new Album(albumJson.getInt("id"),
                                     albumJson.getString("name"),
-                                    "http://gavron.res.dev3.antik.sk" + albumJson.getString("source"),
-                                    "http://gavron.res.dev3.antik.sk" + albumJson.getString("img_source"),
-                                    songs);
+                                    API + albumJson.getString("source"),
+                                    API + albumJson.getString("img_source"), songs);
                             albums.add(album);
                         }
                         modFragment.setAlbums(albums);
@@ -457,7 +455,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("function", "GetContent");
                     json.put("content_type_id", 4);
                     responseJson = handler.handleRequest(json);
-                    Log.e("VODResponse", responseJson.toString());
+
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
@@ -470,6 +468,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 super.onPostExecute(aVoid);
 
                 if (responseJson != null) {
+                    Log.e("VODResponse", responseJson.toString());
                     try {
                         JSONArray list = responseJson.getJSONArray("Content list");
                         JSONObject json = list.getJSONObject(0);
@@ -503,7 +502,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("function", "GetContent");
                     json.put("content_type_id", 1);
                     responseJson = handler.handleRequest(json);
-                    Log.e("ChannelsResponse", responseJson.toString());
+
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
@@ -514,6 +513,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 if (responseJson != null) {
+                    Log.e("ChannelsResponse", responseJson.toString());
                     try {
                         tvFragment.channels = ChannelFactory.fromJSON(responseJson.getJSONArray("Content list"));
                     } catch (JSONException e) {
@@ -535,7 +535,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("function", "GetContent");
                     json.put("content_type_id", 2);
                     responseJson = handler.handleRequest(json);
-                    Log.e("RadiosResponse", responseJson.toString());
+
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
@@ -546,6 +546,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 if (responseJson != null) {
+                    Log.e("RadiosResponse", responseJson.toString());
                     try {
                         radioFragment.channels = ChannelFactory.fromJSON(responseJson.getJSONArray("Content list"));
                     } catch (JSONException e) {

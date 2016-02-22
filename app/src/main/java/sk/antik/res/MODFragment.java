@@ -61,6 +61,9 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
     private SeekBar progressSeekBar = null;
     private AudioManager audioManager = null;
     private ImageButton playPauseButton = null;
+    private ImageButton stopButton = null;
+    private ImageButton nextSongButton = null;
+    private ImageButton previousSongButton = null;
     private boolean playingVideo = false;
     private ImageView albumImageView;
     private TextView albumNameTextView;
@@ -71,6 +74,11 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
     private Timer t;
 
     private ArrayList<Album> albums;
+
+    private int playSongParentId = -1;
+    private int playSongPosition = -1;
+    private int albumPosition = -1;
+    private int songsAdapterLength = -1;
 
     public MODFragment() {
         // Required empty public constructor
@@ -140,9 +148,19 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                 Album album = (Album) parent.getAdapter().getItem(position);
                 MODSongAdapter songAdapter = new MODSongAdapter(getActivity(), album.getSongs());
                 songsListView.setAdapter(songAdapter);
+                songsAdapterLength = album.getSongs().size();
 
-                ImageLoader.getInstance().displayImage(album.getImageSource(), albumImageView, options, animateFirstListener);
+                if (album.getImageSource() != null) {
+                    ImageLoader.getInstance().displayImage(album.getImageSource(), albumImageView, options, animateFirstListener);
+                }
                 albumNameTextView.setText(album.getName());
+
+                if (playSongParentId != -1 && playSongParentId == album.getId()) {
+                    songsListView.setItemChecked(playSongPosition, true);
+                    Log.i("MODSongPosition", "Position: " + playSongPosition);
+                }
+
+                albumPosition = position;
             }
         });
         songsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -150,13 +168,20 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Song song = (Song) parent.getAdapter().getItem(position);
                 contentUri = Uri.parse(song.getSource());
+                releasePlayer();
                 preparePlayer();
+
+                playSongParentId = song.getAlbumId();
+                playSongPosition = position;
             }
         });
 
         volumeSeekbar = (SeekBar) view.findViewById(R.id.mod_volume_seekBar);
         progressSeekBar = (SeekBar) view.findViewById(R.id.mod_player_seekBar);
         playPauseButton = (ImageButton) view.findViewById(R.id.mod_play_pause_imageButton);
+        stopButton = (ImageButton) view.findViewById(R.id.mod_stop_imageButton);
+        nextSongButton = (ImageButton) view.findViewById(R.id.mod_forward_imageButton);
+        previousSongButton = (ImageButton) view.findViewById(R.id.mod_rewind_imageButton);
         initControls();
         return view;
     }
@@ -184,6 +209,13 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                 break;
             case ExoPlayer.STATE_ENDED:
                 Log.e("Status", "ended");
+                if (t != null) {
+                    t.cancel();
+                    t.purge();
+                    t = null;
+                }
+                releasePlayer();
+                nextSong();
                 break;
             case ExoPlayer.STATE_IDLE:
                 Log.e("Status", "idle");
@@ -298,6 +330,49 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                 }
 
             });
+
+            stopButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    songsListView.setItemChecked(playSongPosition, false);
+                    if (t != null) {
+                        t.cancel();
+                        t.purge();
+                        t = null;
+                    }
+                    releasePlayer();
+                    playPauseButton.setImageResource(R.drawable.ic_play_arrow);
+
+                    playSongParentId = -1;
+                    playSongPosition = -1;
+                }
+            });
+
+            nextSongButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (t != null) {
+                        t.cancel();
+                        t.purge();
+                        t = null;
+                    }
+                    releasePlayer();
+                    nextSong();
+                }
+            });
+
+            previousSongButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (t != null) {
+                        t.cancel();
+                        t.purge();
+                        t = null;
+                    }
+                    releasePlayer();
+                    previousSong();
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -330,6 +405,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
             player.release();
             player = null;
         }
+        progressSeekBar.setProgress(0);
     }
 
     @Override
@@ -342,6 +418,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
         }
         releasePlayer();
 
+        foldersListView.setItemChecked(albumPosition, false);
     }
 
     private class ProgressTimerTask extends TimerTask {
@@ -377,6 +454,35 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                     displayedImages.add(imageUri);
                 }
             }
+        }
+    }
+
+    public void nextSong() {
+        Log.i("MODNextSong", "Position: " + playSongPosition + ", Length: " + (songsAdapterLength - 1));
+        if (playSongPosition != -1 && playSongPosition < songsAdapterLength - 1) {
+            songsListView.setItemChecked(playSongPosition, false);
+            playSongPosition++;
+            Song song = (Song) songsListView.getItemAtPosition(playSongPosition);
+            contentUri = Uri.parse(song.getSource());
+            preparePlayer();
+            songsListView.setItemChecked(playSongPosition, true);
+        } else {
+            songsListView.setItemChecked(playSongPosition, false);
+            playSongPosition = -1;
+        }
+    }
+
+    public void previousSong() {
+        if (playSongPosition > 0) {
+            songsListView.setItemChecked(playSongPosition, false);
+            playSongPosition--;
+            Song song = (Song) songsListView.getItemAtPosition(playSongPosition);
+            contentUri = Uri.parse(song.getSource());
+            preparePlayer();
+            songsListView.setItemChecked(playSongPosition, true);
+        } else {
+            songsListView.setItemChecked(playSongPosition, false);
+            playSongPosition = -1;
         }
     }
 }

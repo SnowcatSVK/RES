@@ -18,6 +18,7 @@ public class Album {
         this.name = name;
         this.source = source;
         this.songs = songs;
+        this.imageSource = imageSource;
     }
 
     public int getId() {
