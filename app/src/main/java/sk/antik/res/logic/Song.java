@@ -9,12 +9,14 @@ public class Song {
     private int albumId;
     private String name;
     private String source;
+    private String number;
 
     public Song(int id, int albumId, String name, String source) {
         this.id = id;
         this.albumId = albumId;
-        this.name = name;
         this.source = source;
+        this.number = name.substring(0, 2);
+        this.name = name.substring(3);
     }
 
     public String getName() {
@@ -31,5 +33,9 @@ public class Song {
 
     public String getSource() {
         return source;
+    }
+
+    public String getNumber() {
+        return number;
     }
 }

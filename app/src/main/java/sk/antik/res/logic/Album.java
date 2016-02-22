@@ -1,6 +1,7 @@
 package sk.antik.res.logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Admin on 04.02.2016.
@@ -17,6 +18,7 @@ public class Album {
         this.id = id;
         this.name = name;
         this.source = source;
+        Collections.sort(songs, new SongComparator());
         this.songs = songs;
         this.imageSource = imageSource;
     }

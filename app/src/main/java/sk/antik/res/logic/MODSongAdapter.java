@@ -28,8 +28,10 @@ public class MODSongAdapter extends ArrayAdapter<Song> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_mod_song, parent, false);
         }
         TextView nameTextView = (TextView) convertView.findViewById(R.id.song_name_textView);
+        TextView numberTextView = (TextView) convertView.findViewById(R.id.number_textView);
 
         nameTextView.setText(song.getName());
+        numberTextView.setText(song.getNumber());
 
         return convertView;
     }
