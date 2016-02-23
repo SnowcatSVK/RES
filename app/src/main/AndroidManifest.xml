@@ -24,11 +24,11 @@
 
         <activity
             android:name=".restrictors.PINActivity"
-            android:label="@string/title_activity_pin"
+            android:label="@string/app_name"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".VODPlayerActivity"
-            android:label="@string/title_activity_vodplayer"
+            android:label="@string/app_name"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name=".FirstSetupActivity"
-            android:label="@string/title_activity_first_setup"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -49,10 +49,10 @@
         </activity>
         <activity
             android:name=".PINSetupActivity"
-            android:label="@string/title_activity_pinsetup" />
+            android:label="@string/app_name" />
         <activity
             android:name=".TechServiceActivity"
-            android:label="@string/title_activity_tech_service"
+            android:label="@string/app_name"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

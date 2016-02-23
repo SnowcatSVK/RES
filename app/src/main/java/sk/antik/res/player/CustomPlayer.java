@@ -196,7 +196,7 @@ public class CustomPlayer implements ExoPlayer.Listener, ChunkSampleSource.Event
         lastReportedPlaybackState = STATE_IDLE;
         rendererBuildingState = RENDERER_BUILDING_STATE_IDLE;
         // Disable text initially.
-        player.setSelectedTrack(TYPE_TEXT, TRACK_DISABLED);
+        //player.setSelectedTrack(TYPE_TEXT, TRACK_ENA);
     }
 
     public PlayerControl getPlayerControl() {
