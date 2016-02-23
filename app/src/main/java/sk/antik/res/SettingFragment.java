@@ -84,7 +84,7 @@ public class SettingFragment extends Fragment {
                         brightnessSeekBar.setVisibility(View.VISIBLE);
                         volumeSeekbar.setVisibility(View.GONE);
                         break;
-                    case  3:
+                    case 3:
                         languagesListView.setVisibility(View.GONE);
                         brightnessSeekBar.setVisibility(View.GONE);
                         volumeSeekbar.setVisibility(View.GONE);
@@ -95,7 +95,7 @@ public class SettingFragment extends Fragment {
             }
         });
         final ArrayList<Language> languages = new ArrayList<>();
-        languages.add(new Language("English", "en"));
+        languages.add(new Language("English", "us"));
         languages.add(new Language("Türkçe", "tr"));
         /*
         languages.add(new Language("Deutsch", "de"));
@@ -119,6 +119,7 @@ public class SettingFragment extends Fragment {
                 DisplayMetrics dm = res.getDisplayMetrics();
                 android.content.res.Configuration conf = res.getConfiguration();
                 conf.locale = new Locale(languages.get(position).countryCode.toLowerCase());
+
                 res.updateConfiguration(conf, dm);
                 activityRestarted = true;
                 selectedPosition = position;
@@ -130,6 +131,7 @@ public class SettingFragment extends Fragment {
             adapter.notifyDataSetChanged();
             selectedPosition = savedInstanceState.getInt("selected_language");
             languages.get(selectedPosition).selected = true;
+            MainActivity.language = languages.get(selectedPosition).countryCode.toLowerCase();
             languageAdapter.notifyDataSetChanged();
             languagesListView.setVisibility(View.VISIBLE);
 
@@ -141,7 +143,7 @@ public class SettingFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("selected_language",selectedPosition);
+        outState.putInt("selected_language", selectedPosition);
     }
 
     public void setControls() {
@@ -170,12 +172,12 @@ public class SettingFragment extends Fragment {
 
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         brightnessSeekBar.setMax(255);
-        brightnessSeekBar.setProgress((int) (lp.screenBrightness*255));
+        brightnessSeekBar.setProgress((int) (lp.screenBrightness * 255));
         brightnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-                lp.screenBrightness = progress / (float)255;
+                lp.screenBrightness = progress / (float) 255;
                 getActivity().getWindow().setAttributes(lp);
             }
 

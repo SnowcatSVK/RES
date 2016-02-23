@@ -12,7 +12,6 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -30,12 +29,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiskCache;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.decode.ImageDecoder;
-import com.nostra13.universalimageloader.core.decode.ImageDecodingInfo;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import org.json.JSONArray;
@@ -87,8 +83,12 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private RequestHandler handler;
     private SharedPreferences prefs = null;
     private String seatNumber;
-    private String language;
+    public static String language;
     private boolean startFromFirstSetup;
+    private boolean tvConnected = false;
+    private boolean radCnnected = false;
+    private boolean vodConnected = false;
+    private boolean modConnected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,14 +280,18 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     }
 
     public void onWatchButtonClick(View view) {
-        getFragmentManager().beginTransaction().replace(R.id.root_layout, tvFragment).commit();
-        setBackgrounds(view);
+        if (tvConnected) {
+            getFragmentManager().beginTransaction().replace(R.id.root_layout, tvFragment).commit();
+            setBackgrounds(view);
+        }
     }
 
     public void onRadioButtonClick(View view) {
-        setBackgrounds(view);
-        getFragmentManager().beginTransaction().replace(R.id.root_layout, radioFragment).commit();
-        //tvFragment.releasePlayer();
+        if (radCnnected) {
+            setBackgrounds(view);
+            getFragmentManager().beginTransaction().replace(R.id.root_layout, radioFragment).commit();
+            //tvFragment.releasePlayer();
+        }
     }
 
     public void onConnectButtonClick(View view) {
@@ -303,14 +307,17 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     }
 
     public void onVODButtonClick(View view) {
-        setBackgrounds(view);
-        getFragmentManager().beginTransaction().replace(R.id.root_layout, vodFragment).commit();
+        if (vodConnected) {
+            setBackgrounds(view);
+            getFragmentManager().beginTransaction().replace(R.id.root_layout, vodFragment).commit();
+        }
     }
 
     public void onMODButtonClick(View view) {
-        setBackgrounds(view);
-        getFragmentManager().beginTransaction().replace(R.id.root_layout, modFragment).commit();
-
+        if (modConnected) {
+            setBackgrounds(view);
+            getFragmentManager().beginTransaction().replace(R.id.root_layout, modFragment).commit();
+        }
     }
 
     public void onSettingsButtonClick(View view) {
@@ -399,6 +406,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         Calendar c = Calendar.getInstance();
         SimpleDateFormat format; //= new SimpleDateFormat("EEE MMM dd hh:mm:ss Z yyyy");
         Locale locale = new Locale(language);
+        Log.e("Locale",language);
         format = new SimpleDateFormat("HH:mm dd MMM yyyy", locale);
         Date newDate = c.getTime();
         String date = format.format(newDate);
@@ -410,28 +418,31 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
 
     public void loadMOD() {
-        new AsyncTask<Void, Void, Void>() {
-            JSONObject responseJson;
+        new AsyncTask<Void, Void, Boolean>() {
+            JSONObject responseJson = null;
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Boolean doInBackground(Void... params) {
                 JSONObject json = new JSONObject();
                 try {
                     json.put("function", "GetContent");
                     json.put("content_type_id", 5);
                     responseJson = handler.handleRequest(json);
+                    if (responseJson != null)
+                        return true;
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
+                    return false;
                 }
 
                 return null;
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
+            protected void onPostExecute(Boolean aVoid) {
                 super.onPostExecute(aVoid);
 
-                if (responseJson != null) {
+                if (aVoid) {
                     Log.e("MODResponse", responseJson.toString());
                     try {
                         JSONArray list = responseJson.getJSONArray("Content list");
@@ -458,6 +469,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             albums.add(album);
                         }
                         modFragment.setAlbums(albums);
+                        modConnected = true;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -467,29 +479,31 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     }
 
     public void loadVOD() {
-        new AsyncTask<Void, Void, Void>() {
-            JSONObject responseJson;
+        new AsyncTask<Void, Void, Boolean>() {
+            JSONObject responseJson = null;
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Boolean doInBackground(Void... params) {
                 JSONObject json = new JSONObject();
                 try {
                     json.put("function", "GetContent");
                     json.put("content_type_id", 4);
                     responseJson = handler.handleRequest(json);
-
+                    if (responseJson != null)
+                        return true;
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
+                    return false;
                 }
 
                 return null;
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
+            protected void onPostExecute(Boolean aVoid) {
                 super.onPostExecute(aVoid);
 
-                if (responseJson != null) {
+                if (aVoid) {
                     Log.e("VODResponse", responseJson.toString());
                     try {
                         JSONArray list = responseJson.getJSONArray("Content list");
@@ -505,6 +519,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             vods.add(vod);
                         }
                         vodFragment.setVods(vods);
+                        vodConnected = true;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -514,30 +529,34 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     }
 
     public void loadChannels() {
-        new AsyncTask<Void, Void, Void>() {
-            JSONObject responseJson;
+        new AsyncTask<Void, Void, Boolean>() {
+            JSONObject responseJson = null;
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Boolean doInBackground(Void... params) {
                 JSONObject json = new JSONObject();
                 try {
                     json.put("function", "GetContent");
                     json.put("content_type_id", 1);
                     responseJson = handler.handleRequest(json);
-
+                    if (responseJson != null) {
+                        return true;
+                    }
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
+                    return false;
                 }
                 return null;
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
+            protected void onPostExecute(Boolean aVoid) {
                 super.onPostExecute(aVoid);
-                if (responseJson != null) {
+                if (aVoid) {
                     Log.e("ChannelsResponse", responseJson.toString());
                     try {
                         tvFragment.channels = ChannelFactory.fromJSON(responseJson.getJSONArray("Content list"));
+                        tvConnected = true;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -547,30 +566,34 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     }
 
     public void loadRadios() {
-        new AsyncTask<Void, Void, Void>() {
-            JSONObject responseJson;
+        new AsyncTask<Void, Void, Boolean>() {
+            JSONObject responseJson = null;
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Boolean doInBackground(Void... params) {
                 JSONObject json = new JSONObject();
                 try {
                     json.put("function", "GetContent");
                     json.put("content_type_id", 2);
                     responseJson = handler.handleRequest(json);
-
+                    if (responseJson != null) {
+                        return true;
+                    }
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
+                    return false;
                 }
                 return null;
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
+            protected void onPostExecute(Boolean aVoid) {
                 super.onPostExecute(aVoid);
-                if (responseJson != null) {
+                if (aVoid) {
                     Log.e("RadiosResponse", responseJson.toString());
                     try {
                         radioFragment.channels = ChannelFactory.fromJSON(responseJson.getJSONArray("Content list"));
+                        radCnnected = true;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -579,7 +602,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         }.execute();
     }
 
-    public void startInstallations() {
+    /*public void startInstallations() {
         AssetManager assetManager = getAssets();
 
         InputStream in = null;
@@ -614,7 +637,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
         } catch (Exception e) {
         }
-    }
+    }*/
 
     public class AppInstallReceiver extends BroadcastReceiver {
 

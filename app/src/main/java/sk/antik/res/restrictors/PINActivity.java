@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import sk.antik.res.PINButton;
 import sk.antik.res.R;
+import sk.antik.res.TechServiceActivity;
 import sk.antik.res.io.SHA_256;
 
 public class PINActivity extends Activity {
@@ -26,6 +27,7 @@ public class PINActivity extends Activity {
     private SharedPreferences prefs;
     private String userPinKey = "PIN";
     private String pin;
+    private String mode = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class PINActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pin);
         final Intent intent = getIntent();
-        final String mode = intent.getStringExtra("MODE");
+        mode = intent.getStringExtra("MODE");
         prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
         EditText et0 = (EditText) findViewById(R.id.EditText0);
         EditText et1 = (EditText) findViewById(R.id.EditText1);
@@ -101,8 +103,12 @@ public class PINActivity extends Activity {
                                     }
                                     String userPin = prefs.getString("PIN", "bullshit");
                                     if (userPin.equalsIgnoreCase(SHA_256.getHashString(pin))) {
-                                        if (mode.equalsIgnoreCase("settings")) {
+                                        if (mode != null &&mode.equalsIgnoreCase("settings")) {
                                             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.settings");
+                                            startActivity(launchIntent);
+                                            finish();
+                                        } else {
+                                            Intent launchIntent = new Intent(PINActivity.this, TechServiceActivity.class);
                                             startActivity(launchIntent);
                                             finish();
                                         }

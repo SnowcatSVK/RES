@@ -125,30 +125,14 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69777c7f-2ab9-444d-94f8-4248d1dccfba" name="Default" comment="LiveTV">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/TechServiceActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tech_service.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/flag_of_the_united_kingdom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/flag_of_turkey.xml" />
+    <list default="true" id="69777c7f-2ab9-444d-94f8-4248d1dccfba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/FirstSetupActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/FirstSetupActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/PINSetupActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/PINSetupActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/restrictors/PINActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/restrictors/PINActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/SettingFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/sk/antik/res/SettingFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_first_setup.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_first_setup.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/design_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/design_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_23_1_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RES.iws" />
@@ -181,15 +165,15 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="98" column="64" selection-start-line="95" selection-start-column="8" selection-end-line="98" selection-end-column="64" />
+              <caret line="639" column="7" selection-start-line="639" selection-start-column="7" selection-end-line="639" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#14710#16011#0" expanded="true" />
-                <element signature="e#14824#15977#0" expanded="true" />
-                <element signature="e#15976#15977#0" expanded="true" />
-                <element signature="e#16010#16011#0" expanded="true" />
-                <element signature="e#16840#17008#0" expanded="true" />
-                <element signature="e#17007#17008#0" expanded="true" />
+                <element signature="e#14815#16116#0" expanded="true" />
+                <element signature="e#14929#16082#0" expanded="true" />
+                <element signature="e#16081#16082#0" expanded="true" />
+                <element signature="e#16115#16116#0" expanded="true" />
+                <element signature="e#16945#17113#0" expanded="true" />
+                <element signature="e#17112#17113#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -219,16 +203,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.0">
               <caret line="55" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PINSetupActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/PINSetupActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="80" column="47" selection-start-line="80" selection-start-column="47" selection-end-line="80" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -278,21 +252,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingFragment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SettingFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/SettingFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="92" column="47" selection-start-line="92" selection-start-column="47" selection-end-line="92" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.77557755">
+              <caret line="133" column="66" selection-start-line="133" selection-start-column="66" selection-end-line="133" selection-end-column="66" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TechServiceActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TechServiceActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/TechServiceActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4669967">
+            <state vertical-scroll-proportion="0.0">
               <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PINActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/restrictors/PINActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="112" column="53" selection-start-line="112" selection-start-column="53" selection-end-line="112" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -1944,7 +1928,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_vod.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_mod_folder.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/logic/Channel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/VODFragment.java" />
@@ -1990,11 +1973,12 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/PINSetupActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/FirstSetupActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_tech_service.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/SettingFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/TechServiceActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/restrictors/PINActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/sk/antik/res/SettingFragment.java" />
       </list>
     </option>
   </component>
@@ -2627,12 +2611,18 @@
       <option name="project" value="LOCAL" />
       <updated>1456160031767</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Tech veci">
+      <created>1456229609529</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1456229609529</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.48081023" order="7" side_tool="false" content_ui="tabs" />
@@ -2642,7 +2632,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="92" y="92" width="1736" height="896" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32481363" sideWeight="0.47654584" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32481363" sideWeight="0.47654584" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.49369085" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.47654584" order="2" side_tool="false" content_ui="tabs" />
@@ -2650,7 +2640,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32481363" sideWeight="0.5234541" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17857143" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17857143" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.50630915" order="8" side_tool="true" content_ui="tabs" />
@@ -2722,7 +2712,8 @@
     <MESSAGE value="VOD + MOD prehravace, obrazky do VOD" />
     <MESSAGE value="LiveTV" />
     <MESSAGE value="FirstSetupActivity" />
-    <option name="LAST_COMMIT_MESSAGE" value="FirstSetupActivity" />
+    <MESSAGE value="Tech veci" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tech veci" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2731,13 +2722,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/ConnectionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="66" selection-start-line="64" selection-start-column="66" selection-end-line="64" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/spider_solitaire_grey.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -3157,10 +3141,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/SettingFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/TechServiceActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="47" selection-start-line="92" selection-start-column="47" selection-end-line="92" selection-end-column="47" />
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/restrictors/PINActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="112" column="53" selection-start-line="112" selection-start-column="53" selection-end-line="112" selection-end-column="53" />
           <folding />
         </state>
       </provider>
@@ -3168,23 +3160,23 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="98" column="64" selection-start-line="95" selection-start-column="8" selection-end-line="98" selection-end-column="64" />
+          <caret line="639" column="7" selection-start-line="639" selection-start-column="7" selection-end-line="639" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#14710#16011#0" expanded="true" />
-            <element signature="e#14824#15977#0" expanded="true" />
-            <element signature="e#15976#15977#0" expanded="true" />
-            <element signature="e#16010#16011#0" expanded="true" />
-            <element signature="e#16840#17008#0" expanded="true" />
-            <element signature="e#17007#17008#0" expanded="true" />
+            <element signature="e#14815#16116#0" expanded="true" />
+            <element signature="e#14929#16082#0" expanded="true" />
+            <element signature="e#16081#16082#0" expanded="true" />
+            <element signature="e#16115#16116#0" expanded="true" />
+            <element signature="e#16945#17113#0" expanded="true" />
+            <element signature="e#17112#17113#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/TechServiceActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/sk/antik/res/SettingFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4669967">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.77557755">
+          <caret line="133" column="66" selection-start-line="133" selection-start-column="66" selection-end-line="133" selection-end-column="66" />
           <folding />
         </state>
       </provider>
