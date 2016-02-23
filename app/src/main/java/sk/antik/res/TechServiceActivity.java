@@ -31,14 +31,14 @@ public class TechServiceActivity extends Activity {
 
     public void onCofirmButtonClick(View view) {
         if (ipAddrEditText.getText().toString().length() == 0) {
-            Toast.makeText(this, "API IP Address is empty.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_API_IP_missing, Toast.LENGTH_LONG).show();
         } else if (seatNumberEditText.getText().toString().length() == 0) {
-            Toast.makeText(this, "Seat Number is empty.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_seat_number_missing, Toast.LENGTH_LONG).show();
         } else {
             String ip = ipAddrEditText.getText().toString();
 
             if (ip.contains("-") || ip.contains("/")) {
-                Toast.makeText(this, "API IP Address contains wrong symbols.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.toast_API_IP_wrong_symbol, Toast.LENGTH_LONG).show();
             } else {
                 String ipAddr = "http://" + ip;
                 String seatNumber = seatNumberEditText.getText().toString();
