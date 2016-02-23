@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class TechServiceActivity extends Activity {
 
@@ -29,14 +30,24 @@ public class TechServiceActivity extends Activity {
     }
 
     public void onCofirmButtonClick(View view) {
-        String ip = ipAddrEditText.getText().toString();
+        if (ipAddrEditText.getText().toString().length() == 0) {
+            Toast.makeText(this, "API IP Address is empty.", Toast.LENGTH_LONG).show();
+        } else if (seatNumberEditText.getText().toString().length() == 0) {
+            Toast.makeText(this, "Seat Number is empty.", Toast.LENGTH_LONG).show();
+        } else {
+            String ip = ipAddrEditText.getText().toString();
 
-        String ipAddr = "http://" + ip;
-        String seatNumber = seatNumberEditText.getText().toString();
-        prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).apply();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+            if (ip.contains("-") || ip.contains("/")) {
+                Toast.makeText(this, "API IP Address contains wrong symbols.", Toast.LENGTH_LONG).show();
+            } else {
+                String ipAddr = "http://" + ip;
+                String seatNumber = seatNumberEditText.getText().toString();
+                prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).apply();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
 

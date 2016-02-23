@@ -419,6 +419,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
         releasePlayer();
 
         foldersListView.setItemChecked(albumPosition, false);
+        playSongPosition = -1;
     }
 
     private class ProgressTimerTask extends TimerTask {
