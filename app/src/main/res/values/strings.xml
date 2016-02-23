@@ -21,7 +21,6 @@
     <string name="setup_pin">Please setup your PIN</string>
     <string name="time">Time</string>
     <string name="date">Date</string>
-    <string name="title_activity_tech_service">TechServiceActivity</string>
     <string name="toast_API_IP_missing">API IP Address is empty.</string>
     <string name="toast_seat_number_missing">Seat Number is empty.</string>
     <string name="toast_API_IP_wrong_symbol">API IP Address contains wrong symbol</string>
