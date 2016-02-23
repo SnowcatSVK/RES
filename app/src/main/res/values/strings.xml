@@ -26,4 +26,7 @@
     <string name="title_activity_pinsetup">PINSetupActivity</string>
     <string name="repeat_pin">Repeat PIN</string>
     <string name="setup_pin">Please setup your PIN</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="title_activity_tech_service">TechServiceActivity</string>
 </resources>

@@ -2,6 +2,7 @@ package sk.antik.res;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import sk.antik.res.logic.Language;
 import sk.antik.res.logic.LanguageAdapter;
 import sk.antik.res.logic.Setting;
 import sk.antik.res.logic.SettingsAdapter;
+import sk.antik.res.restrictors.PINActivity;
 
 
 /**
@@ -81,6 +83,14 @@ public class SettingFragment extends Fragment {
                         languagesListView.setVisibility(View.GONE);
                         brightnessSeekBar.setVisibility(View.VISIBLE);
                         volumeSeekbar.setVisibility(View.GONE);
+                        break;
+                    case  3:
+                        languagesListView.setVisibility(View.GONE);
+                        brightnessSeekBar.setVisibility(View.GONE);
+                        volumeSeekbar.setVisibility(View.GONE);
+                        Intent intent = new Intent(getActivity(), PINActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
                 }
             }
         });

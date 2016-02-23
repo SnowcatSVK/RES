@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sk.antik.res.MainActivity"
-    android:background="@drawable/bus">
+    android:background="@drawable/bus"
+    tools:context="sk.antik.res.MainActivity">
 
     <LinearLayout
         android:id="@+id/top_bar_linearLayout"
@@ -16,19 +16,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.9"
-            android:background="@color/colorPrimary"
-            android:src="@drawable/metro"
-            android:padding="16dp"/>
+            android:background="#EE192857"
+            android:padding="16dp"
+            android:src="@drawable/metro" />
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="2dp"
             android:layout_weight="2.1"
-            android:background="@color/colorPrimary"
+            android:background="#EE192857"
             android:padding="10dp">
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -191,59 +191,69 @@
                     android:text="CLOUDY"
                     android:textColor="#fff"
                     android:textSize="14sp" />
-            </LinearLayout>
+            </LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/time_date_layout"
+
+            <!-- <TextView
+                 android:id="@+id/time_and_date_label_textView"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Time&amp;Date"
+                 android:textColor="@color/colorAccent" />
+ -->
+            <TextView
+                android:id="@+id/time_main_activity_textView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="26dp"
-                android:layout_toEndOf="@+id/weather_layout"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Time&amp;Date"
-                    android:textColor="@color/colorAccent" />
+                android:gravity="center_vertical"
+                android:text="12:23"
+                android:textColor="#fff"
+                android:textSize="55sp" />
 
-                <TextView
-                    android:id="@+id/time_main_activity_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="12:23"
-                    android:textColor="#fff"
-                    android:textSize="34sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/date"
+                android:textColor="@color/colorAccent" />
 
-                <TextView
-                    android:id="@+id/date_main_activity_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:text="13 JAN 2016"
-                    android:textColor="#fff"
-                    android:textSize="14dp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/date_main_activity_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="bottom"
+                android:text="13 JAN 2016"
+                android:textColor="#fff"
+                android:textSize="55sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time"
+                android:textColor="@color/colorAccent" />
+
 
             <TextView
                 android:id="@+id/seat_number_label_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Seat Number"
+                android:text="@string/seat_number_hint"
                 android:textColor="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/seat_number_textView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="5dp"
                 android:text="21"
                 android:textColor="#fff"
-                android:textSize="65sp" />
+                android:textSize="55sp" />
 
 
         </RelativeLayout>
@@ -255,7 +265,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="#EE192857"
         android:orientation="horizontal"
         android:weightSum="7">
 
@@ -345,7 +355,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_above="@id/categories_names_layout"
-        android:background="@color/colorPrimary"
+        android:background="#EE192857"
         android:weightSum="7">
 
         <ImageButton
@@ -354,8 +364,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#0fff"
-            android:src="@drawable/ic_tv_black_24dp"
-            android:onClick="onWatchButtonClick"/>
+            android:onClick="onWatchButtonClick"
+            android:src="@drawable/ic_tv_black_24dp" />
 
         <ImageButton
             android:id="@+id/radio_imageButton"
@@ -363,8 +373,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#0fff"
-            android:src="@drawable/ic_radio"
-            android:onClick="onRadioButtonClick"/>
+            android:onClick="onRadioButtonClick"
+            android:src="@drawable/ic_radio" />
 
         <ImageButton
             android:id="@+id/connect_imageButton"
@@ -372,8 +382,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#0fff"
-            android:src="@drawable/ic_language_black_24dp"
-            android:onClick="onConnectButtonClick"/>
+            android:onClick="onConnectButtonClick"
+            android:src="@drawable/ic_language_black_24dp" />
 
         <ImageButton
             android:id="@+id/games_imageButton"
@@ -381,8 +391,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#0fff"
-            android:src="@drawable/ic_keyboard"
-            android:onClick="onGamesButtonClick"/>
+            android:onClick="onGamesButtonClick"
+            android:src="@drawable/ic_keyboard" />
 
         <ImageButton
             android:id="@+id/vod_imageButton"
@@ -390,8 +400,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#0fff"
-            android:src="@drawable/ic_local_movies_black_24dp"
-            android:onClick="onVODButtonClick"/>
+            android:onClick="onVODButtonClick"
+            android:src="@drawable/ic_local_movies_black_24dp" />
 
         <ImageButton
             android:id="@+id/mod_imageButton"
@@ -399,8 +409,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#0fff"
-            android:src="@drawable/ic_music"
-            android:onClick="onMODButtonClick"/>
+            android:onClick="onMODButtonClick"
+            android:src="@drawable/ic_music" />
 
         <ImageButton
             android:id="@+id/setting_imageButton"
@@ -408,8 +418,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#0fff"
-            android:src="@drawable/ic_settings"
-            android:onClick="onSettingsButtonClick"/>
+            android:onClick="onSettingsButtonClick"
+            android:src="@drawable/ic_settings" />
 
     </LinearLayout>
 

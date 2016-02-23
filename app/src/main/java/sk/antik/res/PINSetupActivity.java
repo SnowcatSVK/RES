@@ -78,6 +78,7 @@ public class PINSetupActivity extends Activity {
         if (pinEditText.getText().toString().equalsIgnoreCase(repeatPinEditText.getText().toString())) {
             prefs.edit().putString("PIN", SHA_256.getHashString(repeatPinEditText.getText().toString())).apply();
             Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("FROM_SETUP",true);
             startActivity(intent);
             finish();
         }

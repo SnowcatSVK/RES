@@ -16,10 +16,44 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/flag_of_the_united_kingdom"/>
+
+            <CheckBox
+                android:id="@+id/english_language_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="English"
+                android:textSize="30sp"/>
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="56dp"
+                android:src="@drawable/flag_of_turkey"/>
+
+            <CheckBox
+                android:id="@+id/turkish_language_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Türkçe"
+                android:textSize="30sp"/>
+        </LinearLayout>
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/device_ip_textInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp">
 
             <EditText
                 android:id="@+id/device_ip_editText"

@@ -11,11 +11,13 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +51,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -79,10 +82,13 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private ArrayList<ImageButton> imageButtons;
     private TextView timeTextView;
     private TextView dateTextView;
+    private TextView seatNumberTextView;
     private String API;
     private RequestHandler handler;
     private SharedPreferences prefs = null;
     private String seatNumber;
+    private String language;
+    private boolean startFromFirstSetup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,19 +99,13 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_main);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
-        prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
-        if (prefs.getBoolean("FIRST_START",true)) {
-            Intent intent = new Intent(this,FirstSetupActivity.class);
-            prefs.edit().putBoolean("FIRST_START",false).apply();
-            startActivity(intent);
-            finish();
-        } else {
-            API = prefs.getString("API_IP","192.168.0.105");
-            handler = new RequestHandler(API+":81");
-            seatNumber = prefs.getString("SEAT_No","00");
-        }
         lp.screenBrightness = 1.0f;
         getWindow().setAttributes(lp);
+        prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
+        API = prefs.getString("API_IP", "10.252.61.83");
+        handler = new RequestHandler(API + ":81");
+        seatNumber = prefs.getString("SEAT_No", "00");
+        language = prefs.getString("APP_LANGUAGE", "us");
         Log.e("Setting test", "onCreate - Main");
         tvFragment = new LiveTVFragment();
         radioFragment = new RadioFragment();
@@ -122,7 +122,18 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         config.writeDebugLogs(); // Remove for release app
         ImageLoader.getInstance().init(config.build());
-
+        Resources res = getResources();
+        // Change locale settings in the app.
+        android.content.res.Configuration conf = res.getConfiguration();
+        Intent intent = getIntent();
+        startFromFirstSetup = intent.getBooleanExtra("FROM_SETUP", false);
+        Log.e("Locale", conf.locale.getCountry());
+        if (savedInstanceState == null && !startFromFirstSetup && !language.equalsIgnoreCase(conf.locale.getCountry())) {
+            DisplayMetrics dm = res.getDisplayMetrics();
+            conf.locale = new Locale(language);
+            res.updateConfiguration(conf, dm);
+            recreate();
+        }
         getLoaderManager().initLoader(0, null, this);
 
         topBar = (LinearLayout) findViewById(R.id.top_bar_linearLayout);
@@ -138,36 +149,31 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         imageButtons.add((ImageButton) findViewById(R.id.setting_imageButton));
         timeTextView = (TextView) findViewById(R.id.time_main_activity_textView);
         dateTextView = (TextView) findViewById(R.id.date_main_activity_textView);
-
-        loadVOD();
-        loadMOD();
-        loadChannels();
-        loadRadios();
+        seatNumberTextView = (TextView) findViewById(R.id.seat_number_textView);
+        seatNumberTextView.setText(seatNumber);
 
 
     }
 
     @Override
     protected void onResume() {
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         super.onResume();
         if (!isMyServiceRunning(AppKillerService.class)) {
             Intent intent = new Intent(this, AppKillerService.class);
             startService(intent);
         }
+
+
         setupTime();
         registerReceiver();
-        if (prefs.getBoolean("firstrun", true)) {
-            // Do first run stuff here then set 'firstrun' as false
-            // using the following line to edit/commit prefs
-            //startInstallations();
-            prefs.edit().putBoolean("firstrun", false).apply();
-        }
-
-        //AppKillerService.startingForbiddenApp = false;
+        loadVOD();
+        loadMOD();
+        loadChannels();
+        loadRadios();
     }
+
+    //AppKillerService.startingForbiddenApp = false;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -392,7 +398,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     public void setupTime() {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat format; //= new SimpleDateFormat("EEE MMM dd hh:mm:ss Z yyyy");
-        format = new SimpleDateFormat("HH:mm dd MMM yyyy");
+        Locale locale = new Locale(language);
+        format = new SimpleDateFormat("HH:mm dd MMM yyyy", locale);
         Date newDate = c.getTime();
         String date = format.format(newDate);
         String time = date.substring(0, 5);
