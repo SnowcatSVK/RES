@@ -20,4 +20,8 @@
     <string name="wrong_pin">YANLIŞ PIN</string>
     <string name="time">Saat</string>
     <string name="date">Tarih</string>
+    <string name="no_tv">Içerik indirmek bir sorun oluştu, teknik servis ile irtibata geçiniz</string>
+    <string name="toast_API_IP_missing">API IP Adresi boştur.</string>
+    <string name="toast_API_IP_wrong_symbol">API IP Adresi yanlış sembol içeriyor</string>
+    <string name="toast_seat_number_missing">Koltuk sayısı boş.</string>
 </resources>

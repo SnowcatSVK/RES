@@ -27,9 +27,14 @@ public class ChannelAdapter extends ArrayAdapter<Channel> {
     public View getView(int position, View convertView, ViewGroup parent) {
         final Channel channel = getItem(position);
         if (!channel.fullScreen)
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_channel, parent, false);
-        else
+            if (!channel.selected)
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_channel, parent, false);
+            else
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_channel_selected, parent, false);
+        else if (!channel.selected)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_channel_fullscreen, parent, false);
+        else
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_channel_fullscreen_selected, parent, false);
         TextView numberTextView = (TextView) convertView.findViewById(R.id.channel_number_textView);
         TextView nameTextView = (TextView) convertView.findViewById(R.id.channel_name_textView);
         nameTextView.setText(channel.name);

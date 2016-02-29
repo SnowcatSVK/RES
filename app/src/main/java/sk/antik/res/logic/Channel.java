@@ -11,5 +11,6 @@ public class Channel {
     public boolean fullScreen;
 
     public Channel() {
+        selected = false;
     }
 }

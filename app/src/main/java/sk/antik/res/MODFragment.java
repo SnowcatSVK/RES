@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import sk.antik.res.logic.Album;
 import sk.antik.res.logic.MODFolderAdapter;
 import sk.antik.res.logic.MODSongAdapter;
@@ -67,6 +68,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
     private boolean playingVideo = false;
     private ImageView albumImageView;
     private TextView albumNameTextView;
+
 
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     private DisplayImageOptions options;
@@ -166,6 +168,12 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
         songsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (t != null) {
+                    t.cancel();
+                    t.purge();
+                    t = null;
+                    Log.e("Timer kill", "timer killed");
+                }
                 Song song = (Song) parent.getAdapter().getItem(position);
                 contentUri = Uri.parse(song.getSource());
                 releasePlayer();
@@ -213,6 +221,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                     t.cancel();
                     t.purge();
                     t = null;
+                    Log.e("Timer kill", "timer killed");
                 }
                 releasePlayer();
                 nextSong();
@@ -243,6 +252,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                             t.cancel();
                             t.purge();
                             t = null;
+                            Log.e("Timer kill", "timer killed");
                         }
                     }
 
@@ -272,14 +282,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
 
     @Override
     public void onAudioCapabilitiesChanged(AudioCapabilities audioCapabilities) {
-        boolean audioCapabilitiesChanged = !audioCapabilities.equals(this.audioCapabilities);
-        if (player == null || audioCapabilitiesChanged) {
-            this.audioCapabilities = audioCapabilities;
-            releasePlayer();
-            preparePlayer();
-        } else {
-            player.setBackgrounded(false);
-        }
+
     }
 
     private void initControls() {
@@ -313,14 +316,16 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                 public void onClick(View v) {
                     if (player != null) {
                         if (playingVideo) {
-                            player.stop();
-                            playingVideo = false;
-                            playPauseButton.setImageResource(R.drawable.ic_play_arrow);
                             if (t != null) {
                                 t.cancel();
                                 t.purge();
                                 t = null;
+                                Log.e("Timer kill", "timer killed");
                             }
+                            player.stop();
+                            playingVideo = false;
+                            playPauseButton.setImageResource(R.drawable.ic_play_arrow);
+
                         } else {
                             player.prepare();
                             playingVideo = true;
@@ -339,6 +344,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                         t.cancel();
                         t.purge();
                         t = null;
+                        Log.e("Timer kill", "timer killed");
                     }
                     releasePlayer();
                     playPauseButton.setImageResource(R.drawable.ic_play_arrow);
@@ -355,6 +361,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                         t.cancel();
                         t.purge();
                         t = null;
+                        Log.e("Timer kill", "timer killed");
                     }
                     releasePlayer();
                     nextSong();
@@ -368,6 +375,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                         t.cancel();
                         t.purge();
                         t = null;
+                        Log.e("Timer kill", "timer killed");
                     }
                     releasePlayer();
                     previousSong();
@@ -415,9 +423,9 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
             t.cancel();
             t.purge();
             t = null;
+            Log.e("Timer kill", "timer killed");
         }
         releasePlayer();
-
         foldersListView.setItemChecked(albumPosition, false);
         playSongPosition = -1;
     }
@@ -460,6 +468,12 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
 
     public void nextSong() {
         Log.i("MODNextSong", "Position: " + playSongPosition + ", Length: " + (songsAdapterLength - 1));
+        if (t != null) {
+            t.cancel();
+            t.purge();
+            t = null;
+            Log.e("Timer kill", "timer killed");
+        }
         if (playSongPosition != -1 && playSongPosition < songsAdapterLength - 1) {
             songsListView.setItemChecked(playSongPosition, false);
             playSongPosition++;
@@ -474,6 +488,12 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
     }
 
     public void previousSong() {
+        if (t != null) {
+            t.cancel();
+            t.purge();
+            t = null;
+            Log.e("Timer kill", "timer killed");
+        }
         if (playSongPosition > 0) {
             songsListView.setItemChecked(playSongPosition, false);
             playSongPosition--;

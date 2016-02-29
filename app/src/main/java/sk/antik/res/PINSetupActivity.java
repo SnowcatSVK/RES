@@ -24,7 +24,9 @@ public class PINSetupActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pinsetup);
-
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         pinEditText = (EditText) findViewById(R.id.pin_editText);
         repeatPinEditText = (EditText) findViewById(R.id.repeat_pin_editText);
         pinCheckBox = (CheckBox) findViewById(R.id.pin_checkBox);
@@ -78,7 +80,7 @@ public class PINSetupActivity extends Activity {
         if (pinEditText.getText().toString().equalsIgnoreCase(repeatPinEditText.getText().toString())) {
             prefs.edit().putString("PIN", SHA_256.getHashString(repeatPinEditText.getText().toString())).apply();
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("FROM_SETUP",true);
+            intent.putExtra("FROM_SETUP", true);
             startActivity(intent);
             finish();
         }

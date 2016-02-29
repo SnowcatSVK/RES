@@ -30,19 +30,37 @@ public class TechServiceActivity extends Activity {
     }
 
     public void onCofirmButtonClick(View view) {
-        if (ipAddrEditText.getText().toString().length() == 0) {
-            Toast.makeText(this, R.string.toast_API_IP_missing, Toast.LENGTH_LONG).show();
-        } else if (seatNumberEditText.getText().toString().length() == 0) {
-            Toast.makeText(this, R.string.toast_seat_number_missing, Toast.LENGTH_LONG).show();
+        if (ipAddrEditText.getText().toString().length() == 0 && seatNumberEditText.getText().toString().length() == 0) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+
         } else {
             String ip = ipAddrEditText.getText().toString();
 
-            if (ip.contains("-") || ip.contains("/")) {
+            if (ipAddrEditText.getText().toString().length() != 0 && ip.contains("-") || ip.contains("/")) {
                 Toast.makeText(this, R.string.toast_API_IP_wrong_symbol, Toast.LENGTH_LONG).show();
             } else {
-                String ipAddr = "http://" + ip;
+                if (ipAddrEditText.getText().toString().length() != 0 && seatNumberEditText.getText().toString().length() == 0) {
+                    String ipAddr = "http://" + ip;
+                    prefs.edit().putString("API_IP", ipAddr).apply();
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    if ((ipAddrEditText.getText().toString().length() != 0 && seatNumberEditText.getText().toString().length() != 0)) {
+                        String ipAddr = "http://" + ip;
+                        String seatNumber = seatNumberEditText.getText().toString();
+                        prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).apply();
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+            if (seatNumberEditText.getText().toString().length() != 0 && ipAddrEditText.getText().toString().length() == 0) {
                 String seatNumber = seatNumberEditText.getText().toString();
-                prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).apply();
+                prefs.edit().putString("SEAT_No", seatNumber).apply();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();

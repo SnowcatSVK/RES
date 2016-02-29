@@ -24,4 +24,5 @@
     <string name="toast_API_IP_missing">API IP Address is empty.</string>
     <string name="toast_seat_number_missing">Seat Number is empty.</string>
     <string name="toast_API_IP_wrong_symbol">API IP Address contains wrong symbol</string>
+    <string name="no_tv">There was a problem downloading content, please contact technical service</string>
 </resources>

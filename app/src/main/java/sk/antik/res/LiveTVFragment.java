@@ -38,6 +38,7 @@ import java.util.Map;
 import sk.antik.res.loader.AppModel;
 import sk.antik.res.logic.Channel;
 import sk.antik.res.logic.ChannelAdapter;
+import sk.antik.res.logic.Setting;
 import sk.antik.res.player.CustomPlayer;
 import sk.antik.res.player.HlsRendererBuilder;
 
@@ -110,6 +111,11 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 contentUri = Uri.parse(channels.get(position).streamURL);
+                for (Channel channel : channels) {
+                    channel.selected = false;
+                }
+                channels.get(position).selected = true;
+                adapter.notifyDataSetChanged();
                 playingVideo = true;
                 playPauseButton.setImageResource(R.drawable.ic_pause);
                 releasePlayer();
@@ -264,9 +270,9 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
 
             audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
             volumeSeekbar.setMax(audioManager
-                    .getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
+                    .getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             volumeSeekbar.setProgress(audioManager
-                    .getStreamVolume(AudioManager.STREAM_SYSTEM));
+                    .getStreamVolume(AudioManager.STREAM_MUSIC));
 
 
             volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -312,5 +318,8 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
     public void onPause() {
         super.onPause();
         releasePlayer();
+        for (Channel channel : channels) {
+            channel.selected = false;
+        }
     }
 }

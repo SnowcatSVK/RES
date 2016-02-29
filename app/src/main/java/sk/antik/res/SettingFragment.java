@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 
@@ -38,6 +39,9 @@ public class SettingFragment extends Fragment {
     private SeekBar volumeSeekbar = null;
     private SeekBar brightnessSeekBar = null;
     private AudioManager audioManager = null;
+    private ImageButton button;
+    private ArrayList<Language> languages;
+    private LanguageAdapter languageAdapter;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -94,7 +98,7 @@ public class SettingFragment extends Fragment {
                 }
             }
         });
-        final ArrayList<Language> languages = new ArrayList<>();
+        languages = new ArrayList<>();
         languages.add(new Language("English", "us"));
         languages.add(new Language("Türkçe", "tr"));
         /*
@@ -103,7 +107,7 @@ public class SettingFragment extends Fragment {
         languages.add(new Language("Pусский", "ru"));
         languages.add(new Language("中国的", "cn"));
         */
-        final LanguageAdapter languageAdapter = new LanguageAdapter(getActivity(), languages);
+        languageAdapter = new LanguageAdapter(getActivity(), languages);
         languagesListView.setAdapter(languageAdapter);
         languagesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -111,7 +115,6 @@ public class SettingFragment extends Fragment {
                 for (Language language : languages) {
                     language.selected = false;
                 }
-
                 languages.get(position).selected = true;
                 languageAdapter.notifyDataSetChanged();
                 Resources res = getActivity().getResources();
@@ -134,16 +137,35 @@ public class SettingFragment extends Fragment {
             MainActivity.language = languages.get(selectedPosition).countryCode.toLowerCase();
             languageAdapter.notifyDataSetChanged();
             languagesListView.setVisibility(View.VISIBLE);
-
         }
         setControls();
         return rootView;
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        switch (MainActivity.language) {
+            case "us":
+                languages.get(0).selected = true;
+                languageAdapter.notifyDataSetChanged();
+                break;
+            case "tr":
+                languages.get(1).selected = true;
+                languageAdapter.notifyDataSetChanged();
+                break;
+        }
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
+
         super.onSaveInstanceState(outState);
-        outState.putInt("selected_language", selectedPosition);
+        outState.putInt("selected_language",selectedPosition);
+    }
+
+    public void setButton(ImageButton button) {
+         this.button = button;
     }
 
     public void setControls() {

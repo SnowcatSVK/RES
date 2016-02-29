@@ -3,6 +3,7 @@ package sk.antik.res;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.KeyguardManager;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,10 +11,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -27,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiskCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -39,10 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -97,6 +94,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         setContentView(R.layout.activity_main);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.screenBrightness = 1.0f;
@@ -134,7 +133,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             res.updateConfiguration(conf, dm);
             recreate();
         }
-        getLoaderManager().initLoader(0, null, this);
 
         topBar = (LinearLayout) findViewById(R.id.top_bar_linearLayout);
         bottomBarIcons = (LinearLayout) findViewById(R.id.bottom_bar_linearLayout);
@@ -147,12 +145,18 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         imageButtons.add((ImageButton) findViewById(R.id.vod_imageButton));
         imageButtons.add((ImageButton) findViewById(R.id.mod_imageButton));
         imageButtons.add((ImageButton) findViewById(R.id.setting_imageButton));
+
         timeTextView = (TextView) findViewById(R.id.time_main_activity_textView);
         dateTextView = (TextView) findViewById(R.id.date_main_activity_textView);
         seatNumberTextView = (TextView) findViewById(R.id.seat_number_textView);
         seatNumberTextView.setText(seatNumber);
 
+        getLoaderManager().initLoader(0, null, this);
 
+
+        /*KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
+        final KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("TAG");
+        keyguardLock.disableKeyguard();*/
     }
 
     @Override
@@ -162,14 +166,16 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             Intent intent = new Intent(this, AppKillerService.class);
             startService(intent);
         }
-
-
-        setupTime();
-        registerReceiver();
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        //settingsFragment.setButton(imageButtons.get(imageButtons.size() - 1));
         loadVOD();
         loadMOD();
         loadChannels();
         loadRadios();
+        setupTime();
+        registerReceiver();
     }
 
     //AppKillerService.startingForbiddenApp = false;
@@ -283,6 +289,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         if (tvConnected) {
             getFragmentManager().beginTransaction().replace(R.id.root_layout, tvFragment).commit();
             setBackgrounds(view);
+        } else {
+            Toast.makeText(this, R.string.no_tv, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -291,6 +299,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             setBackgrounds(view);
             getFragmentManager().beginTransaction().replace(R.id.root_layout, radioFragment).commit();
             //tvFragment.releasePlayer();
+        } else {
+            Toast.makeText(this, R.string.no_tv, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -310,6 +320,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         if (vodConnected) {
             setBackgrounds(view);
             getFragmentManager().beginTransaction().replace(R.id.root_layout, vodFragment).commit();
+        } else {
+            Toast.makeText(this, R.string.no_tv, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -317,6 +329,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         if (modConnected) {
             setBackgrounds(view);
             getFragmentManager().beginTransaction().replace(R.id.root_layout, modFragment).commit();
+        } else {
+            Toast.makeText(this, R.string.no_tv, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -376,7 +390,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
     @Override
     public void onBackPressed() {
-
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -406,7 +419,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         Calendar c = Calendar.getInstance();
         SimpleDateFormat format; //= new SimpleDateFormat("EEE MMM dd hh:mm:ss Z yyyy");
         Locale locale = new Locale(language);
-        Log.e("Locale",language);
+        Log.e("Locale", language);
         format = new SimpleDateFormat("HH:mm dd MMM yyyy", locale);
         Date newDate = c.getTime();
         String date = format.format(newDate);
@@ -435,7 +448,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     return false;
                 }
 
-                return null;
+                return false;
             }
 
             @Override
@@ -452,21 +465,23 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                         ArrayList<Album> albums = new ArrayList<>();
                         for (int i = 0; i < modJsonArray.length(); i++) {
                             JSONObject albumJson = modJsonArray.getJSONObject(i);
-                            JSONArray songJsonArray = albumJson.getJSONArray("item");
-                            ArrayList<Song> songs = new ArrayList<>();
-                            for (int j = 0; j < songJsonArray.length(); j++) {
-                                JSONObject songJson = songJsonArray.getJSONObject(j);
-                                Song song = new Song(songJson.getInt("id"),
-                                        songJson.getInt("parent_id"),
-                                        songJson.getString("name"),
-                                        API + songJson.getString("source"));
-                                songs.add(song);
+                            JSONArray songJsonArray = albumJson.optJSONArray("item");
+                            if (songJsonArray != null) {
+                                ArrayList<Song> songs = new ArrayList<>();
+                                for (int j = 0; j < songJsonArray.length(); j++) {
+                                    JSONObject songJson = songJsonArray.getJSONObject(j);
+                                    Song song = new Song(songJson.getInt("id"),
+                                            songJson.getInt("parent_id"),
+                                            songJson.getString("name"),
+                                            API + songJson.getString("source"));
+                                    songs.add(song);
+                                }
+                                Album album = new Album(albumJson.getInt("id"),
+                                        albumJson.getString("name"),
+                                        API + albumJson.getString("source"),
+                                        API + albumJson.getString("img_source"), songs);
+                                albums.add(album);
                             }
-                            Album album = new Album(albumJson.getInt("id"),
-                                    albumJson.getString("name"),
-                                    API + albumJson.getString("source"),
-                                    API + albumJson.getString("img_source"), songs);
-                            albums.add(album);
                         }
                         modFragment.setAlbums(albums);
                         modConnected = true;
@@ -496,7 +511,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     return false;
                 }
 
-                return null;
+                return false;
             }
 
             @Override
@@ -546,7 +561,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     e.printStackTrace();
                     return false;
                 }
-                return null;
+                return false;
             }
 
             @Override
@@ -583,7 +598,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     e.printStackTrace();
                     return false;
                 }
-                return null;
+                return false;
             }
 
             @Override
@@ -640,10 +655,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     }*/
 
     public class AppInstallReceiver extends BroadcastReceiver {
-
         public AppInstallReceiver() {
         }
-
         @Override
         public void onReceive(Context context, Intent intent) {
             String packageName = intent.getData().getEncodedSchemeSpecificPart();

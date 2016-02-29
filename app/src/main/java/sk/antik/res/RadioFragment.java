@@ -94,6 +94,11 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 contentUri = Uri.parse(channels.get(position).streamURL);
+                for (Channel channel : channels) {
+                    channel.selected = false;
+                }
+                channels.get(position).selected = true;
+                adapter.notifyDataSetChanged();
                 playingVideo = true;
                 playPauseButton.setImageResource(R.drawable.ic_pause);
                 releasePlayer();
@@ -104,7 +109,7 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
         //contentUri = Uri.parse(channels.get(0).streamURL);
         volumeSeekbar = (SeekBar) rootView.findViewById(R.id.radio_volume_seekBar);
         playPauseButton = (ImageButton) rootView.findViewById(R.id.radio_play_pause_button);
-        surfaceView.setBackground(getActivity().getResources().getDrawable(R.drawable.radio_dummy_background, null));
+        surfaceView.setBackground(getActivity().getResources().getDrawable(R.drawable.radio_dummy_background));
         //preparePlayer();
         initControls();
         return rootView;
@@ -220,7 +225,7 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
             player.prepare();
             playerNeedsPrepare = false;
         }
-        surfaceView.setBackground(getActivity().getResources().getDrawable(R.drawable.radio_dummy_background, null));
+        surfaceView.setBackground(getActivity().getResources().getDrawable(R.drawable.radio_dummy_background));
         player.setSurface(surfaceView.getHolder().getSurface());
         player.setPlayWhenReady(true);
     }
@@ -240,9 +245,9 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
 
             audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
             volumeSeekbar.setMax(audioManager
-                    .getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
+                    .getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             volumeSeekbar.setProgress(audioManager
-                    .getStreamVolume(AudioManager.STREAM_SYSTEM));
+                    .getStreamVolume(AudioManager.STREAM_MUSIC));
 
 
             volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -279,6 +284,15 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
             });
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
+        for (Channel channel : channels) {
+            channel.selected = false;
         }
     }
 }

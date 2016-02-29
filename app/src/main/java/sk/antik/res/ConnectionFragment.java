@@ -1,10 +1,12 @@
 package sk.antik.res;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -34,6 +36,7 @@ public class ConnectionFragment extends Fragment {
     private ImageButton facebookButton;
     private ImageButton twitterButton;
     private ImageButton chromeButton;
+    private ProgressDialog progressDialog;
 
     public ConnectionFragment() {
         // Required empty public constructor
@@ -91,6 +94,7 @@ public class ConnectionFragment extends Fragment {
                     launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(launchIntent);
                 } else {
+
                     installPackage("com.android.chrome.apk",getActivity());
                 }
             }
@@ -112,43 +116,65 @@ public class ConnectionFragment extends Fragment {
         }
     }
 
-    public void installPackage(String packageName, Context context) {
-        AssetManager assetManager = context.getAssets();
+    public void installPackage(final String packageName, final Context context) {
 
-        InputStream in = null;
-        OutputStream out = null;
-
-        try {
-
-            in = assetManager.open(packageName);
-            out = new FileOutputStream(context.getExternalFilesDir(null).getPath() + "/" + packageName);
-
-            byte[] buffer = new byte[1024];
-
-            int read;
-            Log.e("Installations_instPkg", "Transfer start: " + packageName);
-            while ((read = in.read(buffer)) != -1) {
-
-                out.write(buffer, 0, read);
-
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(context, "Transfering files",
+                        "please wait...", true);
             }
-            Log.e("Installations_instPkg", "Transfer end: " + packageName);
-            in.close();
-            in = null;
 
-            out.flush();
-            out.close();
-            out = null;
+            @Override
+            protected Void doInBackground(Void... params) {
+                AssetManager assetManager = context.getAssets();
 
-            Intent install = new Intent(Intent.ACTION_VIEW);
+                InputStream in = null;
+                OutputStream out = null;
 
-            install.setDataAndType(Uri.fromFile(new File(context.getExternalFilesDir(null).getPath() + "/" + packageName)),
-                    "application/vnd.android.package-archive");
-            install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(install);
-            Log.e("Installations_instPkg", packageName.substring(0, packageName.length() - 4));
-        } catch (Exception e) {
-        }
+                try {
+
+                    in = assetManager.open(packageName);
+                    out = new FileOutputStream(context.getExternalFilesDir(null).getPath() + "/" + packageName);
+
+                    byte[] buffer = new byte[1024];
+
+                    int read;
+                    Log.e("Installations_instPkg", "Transfer start: " + packageName);
+                    while ((read = in.read(buffer)) != -1) {
+
+                        out.write(buffer, 0, read);
+
+                    }
+                    Log.e("Installations_instPkg", "Transfer end: " + packageName);
+                    in.close();
+                    in = null;
+
+                    out.flush();
+                    out.close();
+                    out = null;
+
+                    Log.e("Installations_instPkg", packageName.substring(0, packageName.length() - 4));
+                } catch (Exception e) {
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                Intent install = new Intent(Intent.ACTION_VIEW);
+
+                install.setDataAndType(Uri.fromFile(new File(context.getExternalFilesDir(null).getPath() + "/" + packageName)),
+                        "application/vnd.android.package-archive");
+                install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(install);
+                progressDialog.dismiss();
+            }
+        }.execute();
+
 
     }
 }

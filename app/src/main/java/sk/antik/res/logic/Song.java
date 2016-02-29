@@ -16,7 +16,7 @@ public class Song {
         this.albumId = albumId;
         this.source = source;
         this.number = name.substring(0, 2);
-        this.name = name.substring(3);
+        this.name = name.substring(3,name.length()-4).replaceAll("_"," ");
     }
 
     public String getName() {

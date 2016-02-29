@@ -71,7 +71,20 @@ public class AppKillerService extends Service {
                             if (!(apkInfo.packageName.equals("com.android.server.telecom") ||
                                     apkInfo.packageName.equals("com.android.providers.telephony") ||
                                     apkInfo.packageName.equals("com.android.systemui") ||
-                                    apkInfo.packageName.equals("android") || apkInfo.packageName.equals("com.cghs.stresstest") )) {
+                                    apkInfo.packageName.equals("android") || apkInfo.packageName.equals("com.cghs.stresstest")
+                                    || apkInfo.packageName.equals("com.android.providers.applications") || apkInfo.packageName.equals("com.sec.android.provider.logsprovider")
+                                    || apkInfo.packageName.equals("com.samsung.sec.android.application.csc") || apkInfo.packageName.equals("com.android.providers.security")
+                                    || apkInfo.packageName.equals("com.sec.android.sCloudRelayData") || apkInfo.packageName.equals("com.google.android.gms")
+                                    || apkInfo.packageName.equals("com.sec.pcw") || apkInfo.packageName.equals("com.sec.spp.push")
+                                    || apkInfo.packageName.equals("com.google.android.apps.plus") || apkInfo.packageName.equals("com.android.vending")
+                                    || apkInfo.packageName.equals("com.google.android.talk") || apkInfo.packageName.equals("com.google.android.googlequicksearchbox")
+                                    || apkInfo.packageName.equals("com.sec.android.app.FileShareServer") || apkInfo.packageName.equals("com.sec.android.gallery3d")
+                                    || apkInfo.packageName.equals("com.sec.android.inputmethod") || apkInfo.packageName.equals("com.google.android.partnersetup")
+                                    || apkInfo.packageName.equals("com.android.contacts") || apkInfo.packageName.equals("com.google.android.syncadapters.contacts")
+                                    || apkInfo.packageName.equals("org.simalliance.openmobileapi.service") || apkInfo.packageName.equals("com.wssyncmldm")
+                                    || apkInfo.packageName.equals("com.sec.android.providers.downloads") || apkInfo.packageName.equals("com.samsung.groupcast")
+                                    || apkInfo.packageName.equals("com.samsung.videohub") || apkInfo.packageName.equals("com.sec.android.app.keyguard")
+                                    || apkInfo.packageName.equals("com.sec.android.pagebuddynotisvc"))) {
                                 // Log.e("SettingsTest", "LastFrontAppPkg: " + lastFrontAppPkg);
                                 Log.e("SettingsTest", "LastFrontAppPkg: " + lastFrontAppPkg + ", foreground package: " + apkInfo.packageName);
                                 lastFrontAppPkg = appProcess.pkgList[0];

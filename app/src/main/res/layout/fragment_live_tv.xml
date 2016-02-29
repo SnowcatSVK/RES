@@ -7,15 +7,15 @@
 
     <ListView
         android:id="@+id/channels_listView"
-        android:layout_width="300dp"
+        android:layout_width="308dp"
         android:layout_height="match_parent"
-        android:background="#EEFFFFFF"
+        android:background="#CCFFFFFF"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:elevation="4dp"
         android:fadeScrollbars="false"
-        android:listSelector="@color/colorAccent"
+        android:listSelector="#00FFFFFF"
         android:paddingStart="4dp"
         android:scrollbarSize="20dp"
         android:scrollbarThumbVertical="@drawable/custom_scrollbar"

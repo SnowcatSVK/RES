@@ -82,13 +82,15 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/linearLayout"
         android:layout_marginTop="38dp"
-        android:layout_toEndOf="@+id/linearLayout" />
+        android:layout_toEndOf="@+id/linearLayout"
+        android:clickable="false"/>
 
     <CheckBox
         android:id="@+id/repeat_pin_checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/linearLayout"
-        android:layout_toEndOf="@+id/linearLayout" />
+        android:layout_toEndOf="@+id/linearLayout"
+        android:clickable="false"/>
 
 </RelativeLayout>

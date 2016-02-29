@@ -38,7 +38,9 @@ public class RequestHandler {
             urlConnection.setConnectTimeout(10000);
             OutputStream outputStream = urlConnection.getOutputStream();
             outputStream.write(request.toString().getBytes());
-            return new JSONObject(convertStreamToString(urlConnection.getInputStream()));
+            String response = convertStreamToString(urlConnection.getInputStream());
+            Log.e("Handler response", response);
+            return new JSONObject(response);
         } catch (JSONException e) {
             e.printStackTrace();
         }
