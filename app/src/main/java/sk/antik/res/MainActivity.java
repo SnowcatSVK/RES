@@ -3,7 +3,6 @@ package sk.antik.res;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.KeyguardManager;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -415,6 +414,11 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         registerReceiver(new AppInstallReceiver(), filter);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
     public void setupTime() {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat format; //= new SimpleDateFormat("EEE MMM dd hh:mm:ss Z yyyy");
@@ -661,34 +665,35 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         public void onReceive(Context context, Intent intent) {
             String packageName = intent.getData().getEncodedSchemeSpecificPart();
             Log.e("Installations", packageName);
+            String externalPath = context.getExternalFilesDir(null).getPath();
             File file;
             switch (packageName) {
                 case "com.mobilityware.spider":
-                    file = new File(context.getExternalFilesDir(null).getPath() + "/com.mobilityware.spider.apk");
+                    file = new File(externalPath + "/com.mobilityware.spider.apk");
                     file.delete();
                     gamesFragment.spiderSolitaireInstalled = true;
                     gamesFragment.switchIcon("Spider Solitaire");
                     break;
                 case "com.rovio.angrybirds":
-                    file = new File(context.getExternalFilesDir(null).getPath() + "/com.rovio.angrybirds.apk");
+                    file = new File(externalPath + "/com.rovio.angrybirds.apk");
                     file.delete();
                     gamesFragment.angryBirdsInstalled = true;
                     gamesFragment.switchIcon("Angry Birds");
                     break;
                 case "com.king.candycrushsaga":
-                    file = new File(context.getExternalFilesDir(null).getPath() + "/candycrush.apk");
+                    file = new File(externalPath + "/candycrush.apk");
                     file.delete();
                     gamesFragment.candyCrushInstalled = true;
                     gamesFragment.switchIcon("Candy Crush");
                     break;
                 case "com.twitter.android":
-                    file = new File(context.getExternalFilesDir(null).getPath() + "/com.twitter.android.apk");
+                    file = new File(externalPath + "/com.twitter.android.apk");
                     file.delete();
                     connectionFragment.twitterInstalled = true;
                     connectionFragment.switchIcon("Twitter");
                     break;
                 case "com.android,chrome":
-                    file = new File(context.getExternalFilesDir(null).getPath() + "/com.android.chrome.apk");
+                    file = new File(externalPath + "/com.android.chrome.apk");
                     file.delete();
                     connectionFragment.chromeInstalled = true;
                     connectionFragment.switchIcon("Chrome");

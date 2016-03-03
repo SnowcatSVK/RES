@@ -117,6 +117,11 @@ public class VODPlayerActivity extends Activity implements SurfaceHolder.Callbac
                 break;
             case ExoPlayer.STATE_ENDED:
                 Log.e("Status", "ended");
+                if (t != null) {
+                    t.cancel();
+                    t.purge();
+                    t = null;
+                }
                 break;
             case ExoPlayer.STATE_IDLE:
                 Log.e("Status", "idle");

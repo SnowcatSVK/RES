@@ -13,6 +13,7 @@
 
     <style name="TwoWayView">
         <item name="android:orientation">horizontal</item>
+        <item name="android:listSelector">@drawable/two_way_view_selector</item>
     </style>
 
 </resources>

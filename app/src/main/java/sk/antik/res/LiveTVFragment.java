@@ -40,6 +40,7 @@ import sk.antik.res.logic.Channel;
 import sk.antik.res.logic.ChannelAdapter;
 import sk.antik.res.logic.Setting;
 import sk.antik.res.player.CustomPlayer;
+import sk.antik.res.player.ExtractorRendererBuilder;
 import sk.antik.res.player.HlsRendererBuilder;
 
 
@@ -231,9 +232,9 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
         }
     }
 
-    private HlsRendererBuilder createRenderer() {
+    private ExtractorRendererBuilder createRenderer() {
         String userAgent = Util.getUserAgent(getActivity(), "Exo playerTest");
-        return new HlsRendererBuilder(getActivity(), userAgent, contentUri.toString());
+        return new ExtractorRendererBuilder(getActivity(), userAgent, contentUri);
     }
 
     private void preparePlayer() {

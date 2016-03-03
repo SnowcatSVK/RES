@@ -73,7 +73,7 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     private DisplayImageOptions options;
 
-    private Timer t;
+    private Timer t = null;
 
     private ArrayList<Album> albums;
 
@@ -261,9 +261,11 @@ public class MODFragment extends Fragment implements CustomPlayer.Listener, Cust
                         player.seekTo(seekBar.getProgress());
                     }
                 });
-                t = new Timer();
-                t.schedule(new ProgressTimerTask()
-                        , 0, 1000);
+                if (t == null) {
+                    t = new Timer();
+                    t.schedule(new ProgressTimerTask()
+                            , 0, 1000);
+                }
                 break;
             default:
                 break;
