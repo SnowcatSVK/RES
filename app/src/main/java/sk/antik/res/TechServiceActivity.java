@@ -13,6 +13,7 @@ public class TechServiceActivity extends Activity {
 
     private EditText ipAddrEditText;
     private EditText seatNumberEditText;
+    private EditText busPlateEditText;
     private SharedPreferences prefs;
 
     @Override
@@ -27,6 +28,7 @@ public class TechServiceActivity extends Activity {
         prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
         ipAddrEditText = (EditText) findViewById(R.id.device_ip_editText);
         seatNumberEditText = (EditText) findViewById(R.id.seat_number_editText);
+        busPlateEditText = (EditText) findViewById(R.id.bus_plate_editText);
     }
 
     public void onCofirmButtonClick(View view) {
@@ -43,7 +45,10 @@ public class TechServiceActivity extends Activity {
             } else {
                 if (ipAddrEditText.getText().toString().length() != 0 && seatNumberEditText.getText().toString().length() == 0) {
                     String ipAddr = "http://" + ip;
-                    prefs.edit().putString("API_IP", ipAddr).apply();
+                    if (busPlateEditText.getText().length() == 0)
+                        prefs.edit().putString("API_IP", ipAddr).apply();
+                    else
+                        prefs.edit().putString("API_IP", ipAddr).putString("BUS_PLATE", busPlateEditText.getText().toString()).apply();
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -51,7 +56,10 @@ public class TechServiceActivity extends Activity {
                     if ((ipAddrEditText.getText().toString().length() != 0 && seatNumberEditText.getText().toString().length() != 0)) {
                         String ipAddr = "http://" + ip;
                         String seatNumber = seatNumberEditText.getText().toString();
-                        prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).apply();
+                        if (busPlateEditText.getText().length() == 0)
+                            prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).apply();
+                        else
+                            prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).putString("BUS_PLATE", busPlateEditText.getText().toString()).apply();
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -60,7 +68,10 @@ public class TechServiceActivity extends Activity {
             }
             if (seatNumberEditText.getText().toString().length() != 0 && ipAddrEditText.getText().toString().length() == 0) {
                 String seatNumber = seatNumberEditText.getText().toString();
-                prefs.edit().putString("SEAT_No", seatNumber).apply();
+                if (busPlateEditText.getText().length() == 0)
+                    prefs.edit().putString("SEAT_No", seatNumber).apply();
+                else
+                    prefs.edit().putString("SEAT_No", seatNumber).putString("BUS_PLATE", busPlateEditText.getText().toString()).apply();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();

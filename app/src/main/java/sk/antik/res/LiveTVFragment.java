@@ -2,13 +2,15 @@ package sk.antik.res;
 
 
 import android.content.Context;
-import android.graphics.Color;
+//import android.content.res.Configuration;
+//import android.graphics.Color;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+//import android.util.Log;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -22,34 +24,41 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.google.android.exoplayer.AspectRatioFrameLayout;
-import com.google.android.exoplayer.ExoPlayer;
+//import com.google.android.exoplayer.ExoPlayer;
 import com.google.android.exoplayer.audio.AudioCapabilities;
-import com.google.android.exoplayer.audio.AudioCapabilitiesReceiver;
+/*import com.google.android.exoplayer.audio.AudioCapabilitiesReceiver;
 import com.google.android.exoplayer.text.Cue;
 import com.google.android.exoplayer.util.Util;
+*/
+import org.videolan.libvlc.IVLCVout;
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.Media;
+import org.videolan.libvlc.MediaPlayer;
 
-import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+/*import java.util.List;
 import java.util.Map;
 
 import sk.antik.res.loader.AppModel;
+*/
 import sk.antik.res.logic.Channel;
 import sk.antik.res.logic.ChannelAdapter;
-import sk.antik.res.logic.Setting;
 import sk.antik.res.player.CustomPlayer;
-import sk.antik.res.player.ExtractorRendererBuilder;
-import sk.antik.res.player.HlsRendererBuilder;
+//import sk.antik.res.player.HlsRendererBuilder;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
+public class LiveTVFragment extends Fragment implements /*SurfaceHolder.Callback,
         CustomPlayer.Listener, CustomPlayer.CaptionListener, CustomPlayer.Id3MetadataListener,
-        AudioCapabilitiesReceiver.Listener {
+        AudioCapabilitiesReceiver.Listener, */IVLCVout.Callback, LibVLC.HardwareAccelerationError, MediaPlayer.EventListener {
 
     private AspectRatioFrameLayout videoFrame;
     public SurfaceView surfaceView;
@@ -70,9 +79,15 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
     public ImageButton channelListButton;
     public LinearLayout buttonSeparatorLayout;
     public LinearLayout separatorLayout;
-    private ProgressBar progressBar;
+    public ProgressBar progressBar;
     private SurfaceHolder holder;
     private boolean videoPaused = false;
+    private LibVLC libvlc;
+    private MediaPlayer mMediaPlayer = null;
+    public int mVideoWidth;
+    public int mVideoHeight;
+    private final static int VideoSizeChanged = -1;
+    //private MediaPlayer.EventListener mPlayerListener = new MyPlayerListener(this);
 
 
     public LiveTVFragment() {
@@ -84,11 +99,19 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        try {
+            libvlc = new LibVLC();
+        } catch (IllegalStateException e) {
+            Toast.makeText(getActivity(),
+                    "Error initializing the libVLC multimedia framework!",
+                    Toast.LENGTH_LONG).show();
+        }
+        Log.e("OnCreateView", "OnCreateView");
         View rootView = inflater.inflate(R.layout.fragment_live_tv, container, false);
         videoFrame = (AspectRatioFrameLayout) rootView.findViewById(R.id.surfaceFrame);
         surfaceView = (SurfaceView) rootView.findViewById(R.id.surface_view);
         holder = surfaceView.getHolder();
-        holder.addCallback(this);
+        //holder.addCallback(this);
         tvFrame = (FrameLayout) rootView.findViewById(R.id.surfaceHolder);
         channelsListView = (ListView) rootView.findViewById(R.id.channels_listView);
         parent = (RelativeLayout) rootView.findViewById(R.id.liveTV_parent_layout);
@@ -119,8 +142,15 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
                 adapter.notifyDataSetChanged();
                 playingVideo = true;
                 playPauseButton.setImageResource(R.drawable.ic_pause);
-                releasePlayer();
-                preparePlayer();
+                /*releasePlayer();
+                preparePlayer();*/
+                if (mMediaPlayer == null)
+                    createPlayer(contentUri.toString());
+                else {
+                    mMediaPlayer.stop();
+                    mMediaPlayer.setMedia(new Media(libvlc, contentUri));
+                    mMediaPlayer.play();
+                }
             }
         });
 
@@ -141,7 +171,7 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
 
     }
 
-    @Override
+    /*@Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (view == channelsListView) {
@@ -232,9 +262,9 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
         }
     }
 
-    private ExtractorRendererBuilder createRenderer() {
+    private HlsRendererBuilder createRenderer() {
         String userAgent = Util.getUserAgent(getActivity(), "Exo playerTest");
-        return new ExtractorRendererBuilder(getActivity(), userAgent, contentUri);
+        return new HlsRendererBuilder(getActivity(), userAgent, contentUri.toString());
     }
 
     private void preparePlayer() {
@@ -264,6 +294,62 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
             player = null;
 
         }
+    }*/
+
+
+    private void createPlayer(String media) {
+        //releasePlayer();
+        try {
+            if (media.length() > 0) {
+                Toast toast = Toast.makeText(getActivity(), media, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0,
+                        0);
+                toast.show();
+            }
+
+            // Create LibVLC
+            // TODO: make this more robust, and sync with audio demo
+            ArrayList<String> options = new ArrayList<>();
+            //options.add("--subsdec-encoding <encoding>");
+            options.add("--aout=opensles");
+            options.add("--audio-time-stretch"); // time stretching
+            options.add("-vvv"); // verbosity
+            libvlc = new LibVLC(options);
+            libvlc.setOnHardwareAccelerationError(this);
+            holder.setKeepScreenOn(true);
+
+            // Create media player
+            mMediaPlayer = new MediaPlayer(libvlc);
+            mMediaPlayer.setEventListener(this);
+
+            // Set up video output
+            final IVLCVout vout = mMediaPlayer.getVLCVout();
+            vout.setVideoView(surfaceView);
+            //vout.setSubtitlesView(mSurfaceSubtitles);
+            vout.addCallback(this);
+            vout.attachViews();
+
+            Media m = new Media(libvlc, Uri.parse(media));
+            mMediaPlayer.setMedia(m);
+            mMediaPlayer.play();
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Error creating player!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // TODO: handle this cleaner
+    private void releasePlayer() {
+        if (libvlc == null)
+            return;
+        mMediaPlayer.stop();
+        final IVLCVout vout = mMediaPlayer.getVLCVout();
+        vout.removeCallback(this);
+        vout.detachViews();
+        libvlc.release();
+        libvlc = null;
+        mMediaPlayer = null;
+        mVideoWidth = 0;
+        mVideoHeight = 0;
     }
 
     private void initControls() {
@@ -322,5 +408,189 @@ public class LiveTVFragment extends Fragment implements SurfaceHolder.Callback,
         for (Channel channel : channels) {
             channel.selected = false;
         }
+    }
+
+    /*public ArrayList<Integer> getMediaDimens() {
+        ArrayList<Integer> dimens = new ArrayList<>();
+    }
+*/
+
+    @Override
+    public void onNewLayout(IVLCVout vout, int width, int height, int visibleWidth, int visibleHeight, int sarNum, int sarDen) {
+        if (width * height == 0)
+            return;
+
+        // store video size
+        mVideoWidth = width;
+        mVideoHeight = height;
+        setSize(mVideoWidth, mVideoHeight);
+    }
+
+    @Override
+    public void onSurfacesCreated(IVLCVout vlcVout) {
+
+    }
+
+    @Override
+    public void onSurfacesDestroyed(IVLCVout vlcVout) {
+
+    }
+
+    @Override
+    public void onEvent(MediaPlayer.Event event) {
+        switch (event.type) {
+            case MediaPlayer.Event.EndReached:
+                releasePlayer();
+                break;
+            case MediaPlayer.Event.Playing:
+//                    progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+                int trackCount = mMediaPlayer.getMedia().getTrackCount();
+                Log.e("SizeSet", String.valueOf(trackCount));
+                for (int i = 0; i < trackCount; i++) {
+                    if (mMediaPlayer.getMedia().getTrack(i).type == 1) {
+                        Log.e("SizeSet", "gotVideo");
+                        Media.VideoTrack track = (Media.VideoTrack) mMediaPlayer.getMedia().getTrack(i);
+                        setSize(track.width, track.height);
+                    }
+                }
+                break;
+            case MediaPlayer.Event.Paused:
+            case MediaPlayer.Event.Stopped:
+            case MediaPlayer.Event.Opening:
+                //progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    /*private static class MyPlayerListener implements MediaPlayer.EventListener {
+        private WeakReference<LiveTVFragment> mOwner;
+
+        public MyPlayerListener(LiveTVFragment owner) {
+            mOwner = new WeakReference<>(owner);
+        }
+
+        @Override
+        public void onEvent(MediaPlayer.Event event) {
+            LiveTVFragment player = mOwner.get();
+
+            switch (event.type) {
+                case MediaPlayer.Event.EndReached:
+                    player.releasePlayer();
+                    break;
+                case MediaPlayer.Event.Playing:
+//                    progressBar.setVisibility(View.INVISIBLE);
+                    player.progressBar.setVisibility(View.INVISIBLE);
+                    int trackCount = player.mMediaPlayer.getMedia().getTrackCount();
+                    Log.e("SizeSet", String.valueOf(trackCount));
+                    for (int i = 0; i < trackCount; i++) {
+                        if (player.mMediaPlayer.getMedia().getTrack(i).type == 1) {
+                            Log.e("SizeSet", "gotVideo");
+                            Media.VideoTrack track = (Media.VideoTrack) player.mMediaPlayer.getMedia().getTrack(i);
+                            player.setSize(track.width, track.height);
+                        }
+                    }
+                    break;
+                case MediaPlayer.Event.Paused:
+                case MediaPlayer.Event.Stopped:
+                case MediaPlayer.Event.Opening:
+                    //progressBar.setVisibility(View.VISIBLE);
+                    player.progressBar.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }*/
+
+    @Override
+    public void eventHardwareAccelerationError() {
+        this.releasePlayer();
+        Toast.makeText(getActivity(), "Error with hardware acceleration", Toast.LENGTH_LONG).show();
+    }
+
+    public void setSize(int width, int height) {
+        mVideoWidth = width;
+        mVideoHeight = height;
+        if (mVideoWidth * mVideoHeight <= 1)
+            return;
+
+        if (holder == null || surfaceView == null)
+            return;
+
+
+        if ((mVideoWidth / 4) * 3 == mVideoHeight) {
+            ViewGroup.LayoutParams surfaceViewLayoutParams = surfaceView.getLayoutParams();
+            surfaceViewLayoutParams.height = tvFrame.getHeight();
+
+            if (mVideoHeight > tvFrame.getHeight()) {
+                double ratio = (double) mVideoHeight / (double) tvFrame.getHeight();
+                Log.e("Params", "Video width x height: " + String.valueOf(mVideoWidth) + "x" + String.valueOf(mVideoHeight) +
+                        ", frame width x height: " + String.valueOf(tvFrame.getWidth()) + "x" + String.valueOf(tvFrame.getHeight()) + ", ratio: " + String.valueOf(ratio));
+                if (ratio > 1.000000000000000000) {
+                    surfaceViewLayoutParams.width = (int) (mVideoWidth / ratio);
+                }
+            }
+            surfaceView.setLayoutParams(surfaceViewLayoutParams);
+            surfaceView.invalidate();
+        } else {
+            if (mVideoWidth == 720 && mVideoHeight == 576) {
+                ViewGroup.LayoutParams surfaceViewLayoutParams = surfaceView.getLayoutParams();
+                surfaceViewLayoutParams.width = -1;
+                surfaceViewLayoutParams.height = -1;
+                Log.e("Params", "Video width x height: " + String.valueOf(mVideoWidth) + "x" + String.valueOf(mVideoHeight) +
+                        ", frame width x height: " + String.valueOf(tvFrame.getWidth()) + "x" + String.valueOf(tvFrame.getHeight()));
+                surfaceView.setLayoutParams(surfaceViewLayoutParams);
+                surfaceView.invalidate();
+            } else {
+                ViewGroup.LayoutParams surfaceViewLayoutParams = surfaceView.getLayoutParams();
+                surfaceViewLayoutParams.width = tvFrame.getWidth();
+
+                if (mVideoWidth > tvFrame.getWidth()) {
+                    double ratio = (double) mVideoWidth / (double) tvFrame.getWidth();
+                    Log.e("Params", "Video width x height: " + String.valueOf(mVideoWidth) + "x" + String.valueOf(mVideoHeight) +
+                            ", frame width x height: " + String.valueOf(tvFrame.getWidth()) + "x" + String.valueOf(tvFrame.getHeight()) + ", ratio: " + String.valueOf(ratio));
+                    if (ratio > 1.000000000000000000) {
+                        surfaceViewLayoutParams.height = (int) (mVideoHeight / ratio);
+                    }
+                }
+                surfaceView.setLayoutParams(surfaceViewLayoutParams);
+                surfaceView.invalidate();
+            }
+        }
+        // get screen size
+        /*int w = getActivity().getWindow().getDecorView().getWidth();
+        int h = getActivity().getWindow().getDecorView().getHeight();
+
+        /*getWindow().getDecorView() doesn't always take orientation into
+         account, we have to correct the values
+        boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        if (w > h && isPortrait || w < h && !isPortrait) {
+            int i = w;
+            w = h;
+            h = i;
+        }*/
+
+        /*float videoAR = (float) mVideoWidth / (float) mVideoHeight;
+        float screenAR = (float) w / (float) h;
+
+        if (screenAR < videoAR)
+            h = (int) (w / videoAR);
+        else
+            w = (int) (h * videoAR);
+
+        // force surface buffer size
+        //holder.setFixedSize(mVideoWidth, mVideoHeight);
+
+        // set display size
+        ViewGroup.LayoutParams lp = surfaceView.getLayoutParams();
+        lp.width = w;
+        lp.height = h;
+        surfaceView.setLayoutParams(lp);
+        surfaceView.invalidate();*/
     }
 }

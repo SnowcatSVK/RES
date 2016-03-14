@@ -26,26 +26,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toEndOf="@id/channels_listView"
-        android:background="#000"
         android:elevation="2dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="#000">
 
-        <com.google.android.exoplayer.AspectRatioFrameLayout
+        <!--<com.google.android.exoplayer.AspectRatioFrameLayout
             android:id="@+id/surfaceFrame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#000">
+            android:layout_gravity="center">-->
 
             <SurfaceView
                 android:id="@+id/surface_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#000"
                 android:onClick="onTVClick" />
 
-        </com.google.android.exoplayer.AspectRatioFrameLayout>
+        <!--</com.google.android.exoplayer.AspectRatioFrameLayout>-->
 
         <ProgressBar
             android:id="@+id/progressBar"

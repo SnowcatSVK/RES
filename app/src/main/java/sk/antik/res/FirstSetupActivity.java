@@ -20,6 +20,7 @@ public class FirstSetupActivity extends Activity {
     private SharedPreferences prefs = null;
     private EditText ipAddrEditText;
     private EditText seatNumberEditText;
+    private EditText busPlateEditText;
     private CheckBox englishCheckbox;
     private CheckBox turkishCheckBox;
 
@@ -34,12 +35,13 @@ public class FirstSetupActivity extends Activity {
         prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
         if (!prefs.getBoolean("FIRST_START", true)) {
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("FROM_SETUP",false);
+            intent.putExtra("FROM_SETUP", false);
             startActivity(intent);
             finish();
         }
         ipAddrEditText = (EditText) findViewById(R.id.device_ip_editText);
         seatNumberEditText = (EditText) findViewById(R.id.seat_number_editText);
+        busPlateEditText = (EditText) findViewById(R.id.bus_plate_editText);
         englishCheckbox = (CheckBox) findViewById(R.id.english_language_checkBox);
         turkishCheckBox = (CheckBox) findViewById(R.id.turkish_language_checkBox);
 
@@ -103,9 +105,11 @@ public class FirstSetupActivity extends Activity {
 
     public void onCofirmButtonClick(View view) {
         if (ipAddrEditText.getText().toString().length() == 0) {
-            Toast.makeText(this, "API IP Address is empty.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.toast_API_IP_missing), Toast.LENGTH_LONG).show();
         } else if (seatNumberEditText.getText().toString().length() == 0) {
-            Toast.makeText(this, "Seat Number is empty.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.toast_seat_number_missing), Toast.LENGTH_LONG).show();
+        } else if (busPlateEditText.getText().toString().length() == 0) {
+            Toast.makeText(this, getString(R.string.bus_plate_missing), Toast.LENGTH_LONG).show();
         } else {
             String ip = ipAddrEditText.getText().toString();
 
@@ -114,7 +118,8 @@ public class FirstSetupActivity extends Activity {
             } else {
                 String ipAddr = "http://" + ip;
                 String seatNumber = seatNumberEditText.getText().toString();
-                prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).putBoolean("FIRST_START",false).apply();
+                prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).putBoolean("FIRST_START", false)
+                        .putString("BUS_PLATE", busPlateEditText.getText().toString()).apply();
                 Intent intent = new Intent(this, PINSetupActivity.class);
                 startActivity(intent);
                 finish();

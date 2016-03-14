@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,9 +17,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.google.android.exoplayer.AspectRatioFrameLayout;
 import com.google.android.exoplayer.ExoPlayer;
@@ -27,6 +31,12 @@ import com.google.android.exoplayer.audio.AudioCapabilitiesReceiver;
 import com.google.android.exoplayer.text.Cue;
 import com.google.android.exoplayer.util.Util;
 
+import org.videolan.libvlc.IVLCVout;
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.Media;
+import org.videolan.libvlc.MediaPlayer;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +50,9 @@ import sk.antik.res.player.HlsRendererBuilder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
+public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
         CustomPlayer.Listener, CustomPlayer.CaptionListener, CustomPlayer.Id3MetadataListener,
-        AudioCapabilitiesReceiver.Listener {
+        AudioCapabilitiesReceiver.Listener, */IVLCVout.Callback, LibVLC.HardwareAccelerationError {
 
     private AspectRatioFrameLayout videoFrame;
     public SurfaceView surfaceView;
@@ -54,11 +64,25 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
     private AudioCapabilities audioCapabilities;
     public ListView channelsListView;
     public ArrayList<Channel> channels;
-    private ChannelAdapter adapter;
+    public ChannelAdapter adapter;
     private SeekBar volumeSeekbar = null;
     private AudioManager audioManager = null;
     private ImageButton playPauseButton = null;
     private boolean playingVideo = false;
+    public RelativeLayout parent;
+    public ImageButton channelListButton;
+    public LinearLayout buttonSeparatorLayout;
+    public LinearLayout separatorLayout;
+    public ProgressBar progressBar;
+    private SurfaceHolder holder;
+    private boolean videoPaused = false;
+    private LibVLC libvlc;
+    private MediaPlayer mMediaPlayer = null;
+    private int mVideoWidth;
+    private int mVideoHeight;
+    private final static int VideoSizeChanged = -1;
+    private MediaPlayer.EventListener mPlayerListener = new MyPlayerListener(this);
+
 
     public RadioFragment() {
         // Required empty public constructor
@@ -69,25 +93,36 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        try {
+            libvlc = new LibVLC();
+        } catch (IllegalStateException e) {
+            Toast.makeText(getActivity(),
+                    "Error initializing the libVLC multimedia framework!",
+                    Toast.LENGTH_LONG).show();
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_radio, container, false);
         videoFrame = (AspectRatioFrameLayout) rootView.findViewById(R.id.surfaceFrame);
         surfaceView = (SurfaceView) rootView.findViewById(R.id.surface_view);
-        surfaceView.getHolder().addCallback(this);
+        holder = surfaceView.getHolder();
+        //holder.addCallback(this);
         tvFrame = (FrameLayout) rootView.findViewById(R.id.surfaceHolder);
-        channelsListView = (ListView) rootView.findViewById(R.id.radio_listView);
+        channelsListView = (ListView) rootView.findViewById(R.id.channels_listView);
+        parent = (RelativeLayout) rootView.findViewById(R.id.liveTV_parent_layout);
         controlsLayout = (RelativeLayout) rootView.findViewById(R.id.player_controls_layout);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         /*channels = new ArrayList<>();
-        channels.add(new Channel("Europa 2"));
-        channels.get(0).streamURL = "http://88.212.15.22/live/m_europa/playlist.m3u8";
-        channels.add(new Channel("Funradio"));
-        channels.get(1).streamURL = "http://88.212.15.22/live/fun_radio/playlist.m3u8";
-        channels.add(new Channel("Express"));
-        channels.get(2).streamURL = "http://88.212.15.22/live/express_radio/playlist.m3u8";
-        channels.add(new Channel("Rádio Košice"));
-        channels.get(3).streamURL = "http://88.212.15.22/live/kosice_radio/playlist.m3u8";
-        channels.add(new Channel("BestFM"));
-        channels.get(4).streamURL = "http://88.212.15.22/live/bestfm_radio/playlist.m3u8";
-        */
+        channels.add(new Channel("Sky Sports"));
+        channels.add(new Channel("BBC World"));
+        channels.add(new Channel("CNN"));
+        channels.add(new Channel("Discovery Channel"));
+        channels.add(new Channel("VH-1"));
+        channels.add(new Channel("Hallmark TV"));
+        channels.add(new Channel("Music Channel"));
+        channels.add(new Channel("History Channel"));
+        channels.add(new Channel("BBC One"));
+        channels.add(new Channel("Sky News"));
+        channels.add(new Channel("ITV"));*/
         adapter = new ChannelAdapter(getActivity(), channels);
         channelsListView.setAdapter(adapter);
         channelsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,15 +136,24 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
                 adapter.notifyDataSetChanged();
                 playingVideo = true;
                 playPauseButton.setImageResource(R.drawable.ic_pause);
-                releasePlayer();
-                preparePlayer();
+                /*releasePlayer();
+                preparePlayer();*/
+                if (mMediaPlayer == null)
+                    createPlayer(contentUri.toString());
+                else {
+                    mMediaPlayer.stop();
+                    mMediaPlayer.setMedia(new Media(libvlc, contentUri));
+                    mMediaPlayer.play();
+                }
             }
         });
 
         //contentUri = Uri.parse(channels.get(0).streamURL);
-        volumeSeekbar = (SeekBar) rootView.findViewById(R.id.radio_volume_seekBar);
-        playPauseButton = (ImageButton) rootView.findViewById(R.id.radio_play_pause_button);
-        surfaceView.setBackground(getActivity().getResources().getDrawable(R.drawable.radio_dummy_background));
+        volumeSeekbar = (SeekBar) rootView.findViewById(R.id.tv_volume_seekBar);
+        playPauseButton = (ImageButton) rootView.findViewById(R.id.video_play_pause_button);
+        channelListButton = (ImageButton) rootView.findViewById(R.id.channel_list_button);
+        buttonSeparatorLayout = (LinearLayout) rootView.findViewById(R.id.button_separator_linear_layout);
+        separatorLayout = (LinearLayout) rootView.findViewById(R.id.separator_linear_layout);
         //preparePlayer();
         initControls();
         return rootView;
@@ -121,7 +165,7 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
 
     }
 
-    @Override
+    /*@Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (view == channelsListView) {
@@ -134,7 +178,6 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
     public void surfaceCreated(SurfaceHolder holder) {
         if (player != null) {
             player.setSurface(holder.getSurface());
-
         }
     }
 
@@ -165,18 +208,24 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
         switch (playbackState) {
             case ExoPlayer.STATE_BUFFERING:
                 Log.e("Status", "buffering");
+                progressBar.setVisibility(View.VISIBLE);
                 break;
             case ExoPlayer.STATE_ENDED:
                 Log.e("Status", "ended");
                 break;
             case ExoPlayer.STATE_IDLE:
                 Log.e("Status", "idle");
+                progressBar.setVisibility(View.INVISIBLE);
                 break;
             case ExoPlayer.STATE_PREPARING:
                 Log.e("Status", "preparing");
+                if (!videoPaused)
+                    progressBar.setVisibility(View.VISIBLE);
                 break;
             case ExoPlayer.STATE_READY:
                 Log.e("Status", "ready");
+                progressBar.setVisibility(View.INVISIBLE);
+                videoPaused = false;
                 break;
             default:
                 break;
@@ -225,12 +274,13 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
             player.prepare();
             playerNeedsPrepare = false;
         }
-        surfaceView.setBackground(getActivity().getResources().getDrawable(R.drawable.radio_dummy_background));
+        surfaceView.setBackground(null);
+        player.setBackgrounded(false);
         player.setSurface(surfaceView.getHolder().getSurface());
         player.setPlayWhenReady(true);
     }
 
-    private void releasePlayer() {
+    public void releasePlayer() {
         if (player != null) {
             //playerPosition = player.getCurrentPosition();
             videoFrame.setBackgroundColor(Color.parseColor("#000000"));
@@ -238,6 +288,63 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
             player = null;
 
         }
+    }*/
+
+
+    private void createPlayer(String media) {
+        //releasePlayer();
+        try {
+            if (media.length() > 0) {
+                Toast toast = Toast.makeText(getActivity(), media, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0,
+                        0);
+                toast.show();
+            }
+
+            // Create LibVLC
+            // TODO: make this more robust, and sync with audio demo
+            ArrayList<String> options = new ArrayList<>();
+            //options.add("--subsdec-encoding <encoding>");
+            options.add("--aout=opensles");
+            options.add("--audio-time-stretch"); // time stretching
+            options.add("-vvv"); // verbosity
+            libvlc = new LibVLC(options);
+            libvlc.setOnHardwareAccelerationError(this);
+            holder.setKeepScreenOn(true);
+
+            // Create media player
+            mMediaPlayer = new MediaPlayer(libvlc);
+            mMediaPlayer.setEventListener(mPlayerListener);
+
+            // Set up video output
+            final IVLCVout vout = mMediaPlayer.getVLCVout();
+            vout.setVideoView(surfaceView);
+            //vout.setSubtitlesView(mSurfaceSubtitles);
+            vout.addCallback(this);
+            vout.attachViews();
+
+            Media m = new Media(libvlc, Uri.parse(media));
+            mMediaPlayer.setMedia(m);
+            mMediaPlayer.play();
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Error creating player!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // TODO: handle this cleaner
+    private void releasePlayer() {
+        if (libvlc == null)
+            return;
+        mMediaPlayer.stop();
+        final IVLCVout vout = mMediaPlayer.getVLCVout();
+        vout.removeCallback(this);
+        vout.detachViews();
+        holder = null;
+        libvlc.release();
+        libvlc = null;
+
+        mVideoWidth = 0;
+        mVideoHeight = 0;
     }
 
     private void initControls() {
@@ -273,10 +380,12 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
                         if (playingVideo) {
                             player.stop();
                             playingVideo = false;
+                            videoPaused = true;
                             playPauseButton.setImageResource(R.drawable.ic_play_arrow);
                         } else {
                             player.prepare();
                             playingVideo = true;
+                            videoPaused = false;
                             playPauseButton.setImageResource(R.drawable.ic_pause);
                         }
                     }
@@ -294,5 +403,109 @@ public class RadioFragment extends Fragment implements SurfaceHolder.Callback,
         for (Channel channel : channels) {
             channel.selected = false;
         }
+    }
+
+    /*public ArrayList<Integer> getMediaDimens() {
+        ArrayList<Integer> dimens = new ArrayList<>();
+    }
+*/
+
+    @Override
+    public void onNewLayout(IVLCVout vout, int width, int height, int visibleWidth, int visibleHeight, int sarNum, int sarDen) {
+        if (width * height == 0)
+            return;
+
+        // store video size
+        mVideoWidth = width;
+        mVideoHeight = height;
+        //setSize(mVideoWidth, mVideoHeight);
+    }
+
+    @Override
+    public void onSurfacesCreated(IVLCVout vlcVout) {
+
+    }
+
+    @Override
+    public void onSurfacesDestroyed(IVLCVout vlcVout) {
+
+    }
+
+    private static class MyPlayerListener implements MediaPlayer.EventListener {
+        private WeakReference<RadioFragment> mOwner;
+
+        public MyPlayerListener(RadioFragment owner) {
+            mOwner = new WeakReference<>(owner);
+        }
+
+        @Override
+        public void onEvent(MediaPlayer.Event event) {
+            RadioFragment player = mOwner.get();
+
+            switch (event.type) {
+                case MediaPlayer.Event.EndReached:
+                    player.releasePlayer();
+                    break;
+                case MediaPlayer.Event.Playing:
+//                    progressBar.setVisibility(View.INVISIBLE);
+                    player.progressBar.setVisibility(View.INVISIBLE);
+                    break;
+                case MediaPlayer.Event.Paused:
+                case MediaPlayer.Event.Stopped:
+                case MediaPlayer.Event.Opening:
+                    //progressBar.setVisibility(View.VISIBLE);
+                    player.progressBar.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void eventHardwareAccelerationError() {
+        this.releasePlayer();
+        Toast.makeText(getActivity(), "Error with hardware acceleration", Toast.LENGTH_LONG).show();
+    }
+
+    public void setSize(int width, int height) {
+        mVideoWidth = width;
+        mVideoHeight = height;
+        if (mVideoWidth * mVideoHeight <= 1)
+            return;
+
+        if (holder == null || surfaceView == null)
+            return;
+
+        // get screen size
+        int w = getActivity().getWindow().getDecorView().getWidth();
+        int h = getActivity().getWindow().getDecorView().getHeight();
+
+        /*getWindow().getDecorView() doesn't always take orientation into
+         account, we have to correct the values
+        boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        if (w > h && isPortrait || w < h && !isPortrait) {
+            int i = w;
+            w = h;
+            h = i;
+        }*/
+
+        float videoAR = (float) mVideoWidth / (float) mVideoHeight;
+        float screenAR = (float) w / (float) h;
+
+        if (screenAR < videoAR)
+            h = (int) (w / videoAR);
+        else
+            w = (int) (h * videoAR);
+
+        // force surface buffer size
+        holder.setFixedSize(mVideoWidth, mVideoHeight);
+
+        // set display size
+        ViewGroup.LayoutParams lp = surfaceView.getLayoutParams();
+        lp.width = w;
+        lp.height = h;
+        surfaceView.setLayoutParams(lp);
+        surfaceView.invalidate();
     }
 }

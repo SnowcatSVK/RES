@@ -36,6 +36,8 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.MediaPlayer;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,8 +88,12 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private boolean vodConnected = false;
     private boolean modConnected = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().getDecorView().setSystemUiVisibility(
@@ -263,6 +269,20 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             tvFragment.separatorLayout.setVisibility(View.GONE);
             tvFragment.buttonSeparatorLayout.setVisibility(View.GONE);
             isTVFullscreen = false;
+            final Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvFragment.setSize(tvFragment.mVideoWidth, tvFragment.mVideoHeight);
+                            t.cancel();
+                            t.purge();
+                        }
+                    });
+                }
+            }, 50);
         } else {
             topBar.setVisibility(View.GONE);
             bottomBarIcons.setVisibility(View.GONE);
@@ -277,6 +297,21 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             tvFragment.channelListButton.setVisibility(View.VISIBLE);
             tvFragment.buttonSeparatorLayout.setVisibility(View.VISIBLE);
             isTVFullscreen = true;
+            final Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvFragment.setSize(tvFragment.mVideoWidth, tvFragment.mVideoHeight);
+                            t.cancel();
+                            t.purge();
+                        }
+                    });
+                }
+            },50);
+
         }
     }
 

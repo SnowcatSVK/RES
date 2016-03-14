@@ -24,4 +24,6 @@
     <string name="toast_API_IP_missing">API IP Adresi boştur.</string>
     <string name="toast_API_IP_wrong_symbol">API IP Adresi yanlış sembol içeriyor</string>
     <string name="toast_seat_number_missing">Koltuk sayısı boş.</string>
+    <string name="bus_plate_hint">Araç Plakası</string>
+    <string name="bus_plate_missing">Araç Plakası boştur.</string>
 </resources>
