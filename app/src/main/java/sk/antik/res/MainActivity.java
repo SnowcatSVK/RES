@@ -226,9 +226,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 case "Spider":
                     gamesFragment.spiderSolitaireInstalled = true;
                     break;
-                case "Twitter":
-                    connectionFragment.twitterInstalled = true;
-                    break;
                 case "Chrome":
                     connectionFragment.chromeInstalled = true;
                     break;
@@ -721,18 +718,13 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     gamesFragment.candyCrushInstalled = true;
                     gamesFragment.switchIcon("Candy Crush");
                     break;
-                case "com.twitter.android":
-                    file = new File(externalPath + "/com.twitter.android.apk");
-                    file.delete();
-                    connectionFragment.twitterInstalled = true;
-                    connectionFragment.switchIcon("Twitter");
-                    break;
-                case "com.android,chrome":
+                case "com.android.chrome":
                     file = new File(externalPath + "/com.android.chrome.apk");
                     file.delete();
                     connectionFragment.chromeInstalled = true;
                     connectionFragment.switchIcon("Chrome");
                     connectionFragment.switchIcon("Facebook");
+                    connectionFragment.switchIcon("Twitter");
                     break;
             }
         }

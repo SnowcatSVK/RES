@@ -300,12 +300,12 @@ public class LiveTVFragment extends Fragment implements /*SurfaceHolder.Callback
     private void createPlayer(String media) {
         //releasePlayer();
         try {
-            if (media.length() > 0) {
+            /*if (media.length() > 0) {
                 Toast toast = Toast.makeText(getActivity(), media, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0,
                         0);
                 toast.show();
-            }
+            }*/
 
             // Create LibVLC
             // TODO: make this more robust, and sync with audio demo
@@ -341,15 +341,17 @@ public class LiveTVFragment extends Fragment implements /*SurfaceHolder.Callback
     private void releasePlayer() {
         if (libvlc == null)
             return;
-        mMediaPlayer.stop();
-        final IVLCVout vout = mMediaPlayer.getVLCVout();
-        vout.removeCallback(this);
-        vout.detachViews();
-        libvlc.release();
-        libvlc = null;
-        mMediaPlayer = null;
-        mVideoWidth = 0;
-        mVideoHeight = 0;
+        if (mMediaPlayer != null) {
+            mMediaPlayer.stop();
+            final IVLCVout vout = mMediaPlayer.getVLCVout();
+            vout.removeCallback(this);
+            vout.detachViews();
+            libvlc.release();
+            libvlc = null;
+            mMediaPlayer = null;
+            mVideoWidth = 0;
+            mVideoHeight = 0;
+        }
     }
 
     private void initControls() {
@@ -381,14 +383,14 @@ public class LiveTVFragment extends Fragment implements /*SurfaceHolder.Callback
             playPauseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (player != null) {
+                    if (mMediaPlayer != null) {
                         if (playingVideo) {
-                            player.stop();
+                            mMediaPlayer.pause();
                             playingVideo = false;
                             videoPaused = true;
                             playPauseButton.setImageResource(R.drawable.ic_play_arrow);
                         } else {
-                            player.prepare();
+                            mMediaPlayer.play();
                             playingVideo = true;
                             videoPaused = false;
                             playPauseButton.setImageResource(R.drawable.ic_pause);

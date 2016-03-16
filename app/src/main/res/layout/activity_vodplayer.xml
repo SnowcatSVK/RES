@@ -24,8 +24,7 @@
                 android:id="@+id/surface_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#000" />
+                android:layout_gravity="center" />
 
         </com.google.android.exoplayer.AspectRatioFrameLayout>
 
@@ -35,11 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
             android:indeterminate="true"
             android:indeterminateTint="@color/colorAccent"
             android:indeterminateTintMode="src_in"
-            />
+            android:visibility="gone" />
     </FrameLayout>
 
     <RelativeLayout
@@ -55,8 +53,8 @@
             android:id="@+id/video_play_pause_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="#0fff"
             android:layout_alignParentBottom="true"
+            android:background="#0fff"
             android:contentDescription="Play/Pause button"
             android:src="@drawable/ic_play_arrow" />
 
@@ -64,8 +62,8 @@
             android:id="@+id/volume_imageView"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_marginStart="16dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/video_play_pause_button"
             android:src="@drawable/ic_volume_up" />
 
@@ -85,8 +83,8 @@
             android:id="@+id/vod_progress_seekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:progressBackgroundTint="#aaa"
             android:progressTint="#aaa"
             android:thumbTint="@color/colorAccent" />

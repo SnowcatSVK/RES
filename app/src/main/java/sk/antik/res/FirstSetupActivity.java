@@ -20,7 +20,7 @@ public class FirstSetupActivity extends Activity {
     private SharedPreferences prefs = null;
     private EditText ipAddrEditText;
     private EditText seatNumberEditText;
-    private EditText busPlateEditText;
+    //private EditText busPlateEditText;
     private CheckBox englishCheckbox;
     private CheckBox turkishCheckBox;
 
@@ -41,7 +41,7 @@ public class FirstSetupActivity extends Activity {
         }
         ipAddrEditText = (EditText) findViewById(R.id.device_ip_editText);
         seatNumberEditText = (EditText) findViewById(R.id.seat_number_editText);
-        busPlateEditText = (EditText) findViewById(R.id.bus_plate_editText);
+        //busPlateEditText = (EditText) findViewById(R.id.bus_plate_editText);
         englishCheckbox = (CheckBox) findViewById(R.id.english_language_checkBox);
         turkishCheckBox = (CheckBox) findViewById(R.id.turkish_language_checkBox);
 
@@ -108,9 +108,9 @@ public class FirstSetupActivity extends Activity {
             Toast.makeText(this, getString(R.string.toast_API_IP_missing), Toast.LENGTH_LONG).show();
         } else if (seatNumberEditText.getText().toString().length() == 0) {
             Toast.makeText(this, getString(R.string.toast_seat_number_missing), Toast.LENGTH_LONG).show();
-        } else if (busPlateEditText.getText().toString().length() == 0) {
+        } /*else if (busPlateEditText.getText().toString().length() == 0) {
             Toast.makeText(this, getString(R.string.bus_plate_missing), Toast.LENGTH_LONG).show();
-        } else {
+        }*/ else {
             String ip = ipAddrEditText.getText().toString();
 
             if (ip.contains("-") || ip.contains("/")) {
@@ -119,7 +119,7 @@ public class FirstSetupActivity extends Activity {
                 String ipAddr = "http://" + ip;
                 String seatNumber = seatNumberEditText.getText().toString();
                 prefs.edit().putString("API_IP", ipAddr).putString("SEAT_No", seatNumber).putBoolean("FIRST_START", false)
-                        .putString("BUS_PLATE", busPlateEditText.getText().toString()).apply();
+                        /*.putString("BUS_PLATE", busPlateEditText.getText().toString())*/.apply();
                 Intent intent = new Intent(this, PINSetupActivity.class);
                 startActivity(intent);
                 finish();

@@ -30,7 +30,6 @@ import sk.antik.res.loader.AppModel;
  */
 public class ConnectionFragment extends Fragment {
 
-    public boolean twitterInstalled = false;
     public boolean chromeInstalled = false;
 
     private ImageButton facebookButton;
@@ -57,24 +56,21 @@ public class ConnectionFragment extends Fragment {
                     launchIntent.setData(Uri.parse("https://www.facebook.com"));
                     startActivity(launchIntent);
                 } else {
-                    installPackage("com.android.chrome.apk",getActivity());
+                    installPackage("com.android.chrome.apk", getActivity());
                 }
             }
         });
         twitterButton = (ImageButton) rootView.findViewById(R.id.twitter_button);
-        if (twitterInstalled) {
-            twitterButton.setImageResource(R.drawable.twitter);
-        } else {
-            twitterButton.setImageResource(R.drawable.twitter_grey);
-        }
+
         twitterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (twitterInstalled) {
-                    Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.twitter.android");
+                if (chromeInstalled) {
+                    Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.android.chrome");
+                    launchIntent.setData(Uri.parse("https://www.twitter.com"));
                     startActivity(launchIntent);
                 } else {
-                    installPackage("com.twitter.android.apk",getActivity());
+                    installPackage("com.android.chrome.apk", getActivity());
                 }
             }
         });
@@ -82,9 +78,11 @@ public class ConnectionFragment extends Fragment {
         if (chromeInstalled) {
             chromeButton.setImageResource(R.drawable.chrome);
             facebookButton.setImageResource(R.drawable.facebook);
+            twitterButton.setImageResource(R.drawable.twitter);
         } else {
             chromeButton.setImageResource(R.drawable.chrome_grey);
             facebookButton.setImageResource(R.drawable.facebook_grey);
+            twitterButton.setImageResource(R.drawable.twitter_grey);
         }
         chromeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +93,7 @@ public class ConnectionFragment extends Fragment {
                     startActivity(launchIntent);
                 } else {
 
-                    installPackage("com.android.chrome.apk",getActivity());
+                    installPackage("com.android.chrome.apk", getActivity());
                 }
             }
         });

@@ -52,7 +52,7 @@ import sk.antik.res.player.HlsRendererBuilder;
  */
 public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
         CustomPlayer.Listener, CustomPlayer.CaptionListener, CustomPlayer.Id3MetadataListener,
-        AudioCapabilitiesReceiver.Listener, */IVLCVout.Callback, LibVLC.HardwareAccelerationError {
+        AudioCapabilitiesReceiver.Listener, */IVLCVout.Callback, LibVLC.HardwareAccelerationError, MediaPlayer.EventListener {
 
     private AspectRatioFrameLayout videoFrame;
     public SurfaceView surfaceView;
@@ -294,12 +294,12 @@ public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
     private void createPlayer(String media) {
         //releasePlayer();
         try {
-            if (media.length() > 0) {
+            /*if (media.length() > 0) {
                 Toast toast = Toast.makeText(getActivity(), media, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0,
                         0);
                 toast.show();
-            }
+            }*/
 
             // Create LibVLC
             // TODO: make this more robust, and sync with audio demo
@@ -314,7 +314,7 @@ public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
 
             // Create media player
             mMediaPlayer = new MediaPlayer(libvlc);
-            mMediaPlayer.setEventListener(mPlayerListener);
+            mMediaPlayer.setEventListener(this);
 
             // Set up video output
             final IVLCVout vout = mMediaPlayer.getVLCVout();
@@ -335,16 +335,17 @@ public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
     private void releasePlayer() {
         if (libvlc == null)
             return;
-        mMediaPlayer.stop();
-        final IVLCVout vout = mMediaPlayer.getVLCVout();
-        vout.removeCallback(this);
-        vout.detachViews();
-        holder = null;
-        libvlc.release();
-        libvlc = null;
-
-        mVideoWidth = 0;
-        mVideoHeight = 0;
+        if (mMediaPlayer != null) {
+            mMediaPlayer.stop();
+            final IVLCVout vout = mMediaPlayer.getVLCVout();
+            vout.removeCallback(this);
+            vout.detachViews();
+            libvlc.release();
+            libvlc = null;
+            mMediaPlayer = null;
+            mVideoWidth = 0;
+            mVideoHeight = 0;
+        }
     }
 
     private void initControls() {
@@ -376,14 +377,14 @@ public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
             playPauseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (player != null) {
+                    if (mMediaPlayer != null) {
                         if (playingVideo) {
-                            player.stop();
+                            mMediaPlayer.pause();
                             playingVideo = false;
                             videoPaused = true;
                             playPauseButton.setImageResource(R.drawable.ic_play_arrow);
                         } else {
-                            player.prepare();
+                            mMediaPlayer.play();
                             playingVideo = true;
                             videoPaused = false;
                             playPauseButton.setImageResource(R.drawable.ic_pause);
@@ -409,6 +410,36 @@ public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
         ArrayList<Integer> dimens = new ArrayList<>();
     }
 */
+
+    @Override
+    public void onEvent(MediaPlayer.Event event) {
+        switch (event.type) {
+            case MediaPlayer.Event.EndReached:
+                releasePlayer();
+                break;
+            case MediaPlayer.Event.Playing:
+//                    progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+                int trackCount = mMediaPlayer.getMedia().getTrackCount();
+                Log.e("SizeSet", String.valueOf(trackCount));
+                for (int i = 0; i < trackCount; i++) {
+                    if (mMediaPlayer.getMedia().getTrack(i).type == 1) {
+                        Log.e("SizeSet", "gotVideo");
+                        Media.VideoTrack track = (Media.VideoTrack) mMediaPlayer.getMedia().getTrack(i);
+                        setSize(track.width, track.height);
+                    }
+                }
+                break;
+            case MediaPlayer.Event.Paused:
+            case MediaPlayer.Event.Stopped:
+            case MediaPlayer.Event.Opening:
+                //progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void onNewLayout(IVLCVout vout, int width, int height, int visibleWidth, int visibleHeight, int sarNum, int sarDen) {
