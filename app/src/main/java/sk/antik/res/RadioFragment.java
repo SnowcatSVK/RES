@@ -81,7 +81,6 @@ public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
     private int mVideoWidth;
     private int mVideoHeight;
     private final static int VideoSizeChanged = -1;
-    private MediaPlayer.EventListener mPlayerListener = new MyPlayerListener(this);
 
 
     public RadioFragment() {
@@ -102,13 +101,11 @@ public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
         }
 
         View rootView = inflater.inflate(R.layout.fragment_radio, container, false);
-        videoFrame = (AspectRatioFrameLayout) rootView.findViewById(R.id.surfaceFrame);
         surfaceView = (SurfaceView) rootView.findViewById(R.id.surface_view);
         holder = surfaceView.getHolder();
         //holder.addCallback(this);
         tvFrame = (FrameLayout) rootView.findViewById(R.id.surfaceHolder);
-        channelsListView = (ListView) rootView.findViewById(R.id.channels_listView);
-        parent = (RelativeLayout) rootView.findViewById(R.id.liveTV_parent_layout);
+        channelsListView = (ListView) rootView.findViewById(R.id.radio_listView);
         controlsLayout = (RelativeLayout) rootView.findViewById(R.id.player_controls_layout);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         /*channels = new ArrayList<>();
@@ -149,11 +146,8 @@ public class RadioFragment extends Fragment implements /*SurfaceHolder.Callback,
         });
 
         //contentUri = Uri.parse(channels.get(0).streamURL);
-        volumeSeekbar = (SeekBar) rootView.findViewById(R.id.tv_volume_seekBar);
-        playPauseButton = (ImageButton) rootView.findViewById(R.id.video_play_pause_button);
-        channelListButton = (ImageButton) rootView.findViewById(R.id.channel_list_button);
-        buttonSeparatorLayout = (LinearLayout) rootView.findViewById(R.id.button_separator_linear_layout);
-        separatorLayout = (LinearLayout) rootView.findViewById(R.id.separator_linear_layout);
+        volumeSeekbar = (SeekBar) rootView.findViewById(R.id.radio_volume_seekBar);
+        playPauseButton = (ImageButton) rootView.findViewById(R.id.radio_play_pause_button);
         //preparePlayer();
         initControls();
         return rootView;

@@ -12,5 +12,11 @@ public class Channel {
 
     public Channel() {
         selected = false;
+        fullScreen = false;
+    }
+
+    public String toString() {
+        String returnString = "Name: " + name + "Source: " + streamURL;
+        return returnString;
     }
 }

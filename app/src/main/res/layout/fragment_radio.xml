@@ -25,30 +25,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toEndOf="@id/radio_listView"
-        android:background="@drawable/radio_dummy_background"
-        android:gravity="center">
+        android:elevation="2dp"
+        android:gravity="center"
+        android:background="@drawable/radio_dummy_background">
 
-        <com.google.android.exoplayer.AspectRatioFrameLayout
+        <!--<com.google.android.exoplayer.AspectRatioFrameLayout
             android:id="@+id/surfaceFrame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center">-->
 
-            <SurfaceView
-                android:id="@+id/surface_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:onClick="onTVClick" />
+        <SurfaceView
+            android:id="@+id/surface_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="onTVClick"
+            android:background="@drawable/radio_dummy_background"/>
 
-        </com.google.android.exoplayer.AspectRatioFrameLayout>
+        <!--</com.google.android.exoplayer.AspectRatioFrameLayout>-->
+
 
         <RelativeLayout
             android:id="@+id/player_controls_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="bottom"
-            android:layout_toEndOf="@+id/channels_listView"
             android:background="#80000000">
 
             <ImageButton
@@ -78,6 +80,18 @@
                 android:progressTint="#aaa"
                 android:thumbTint="@color/colorAccent" />
         </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorAccent"
+            android:indeterminateTintMode="src_in"
+            />
     </FrameLayout>
 
 
