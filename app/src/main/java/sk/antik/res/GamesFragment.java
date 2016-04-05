@@ -18,11 +18,13 @@ import android.widget.ImageButton;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
 import sk.antik.res.loader.AppModel;
+import sk.antik.res.logic.Apk;
 
 
 /**
@@ -62,7 +64,7 @@ public class GamesFragment extends Fragment {
                     Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.king.candycrushsaga");
                     startActivity(launchIntent);
                 } else {
-                    installPackage("candycrush.apk",getActivity());
+                    findApk("candycrush.apk");
                 }
             }
         });
@@ -79,7 +81,7 @@ public class GamesFragment extends Fragment {
                     Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.rovio.angrybirds");
                     startActivity(launchIntent);
                 } else {
-                    installPackage("com.rovio.angrybirds.apk",getActivity());
+                    findApk("com.rovio.angrybirds.apk");
                 }
             }
         });
@@ -96,11 +98,21 @@ public class GamesFragment extends Fragment {
                     Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.mobilityware.spider");
                     startActivity(launchIntent);
                 } else {
-                    installPackage("com.mobilityware.spider.apk",getActivity());
+                    findApk("com.mobilityware.spider.apk");
                 }
             }
         });
         return rootView;
+    }
+
+    public void findApk(String name) {
+        for (Apk apk : MainActivity.apps) {
+            Log.e("ApkResponse", apk.name);
+            if (apk.name.equalsIgnoreCase(name)) {
+
+                installPackage(name, apk.address, getActivity());
+            }
+        }
     }
 
 
@@ -117,7 +129,9 @@ public class GamesFragment extends Fragment {
                 break;
         }
     }
-    public void installPackage(final String packageName, final Context context) {
+
+    public void installPackage(final String packageName, final String address, final Context context) {
+
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected void onPreExecute() {
@@ -128,35 +142,10 @@ public class GamesFragment extends Fragment {
 
             @Override
             protected Void doInBackground(Void... params) {
-                AssetManager assetManager = context.getAssets();
-
-                InputStream in = null;
-                OutputStream out = null;
-
                 try {
-
-                    in = assetManager.open(packageName);
-                    out = new FileOutputStream(context.getExternalFilesDir(null).getPath() + "/" + packageName);
-
-                    byte[] buffer = new byte[1024];
-
-                    int read;
-                    Log.e("Installations_instPkg", "Transfer start: " + packageName);
-                    while ((read = in.read(buffer)) != -1) {
-
-                        out.write(buffer, 0, read);
-
-                    }
-                    Log.e("Installations_instPkg", "Transfer end: " + packageName);
-                    in.close();
-                    in = null;
-
-                    out.flush();
-                    out.close();
-                    out = null;
-
-                    Log.e("Installations_instPkg", packageName.substring(0, packageName.length() - 4));
-                } catch (Exception e) {
+                    MainActivity.handler.downloadFile(address, packageName);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
@@ -174,6 +163,5 @@ public class GamesFragment extends Fragment {
                 progressDialog.dismiss();
             }
         }.execute();
-
     }
 }

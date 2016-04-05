@@ -107,7 +107,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         getWindow().setAttributes(lp);
         prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
         API = prefs.getString("API_IP", "10.252.61.83");
-        handler = new RequestHandler(API + ":81", this);
+        handler = new RequestHandler(API + ":181", this);
         seatNumber = prefs.getString("SEAT_No", "00");
         language = prefs.getString("APP_LANGUAGE", "us");
         Log.e("Setting test", "onCreate - Main");
@@ -491,13 +491,13 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                                     Song song = new Song(songJson.getInt("id"),
                                             songJson.getInt("parent_id"),
                                             songJson.getString("name"),
-                                            API + songJson.getString("source"));
+                                            API + ":180" + songJson.getString("source"));
                                     songs.add(song);
                                 }
                                 Album album = new Album(albumJson.getInt("id"),
                                         albumJson.getString("name"),
-                                        API + albumJson.getString("source"),
-                                        API + albumJson.getString("img_source"), songs);
+                                        API + ":180" + albumJson.getString("source"),
+                                        API + ":180" + albumJson.getString("img_source"), songs);
                                 albums.add(album);
                             }
                         }
@@ -547,8 +547,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             JSONObject vodJson = vodJsonArray.getJSONObject(i);
                             VOD vod = new VOD(vodJson.getInt("id"),
                                     vodJson.getString("name"),
-                                    API + vodJson.getString("source"),
-                                    API + vodJson.getString("img_source"));
+                                    API + ":180" + vodJson.getString("source"),
+                                    API + ":180" + vodJson.getString("img_source"));
                             vods.add(vod);
                         }
                         vodFragment.setVods(vods);
@@ -667,7 +667,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                             Apk apk = new Apk();
                             apk.name = jsonArray.getString(i);
                             Log.e("ApkResponse",apk.name);
-                            apk.address = API + "/data/apk/" + apk.name;
+                            apk.address = API + ":180" + "/data/apk/" + apk.name;
                             apps.add(apk);
                         }
                     } catch (JSONException e) {
