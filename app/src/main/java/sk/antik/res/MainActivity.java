@@ -36,8 +36,6 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.videolan.libvlc.LibVLC;
-import org.videolan.libvlc.MediaPlayer;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,6 +51,7 @@ import sk.antik.res.io.RequestHandler;
 import sk.antik.res.loader.AppLoader;
 import sk.antik.res.loader.AppModel;
 import sk.antik.res.logic.Album;
+import sk.antik.res.logic.Apk;
 import sk.antik.res.logic.Channel;
 import sk.antik.res.logic.ChannelFactory;
 import sk.antik.res.logic.Song;
@@ -73,12 +72,13 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private LinearLayout bottomBarIcons;
     private LinearLayout bottomBarDescription;
     private boolean isTVFullscreen = false;
-    private ArrayList<ImageButton> imageButtons;
+    public static ArrayList<ImageButton> imageButtons;
+    public static ArrayList<Apk> apps;
     private TextView timeTextView;
     private TextView dateTextView;
     private TextView seatNumberTextView;
     private String API;
-    private RequestHandler handler;
+    public static RequestHandler handler;
     private SharedPreferences prefs = null;
     private String seatNumber;
     public static String language;
@@ -87,11 +87,11 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     private boolean radCnnected = false;
     private boolean vodConnected = false;
     private boolean modConnected = false;
+    private boolean isListPresent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
 
         super.onCreate(savedInstanceState);
@@ -101,13 +101,13 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         //getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_antik);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.screenBrightness = 1.0f;
         getWindow().setAttributes(lp);
         prefs = getSharedPreferences("sk.antik.res", MODE_PRIVATE);
         API = prefs.getString("API_IP", "10.252.61.83");
-        handler = new RequestHandler(API + ":81");
+        handler = new RequestHandler(API + ":81", this);
         seatNumber = prefs.getString("SEAT_No", "00");
         language = prefs.getString("APP_LANGUAGE", "us");
         Log.e("Setting test", "onCreate - Main");
@@ -174,11 +174,11 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        //settingsFragment.setButton(imageButtons.get(imageButtons.size() - 1));
         loadVOD();
         loadMOD();
         loadChannels();
         loadRadios();
+        getApkList();
         setupTime();
         registerReceiver();
     }
@@ -293,6 +293,17 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             tvFragment.adapter.notifyDataSetChanged();
             tvFragment.channelListButton.setVisibility(View.VISIBLE);
             tvFragment.buttonSeparatorLayout.setVisibility(View.VISIBLE);
+            RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            relativeParams.removeRule(RelativeLayout.END_OF);
+            tvFragment.parent.updateViewLayout(tvFragment.tvFrame, relativeParams);
+            final RelativeLayout.LayoutParams listViewrelativeParams = new RelativeLayout.LayoutParams(tvFragment.channelsListView.getWidth(), ViewGroup.LayoutParams.MATCH_PARENT);
+            final RelativeLayout.LayoutParams controlsrelativeParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, tvFragment.controlsLayout.getHeight());
+            controlsrelativeParams.removeRule(RelativeLayout.END_OF);
+            controlsrelativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            listViewrelativeParams.addRule(RelativeLayout.ABOVE, tvFragment.controlsLayout.getId());
+            tvFragment.parent.updateViewLayout(tvFragment.channelsListView, listViewrelativeParams);
+            tvFragment.parent.updateViewLayout(tvFragment.controlsLayout, controlsrelativeParams);
             isTVFullscreen = true;
             final Timer t = new Timer();
             t.schedule(new TimerTask() {
@@ -307,7 +318,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                         }
                     });
                 }
-            },50);
+            }, 50);
 
         }
     }
@@ -371,52 +382,24 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     }
 
     public void onChannelListButtonClick(View view) {
-        if (isTVFullscreen) {
+        if (!isListPresent) {
             tvFragment.channelsListView.setVisibility(View.VISIBLE);
             tvFragment.separatorLayout.setVisibility(View.VISIBLE);
-            final RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT);
-            relativeParams.removeRule(RelativeLayout.END_OF);
-            tvFragment.parent.updateViewLayout(tvFragment.tvFrame, relativeParams);
-            final RelativeLayout.LayoutParams listViewrelativeParams = new RelativeLayout.LayoutParams(tvFragment.channelsListView.getWidth(), ViewGroup.LayoutParams.MATCH_PARENT);
-            final RelativeLayout.LayoutParams controlsrelativeParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, tvFragment.controlsLayout.getHeight());
-            controlsrelativeParams.removeRule(RelativeLayout.END_OF);
-            controlsrelativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            listViewrelativeParams.addRule(RelativeLayout.ABOVE, tvFragment.controlsLayout.getId());
-            tvFragment.parent.updateViewLayout(tvFragment.channelsListView, listViewrelativeParams);
-            tvFragment.parent.updateViewLayout(tvFragment.controlsLayout, controlsrelativeParams);
             tvFragment.channelsListView.bringToFront();
-            final Timer t = new Timer();
-            t.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (isTVFullscreen) {
-                                tvFragment.channelsListView.setVisibility(View.GONE);
-                                tvFragment.separatorLayout.setVisibility(View.GONE);
-                                relativeParams.addRule(RelativeLayout.END_OF, tvFragment.channelsListView.getId());
-                                listViewrelativeParams.removeRule(RelativeLayout.ABOVE);
-                                controlsrelativeParams.addRule(RelativeLayout.END_OF, tvFragment.channelsListView.getId());
-                                tvFragment.parent.updateViewLayout(tvFragment.tvFrame, relativeParams);
-                                tvFragment.parent.updateViewLayout(tvFragment.channelsListView, listViewrelativeParams);
-                                tvFragment.parent.updateViewLayout(tvFragment.controlsLayout, controlsrelativeParams);
-                                t.cancel();
-                                t.purge();
-                            }
-                        }
-                    });
-                }
-            }, 5000);
+            isListPresent = true;
+
+        } else {
+            tvFragment.channelsListView.setVisibility(View.GONE);
+            tvFragment.separatorLayout.setVisibility(View.GONE);
+            isListPresent = false;
         }
     }
 
-    private void setBackgrounds(View v) {
+    public void setBackgrounds(View v) {
         for (ImageButton button : imageButtons) {
             button.setBackgroundColor(Color.parseColor("#00FFFFFF"));
         }
-        v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        v.setBackgroundColor(getResources().getColor(R.color.colorAccentAntik));
     }
 
     @Override
@@ -453,16 +436,15 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
     public void setupTime() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat format; //= new SimpleDateFormat("EEE MMM dd hh:mm:ss Z yyyy");
+        java.text.DateFormat format; //= new SimpleDateFormat("EEE MMM dd hh:mm:ss Z yyyy");
         Locale locale = new Locale(language);
         Log.e("Locale", language);
-        format = new SimpleDateFormat("HH:mm dd MMM yyyy", locale);
-        Date newDate = c.getTime();
+        format = SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG, locale);
+        Date newDate = new Date();
         String date = format.format(newDate);
-        String time = date.substring(0, 5);
-        String dmy = date.substring(6);
+        String time = new SimpleDateFormat("hh:mm").format(newDate);
         timeTextView.setText(time);
-        dateTextView.setText(dmy);
+        dateTextView.setText(date);
     }
 
 
@@ -653,6 +635,49 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         }.execute();
     }
 
+    public void getApkList() {
+        new AsyncTask<Void, Void, Boolean>() {
+            JSONObject responseJson = null;
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("function", "GetApk");
+                    responseJson = handler.handleRequest(json);
+                    if (responseJson != null) {
+                        return true;
+                    }
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+                return false;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aVoid) {
+                super.onPostExecute(aVoid);
+                if (aVoid) {
+                    Log.e("ApkResponse", responseJson.toString());
+                    try {
+                        apps = new ArrayList<>();
+                        JSONArray jsonArray = responseJson.getJSONArray("apk");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            Apk apk = new Apk();
+                            apk.name = jsonArray.getString(i);
+                            Log.e("ApkResponse",apk.name);
+                            apk.address = API + "/data/apk/" + apk.name;
+                            apps.add(apk);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
+    }
+
     /*public void startInstallations() {
         AssetManager assetManager = getAssets();
 
@@ -693,6 +718,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     public class AppInstallReceiver extends BroadcastReceiver {
         public AppInstallReceiver() {
         }
+
         @Override
         public void onReceive(Context context, Intent intent) {
             String packageName = intent.getData().getEncodedSchemeSpecificPart();

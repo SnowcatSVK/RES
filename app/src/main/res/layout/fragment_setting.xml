@@ -43,7 +43,7 @@
         android:progressBackgroundTint="#aaa"
         android:progressTint="#aaa"
         android:rotation="270"
-        android:thumbTint="@color/colorAccent"
+        android:thumbTint="@color/colorAccentAntik"
         android:visibility="gone"/>
 
     <SeekBar
@@ -57,7 +57,7 @@
         android:progressBackgroundTint="#aaa"
         android:progressTint="#aaa"
         android:rotation="270"
-        android:thumbTint="@color/colorAccent"
+        android:thumbTint="@color/colorAccentAntik"
         android:visibility="gone"/>
 
 

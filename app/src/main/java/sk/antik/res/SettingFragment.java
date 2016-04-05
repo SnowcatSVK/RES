@@ -101,11 +101,12 @@ public class SettingFragment extends Fragment {
         languages = new ArrayList<>();
         languages.add(new Language("English", "us"));
         languages.add(new Language("Türkçe", "tr"));
+        languages.add(new Language("中国的", "zh"));
         /*
         languages.add(new Language("Deutsch", "de"));
         languages.add(new Language("Suomi", "fn"));
         languages.add(new Language("Pусский", "ru"));
-        languages.add(new Language("中国的", "cn"));
+
         */
         languageAdapter = new LanguageAdapter(getActivity(), languages);
         languagesListView.setAdapter(languageAdapter);
@@ -137,6 +138,7 @@ public class SettingFragment extends Fragment {
             MainActivity.language = languages.get(selectedPosition).countryCode.toLowerCase();
             languageAdapter.notifyDataSetChanged();
             languagesListView.setVisibility(View.VISIBLE);
+            ((MainActivity) getActivity()).setBackgrounds(MainActivity.imageButtons.get(MainActivity.imageButtons.size() - 1));
         }
         setControls();
         return rootView;
@@ -154,6 +156,10 @@ public class SettingFragment extends Fragment {
                 languages.get(1).selected = true;
                 languageAdapter.notifyDataSetChanged();
                 break;
+            case "zh":
+                languages.get(2).selected = true;
+                languageAdapter.notifyDataSetChanged();
+                break;
         }
     }
 
@@ -161,11 +167,11 @@ public class SettingFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
 
         super.onSaveInstanceState(outState);
-        outState.putInt("selected_language",selectedPosition);
+        outState.putInt("selected_language", selectedPosition);
     }
 
     public void setButton(ImageButton button) {
-         this.button = button;
+        this.button = button;
     }
 
     public void setControls() {

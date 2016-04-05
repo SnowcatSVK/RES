@@ -78,7 +78,7 @@
                 android:layout_toEndOf="@+id/volume_imageView"
                 android:progressBackgroundTint="#aaa"
                 android:progressTint="#aaa"
-                android:thumbTint="@color/colorAccent" />
+                android:thumbTint="@color/colorAccentAntik" />
         </RelativeLayout>
 
         <ProgressBar
@@ -89,7 +89,7 @@
             android:layout_gravity="center"
             android:visibility="gone"
             android:indeterminate="true"
-            android:indeterminateTint="@color/colorAccent"
+            android:indeterminateTint="@color/colorAccentAntik"
             android:indeterminateTintMode="src_in"
             />
     </FrameLayout>

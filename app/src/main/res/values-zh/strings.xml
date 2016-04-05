@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RES</string>
+    <string name="bus_plate_hint">总线板</string>
+    <string name="bus_plate_missing">公交车板是空的</string>
+    <string name="device_ip">API IP地址</string>
+    <string name="item_connection">连接</string>
+    <string name="item_games">游戏</string>
+    <string name="item_mod">音乐点播</string>
+    <string name="item_radio">收音机</string>
+    <string name="item_settings">设置</string>
+    <string name="item_vod">视频点播</string>
+    <string name="item_voyage">航行</string>
+    <string name="item_watch">观看</string>
+    <string name="no_tv">下载出现故障，清联系技术服务</string>
+    <string name="repeat_pin">重复PIN</string>
+    <string name="seat_number_hint">座位号</string>
+    <string name="setting_brightness">亮度</string>
+    <string name="setting_language">语言</string>
+    <string name="setting_volume">音量</string>
+    <string name="settings_tech_service">技术服务</string>
+    <string name="setup_pin">请设置您的PIN</string>
+    <string name="toast_API_IP_missing">API IP地址为空</string>
+    <string name="toast_API_IP_wrong_symbol">API IP地址包含错误符号</string>
+    <string name="toast_seat_number_missing">座位号为空</string>
+    <string name="wrong_pin">PIN错误</string>
+    <string name="date">日期</string>
+    <string name="time">时间</string>
+</resources>

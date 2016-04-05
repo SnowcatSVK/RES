@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:indeterminateTint="@color/colorAccent"
+            android:indeterminateTint="@color/colorAccentAntik"
             android:indeterminateTintMode="src_in"
             android:visibility="gone" />
     </FrameLayout>
@@ -77,7 +77,7 @@
             android:layout_toEndOf="@+id/volume_imageView"
             android:progressBackgroundTint="#aaa"
             android:progressTint="#aaa"
-            android:thumbTint="@color/colorAccent" />
+            android:thumbTint="@color/colorAccentAntik" />
 
         <SeekBar
             android:id="@+id/vod_progress_seekBar"
@@ -87,7 +87,7 @@
             android:layout_marginStart="16dp"
             android:progressBackgroundTint="#aaa"
             android:progressTint="#aaa"
-            android:thumbTint="@color/colorAccent" />
+            android:thumbTint="@color/colorAccentAntik" />
 
     </RelativeLayout>
 

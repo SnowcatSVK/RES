@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="@string/setup_pin"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorAccentAntik"
         android:textSize="60sp" />
 
     <LinearLayout

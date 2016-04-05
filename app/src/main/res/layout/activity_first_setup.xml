@@ -11,10 +11,11 @@
     tools:context="sk.antik.res.FirstSetupActivity">
 
     <LinearLayout
-        android:layout_width="600dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -47,11 +48,26 @@
                 android:layout_height="wrap_content"
                 android:text="Türkçe"
                 android:textSize="30sp"/>
+
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="56dp"
+                android:src="@drawable/china_flag"/>
+
+            <CheckBox
+                android:id="@+id/chinese_language_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="中国"
+                android:textSize="30sp"/>
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/device_ip_textInputLayout"
-            android:layout_width="match_parent"
+            android:layout_width="600dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp">
 
@@ -69,7 +85,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/seat_number_textInputLayout"
-            android:layout_width="match_parent"
+            android:layout_width="600dp"
             android:layout_height="wrap_content">
 
             <EditText
@@ -110,6 +126,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
         android:onClick="onCofirmButtonClick"
+        app:backgroundTint="@color/colorAccentAntik"
         android:padding="7dp"
         android:src="@drawable/ic_done"
         app:elevation="6dp" />

@@ -115,8 +115,8 @@
             android:layout_height="wrap_content"
             android:progressBackgroundTint="#aaa"
             android:layout_alignParentTop="true"
-            android:progressTint="@color/colorAccent"
-            android:thumbTint="@color/colorAccent"/>
+            android:progressTint="@color/colorAccentAntik"
+            android:thumbTint="@color/colorAccentAntik"/>
 
         <ImageButton
             android:id="@+id/mod_rewind_imageButton"
@@ -171,7 +171,7 @@
             android:layout_marginBottom="15dp"
             android:progressBackgroundTint="#aaa"
             android:progressTint="#aaa"
-            android:thumbTint="@color/colorAccent"/>
+            android:thumbTint="@color/colorAccentAntik"/>
 
     </RelativeLayout>
 

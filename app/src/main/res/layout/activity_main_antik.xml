@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_antik"
+    tools:context="sk.antik.res.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/top_bar_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:weightSum="3">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:background="#CC000000"
+            android:padding="16dp"
+            android:src="@drawable/antik_technology" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="2.1"
+            android:background="#CC000000"
+            android:padding="10dp">
+            <!--<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Passenger"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mr. Ahmet UZUN"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/voyage_info_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Voyage Info"
+                    android:textColor="@color/colorAccent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Istanbul - Ankara"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/voyage_info_layout"
+                android:layout_toStartOf="@+id/bus_plate_voyage_layout"
+                android:gravity="center"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Distance &amp; Time"
+                        android:textColor="@color/colorAccent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="540km/5h30m"
+                        android:textColor="#fff"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/line_layout"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="@color/colorAccent"
+                android:orientation="horizontal" />
+            <LinearLayout
+                android:id="@+id/bus_plate_voyage_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:layout_toStartOf="@+id/line_layout"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/bus_plate_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bus Plate"
+                        android:textColor="@color/colorAccent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="34AU037"
+                        android:textColor="#fff"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/voyage_number_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Voyage No."
+                        android:textColor="@color/colorAccent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MT069"
+                        android:textColor="#fff"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/weather_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/line_layout"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weather"
+                    android:textColor="@color/colorAccent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23°C"
+                    android:textColor="#fff"
+                    android:textSize="34sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:text="CLOUDY"
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
+            </LinearLayout>-->
+            <!-- <TextView
+                 android:id="@+id/time_and_date_label_textView"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Time&amp;Date"
+                 android:textColor="@color/colorAccent" />
+ -->
+            <TextView
+                android:id="@+id/time_main_activity_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_vertical"
+                android:text="12:23"
+                android:textColor="#fff"
+                android:textSize="55sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/date"
+                android:textColor="@color/colorAccentAntik" />
+            <TextView
+                android:id="@+id/date_main_activity_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/time_main_activity_textView"
+                android:layout_marginStart="36dp"
+                android:gravity="bottom"
+                android:textColor="#fff"
+                android:textSize="55sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time"
+                android:textColor="@color/colorAccentAntik" />
+            <TextView
+                android:id="@+id/seat_number_label_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@string/seat_number_hint"
+                android:textColor="@color/colorAccentAntik" />
+            <TextView
+                android:id="@+id/seat_number_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="#fff"
+                android:textSize="55sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/categories_names_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#DD000000"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/item_watch"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/item_radio"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/item_connection"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/item_games"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/item_vod"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/item_mod"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/item_settings"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignTop="@+id/categories_names_layout"
+        android:background="@color/colorAccentAntik" />
+
+
+    <RelativeLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_bar_linearLayout"
+        android:layout_below="@+id/top_bar_linearLayout" />
+
+
+    <LinearLayout
+        android:id="@+id/bottom_bar_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_above="@id/categories_names_layout"
+        android:background="#CC000000"
+        android:weightSum="7">
+
+        <ImageButton
+            android:id="@+id/watch_imageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0fff"
+            android:onClick="onWatchButtonClick"
+            android:src="@drawable/medical" />
+
+        <ImageButton
+            android:id="@+id/radio_imageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0fff"
+            android:onClick="onRadioButtonClick"
+            android:src="@drawable/ic_radio" />
+
+        <ImageButton
+            android:id="@+id/connect_imageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0fff"
+            android:onClick="onConnectButtonClick"
+            android:src="@drawable/chain" />
+
+        <ImageButton
+            android:id="@+id/games_imageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0fff"
+            android:onClick="onGamesButtonClick"
+            android:src="@drawable/technology" />
+
+        <ImageButton
+            android:id="@+id/vod_imageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0fff"
+            android:onClick="onVODButtonClick"
+            android:src="@drawable/play" />
+
+        <ImageButton
+            android:id="@+id/mod_imageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0fff"
+            android:onClick="onMODButtonClick"
+            android:src="@drawable/ic_music" />
+
+        <ImageButton
+            android:id="@+id/setting_imageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0fff"
+            android:onClick="onSettingsButtonClick"
+            android:src="@drawable/tool" />
+
+    </LinearLayout>
+
+</RelativeLayout>
