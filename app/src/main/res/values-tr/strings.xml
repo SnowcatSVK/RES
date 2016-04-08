@@ -26,4 +26,11 @@
     <string name="toast_seat_number_missing">Koltuk sayısı boş.</string>
     <string name="bus_plate_hint">Araç Plakası</string>
     <string name="bus_plate_missing">Araç Plakası boştur.</string>
+    <string name="time_and_date">Saat &amp; Tarih</string>
+    <string name="distance_and_time">Mesafe &amp; Süre</string>
+    <string name="voyage_info">Sefer bilgi</string>
+    <string name="voyage_no">Sefer numarası</string>
+    <string name="passenger">Yolcu</string>
+    <string name="weather">Hava</string>
+    <string name="cloudy">BULUTLU</string>
 </resources>

@@ -45,7 +45,7 @@ public class FirstSetupActivity extends Activity {
         //busPlateEditText = (EditText) findViewById(R.id.bus_plate_editText);
         englishCheckbox = (CheckBox) findViewById(R.id.english_language_checkBox);
         turkishCheckBox = (CheckBox) findViewById(R.id.turkish_language_checkBox);
-        chineseCheckBox = (CheckBox) findViewById(R.id.chinese_language_checkBox);
+        //chineseCheckBox = (CheckBox) findViewById(R.id.chinese_language_checkBox);
 
         Resources res = getResources();
         android.content.res.Configuration conf = res.getConfiguration();
@@ -53,11 +53,11 @@ public class FirstSetupActivity extends Activity {
         if (conf.locale.getCountry().equalsIgnoreCase("tr")) {
             turkishCheckBox.setChecked(true);
         } else {
-            if (conf.locale.getCountry().equalsIgnoreCase("zh")) {
+            /*if (conf.locale.getCountry().equalsIgnoreCase("zh")) {
                 chineseCheckBox.setChecked(true);
-            } else {
+            } else {*/
                 englishCheckbox.setChecked(true);
-            }
+            //}
         }
 
     }
@@ -72,7 +72,7 @@ public class FirstSetupActivity extends Activity {
 
                 if (englishCheckbox.isChecked()) {
                     turkishCheckBox.setChecked(false);
-                    chineseCheckBox.setChecked(false);
+                    //chineseCheckBox.setChecked(false);
                     prefs.edit().putString("APP_LANGUAGE", "us").apply();
                     Resources res = getResources();
                     // Change locale settings in the app.
@@ -93,7 +93,7 @@ public class FirstSetupActivity extends Activity {
             public void onClick(View v) {
                 if (turkishCheckBox.isChecked()) {
                     englishCheckbox.setChecked(false);
-                    chineseCheckBox.setChecked(false);
+                    //chineseCheckBox.setChecked(false);
                     prefs.edit().putString("APP_LANGUAGE", "tr").apply();
                     Resources res = getResources();
                     // Change locale settings in the app.
@@ -109,7 +109,7 @@ public class FirstSetupActivity extends Activity {
             }
         });
 
-        chineseCheckBox.setOnClickListener(new View.OnClickListener() {
+        /*chineseCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (chineseCheckBox.isChecked()) {
@@ -128,7 +128,7 @@ public class FirstSetupActivity extends Activity {
                     }
                 }
             }
-        });
+        });*/
     }
 
     public void onCofirmButtonClick(View view) {

@@ -53,7 +53,7 @@
             android:layout_gravity="center"
             android:visibility="gone"
             android:indeterminate="true"
-            android:indeterminateTint="@color/colorAccentAntik"
+            android:indeterminateTint="@color/colorAccent"
             android:indeterminateTintMode="src_in"
             />
     </FrameLayout>
@@ -83,7 +83,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@id/channel_list_button"
-            android:background="@color/colorAccentAntik"
+            android:background="@color/colorAccent"
             android:elevation="4dp"
             android:orientation="horizontal"
             android:visibility="gone" />
@@ -114,7 +114,7 @@
             android:layout_toEndOf="@+id/volume_imageView"
             android:progressBackgroundTint="#aaa"
             android:progressTint="#aaa"
-            android:thumbTint="@color/colorAccentAntik" />
+            android:thumbTint="@color/colorAccent" />
 
         <ImageButton
             android:id="@+id/full_screen_tv_imageButton"
@@ -132,7 +132,7 @@
         android:layout_width="300dp"
         android:layout_height="1dp"
         android:layout_above="@+id/player_controls_layout"
-        android:background="@color/colorAccentAntik"
+        android:background="@color/colorAccent"
         android:elevation="5dp"
         android:orientation="horizontal"
         android:visibility="gone" />

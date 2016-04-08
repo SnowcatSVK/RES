@@ -27,4 +27,11 @@
     <string name="no_tv">There was a problem downloading content, please contact technical service</string>
     <string name="bus_plate_hint">Bus Plate</string>
     <string name="bus_plate_missing">Bus plate is empty</string>
+    <string name="time_and_date">Time &amp; Date</string>
+    <string name="distance_and_time">Distance &amp; Time</string>
+    <string name="voyage_info">Voyage Info</string>
+    <string name="voyage_no">Voyage No.</string>
+    <string name="passenger">Passenger</string>
+    <string name="weather">Weather</string>
+    <string name="cloudy">CLOUDY</string>
 </resources>

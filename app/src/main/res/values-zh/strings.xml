@@ -26,4 +26,11 @@
     <string name="wrong_pin">PIN错误</string>
     <string name="date">日期</string>
     <string name="time">时间</string>
+    <string name="cloudy">aaa</string>
+    <string name="distance_and_time">aaaa</string>
+    <string name="passenger">aaaa</string>
+    <string name="time_and_date">aaa</string>
+    <string name="voyage_info">aaa</string>
+    <string name="voyage_no">aaa</string>
+    <string name="weather">aaa</string>
 </resources>

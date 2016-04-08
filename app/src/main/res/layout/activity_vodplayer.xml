@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:indeterminateTint="@color/colorAccentAntik"
+            android:indeterminateTint="@color/colorAccent"
             android:indeterminateTintMode="src_in"
             android:visibility="gone" />
     </FrameLayout>

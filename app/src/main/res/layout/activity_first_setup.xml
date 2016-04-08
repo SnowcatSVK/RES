@@ -50,7 +50,7 @@
                 android:textSize="30sp"/>
 
 
-            <ImageView
+            <!--<ImageView
                 android:layout_width="60dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="中国"
-                android:textSize="30sp"/>
+                android:textSize="30sp"/>-->
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -126,7 +126,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
         android:onClick="onCofirmButtonClick"
-        app:backgroundTint="@color/colorAccentAntik"
+        app:backgroundTint="@color/colorAccent"
         android:padding="7dp"
         android:src="@drawable/ic_done"
         app:elevation="6dp" />

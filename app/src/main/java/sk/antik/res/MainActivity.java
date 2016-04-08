@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         //getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        setContentView(R.layout.activity_main_antik);
+        setContentView(R.layout.activity_main);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.screenBrightness = 1.0f;
         getWindow().setAttributes(lp);
@@ -220,11 +220,26 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 case "Candy Crush Saga":
                     gamesFragment.candyCrushInstalled = true;
                     break;
-                case "Angry Birds":
-                    gamesFragment.angryBirdsInstalled = true;
+                case "Sudoku":
+                    gamesFragment.sudokuInstalled = true;
                     break;
                 case "Spider":
                     gamesFragment.spiderSolitaireInstalled = true;
+                    break;
+                case "Backgammon Free":
+                    gamesFragment.backgammonInstalled = true;
+                    break;
+                case "Chess Free":
+                    gamesFragment.chessInstalled = true;
+                    break;
+                case "Batak HD":
+                    gamesFragment.batakInstalled = true;
+                    break;
+                case "101 Yüzbir Okey Plus":
+                    gamesFragment.yuzbirInstalled = true;
+                    break;
+                case "Fruit Ninja Free":
+                    gamesFragment.fruitNinjaInstalled = true;
                     break;
                 case "Chrome":
                     connectionFragment.chromeInstalled = true;
@@ -399,7 +414,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         for (ImageButton button : imageButtons) {
             button.setBackgroundColor(Color.parseColor("#00FFFFFF"));
         }
-        v.setBackgroundColor(getResources().getColor(R.color.colorAccentAntik));
+        v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
     }
 
     @Override
@@ -666,7 +681,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                         for (int i = 0; i < jsonArray.length(); i++) {
                             Apk apk = new Apk();
                             apk.name = jsonArray.getString(i);
-                            Log.e("ApkResponse",apk.name);
+                            Log.e("ApkResponse", apk.name);
                             apk.address = API + ":180" + "/data/apk/" + apk.name;
                             apps.add(apk);
                         }
@@ -732,25 +747,53 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     gamesFragment.spiderSolitaireInstalled = true;
                     gamesFragment.switchIcon("Spider Solitaire");
                     break;
-                case "com.rovio.angrybirds":
-                    file = new File(externalPath + "/com.rovio.angrybirds.apk");
-                    file.delete();
-                    gamesFragment.angryBirdsInstalled = true;
-                    gamesFragment.switchIcon("Angry Birds");
-                    break;
                 case "com.king.candycrushsaga":
                     file = new File(externalPath + "/candycrush.apk");
                     file.delete();
                     gamesFragment.candyCrushInstalled = true;
                     gamesFragment.switchIcon("Candy Crush");
                     break;
+                case "com.brainium.sudoku.free":
+                    file = new File(externalPath + "/com.brainium.sudoku.free.apk");
+                    file.delete();
+                    gamesFragment.sudokuInstalled = true;
+                    gamesFragment.switchIcon("Sudoku");
+                    break;
+                case "uk.co.aifactory.chessfree":
+                    file = new File(externalPath + "/uk.co.aifactory.chessfree.apk");
+                    file.delete();
+                    gamesFragment.chessInstalled = true;
+                    gamesFragment.switchIcon("Chess");
+                    break;
+                case "com.game.pisti":
+                    file = new File(externalPath + "/com.game.pisti.apk");
+                    file.delete();
+                    gamesFragment.batakInstalled = true;
+                    gamesFragment.switchIcon("Batak");
+                    break;
+                case "uk.co.aifactory.backgammonfree":
+                    file = new File(externalPath + "/uk.co.aifactory.backgammonfree.apk");
+                    file.delete();
+                    gamesFragment.backgammonInstalled = true;
+                    gamesFragment.switchIcon("Backgammon");
+                    break;
+                case "net.peakgames.Yuzbir":
+                    file = new File(externalPath + "/net.peakgames.Yuzbir.apk");
+                    file.delete();
+                    gamesFragment.yuzbirInstalled = true;
+                    gamesFragment.switchIcon("Yuzbir");
+                    break;
+                case "com.halfbrick.fruitninjafree":
+                    file = new File(externalPath + "/com.halfbrick.fruitninjafree.apk");
+                    file.delete();
+                    gamesFragment.fruitNinjaInstalled = true;
+                    gamesFragment.switchIcon("Fruit Ninja");
+                    break;
                 case "com.android.chrome":
                     file = new File(externalPath + "/com.android.chrome.apk");
                     file.delete();
                     connectionFragment.chromeInstalled = true;
-                    connectionFragment.switchIcon("Chrome");
-                    connectionFragment.switchIcon("Facebook");
-                    connectionFragment.switchIcon("Twitter");
+                    connectionFragment.switchIcon();
                     break;
             }
         }

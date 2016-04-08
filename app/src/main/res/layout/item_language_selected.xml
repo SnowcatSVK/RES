@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:textSize="26sp"
-        android:textColor="@color/colorAccentAntik"
+        android:textColor="@color/colorAccent"
         android:layout_marginStart="16dp"
         android:gravity="center_vertical"
         />

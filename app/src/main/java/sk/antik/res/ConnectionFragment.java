@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,6 +38,8 @@ public class ConnectionFragment extends Fragment {
     private ImageButton facebookButton;
     private ImageButton twitterButton;
     private ImageButton chromeButton;
+    private ImageButton youtubeButton;
+    private ImageButton bookingButton;
     private ProgressDialog progressDialog;
 
     public ConnectionFragment() {
@@ -76,15 +79,48 @@ public class ConnectionFragment extends Fragment {
                 }
             }
         });
+
+        youtubeButton = (ImageButton) rootView.findViewById(R.id.youtube_button);
+        youtubeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (chromeInstalled) {
+                    Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.android.chrome");
+                    launchIntent.setData(Uri.parse("https://www.youtube.com"));
+                    startActivity(launchIntent);
+                } else {
+                    findApk("com.android.chrome.apk");
+                }
+            }
+        });
+
+        bookingButton = (ImageButton) rootView.findViewById(R.id.booking_button);
+        bookingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (chromeInstalled) {
+                    Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.android.chrome");
+                    launchIntent.setData(Uri.parse("https://www.booking.com"));
+                    startActivity(launchIntent);
+                } else {
+                    findApk("com.android.chrome.apk");
+                }
+            }
+        });
+
         chromeButton = (ImageButton) rootView.findViewById(R.id.google_chrome_button);
         if (chromeInstalled) {
             chromeButton.setImageResource(R.drawable.chrome);
             facebookButton.setImageResource(R.drawable.facebook);
             twitterButton.setImageResource(R.drawable.twitter);
+            youtubeButton.setImageResource(R.drawable.youtube);
+            bookingButton.setImageResource(R.drawable.booking);
         } else {
             chromeButton.setImageResource(R.drawable.chrome_grey);
             facebookButton.setImageResource(R.drawable.facebook_grey);
             twitterButton.setImageResource(R.drawable.twitter_grey);
+            youtubeButton.setImageResource(R.drawable.youtube_grey);
+            bookingButton.setImageResource(R.drawable.booking_grey);
         }
         chromeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,27 +138,27 @@ public class ConnectionFragment extends Fragment {
     }
 
     public void findApk(String name) {
-        for (Apk apk : MainActivity.apps) {
-            Log.e("ApkResponse", apk.name);
-            if (apk.name.equalsIgnoreCase(name)) {
+        if (MainActivity.apps != null) {
+            for (Apk apk : MainActivity.apps) {
+                Log.e("ApkResponse", apk.name);
+                if (apk.name.equalsIgnoreCase(name)) {
 
-                installPackage(name, apk.address, getActivity());
+                    installPackage(name, apk.address, getActivity());
+                } else {
+                    Toast.makeText(getActivity(), "Can't find installation file", Toast.LENGTH_LONG).show();
+                }
             }
+        } else {
+            Toast.makeText(getActivity(), "Can't find installation file", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void switchIcon(String name) {
-        switch (name) {
-            case "Facebook":
-                facebookButton.setImageResource(R.drawable.facebook);
-                break;
-            case "Twitter":
-                twitterButton.setImageResource(R.drawable.twitter);
-                break;
-            case "Chrome":
-                chromeButton.setImageResource(R.drawable.chrome);
-                break;
-        }
+    public void switchIcon() {
+        facebookButton.setImageResource(R.drawable.facebook);
+        twitterButton.setImageResource(R.drawable.twitter);
+        chromeButton.setImageResource(R.drawable.chrome);
+        youtubeButton.setImageResource(R.drawable.youtube);
+        bookingButton.setImageResource(R.drawable.booking);
     }
 
     public void installPackage(final String packageName, final String address, final Context context) {

@@ -2,35 +2,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context="sk.antik.res.GamesFragment"
     android:background="#AAFFFFFF"
-    android:weightSum="3">
+    android:weightSum="2">
 
-    <ImageButton
-        android:id="@+id/candy_crush_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#0fff"
-        />
+        android:weightSum="4">
 
-    <ImageButton
-        android:id="@+id/angry_birds_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:background="#0fff"
-        />
+        <ImageButton
+            android:id="@+id/candy_crush_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#0fff"
+            />
 
-    <ImageButton
-        android:id="@+id/spider_solitaire_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        <ImageButton
+            android:id="@+id/sudoku_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#0fff"
+            />
+
+        <ImageButton
+            android:id="@+id/spider_solitaire_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#0fff"
+            />
+
+        <ImageButton
+            android:id="@+id/chess_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#0fff"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#0fff"
-        />
+        android:weightSum="4">
+
+        <ImageButton
+            android:id="@+id/batak_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#0fff"
+            />
+
+        <ImageButton
+            android:id="@+id/backgammon_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#0fff"
+            />
+
+        <ImageButton
+            android:id="@+id/yuzbir_okey_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#0fff"
+            />
+
+        <ImageButton
+            android:id="@+id/fruit_ninja_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#0fff"
+            />
+
+    </LinearLayout>
 </LinearLayout>

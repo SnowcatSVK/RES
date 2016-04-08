@@ -101,7 +101,7 @@ public class SettingFragment extends Fragment {
         languages = new ArrayList<>();
         languages.add(new Language("English", "us"));
         languages.add(new Language("Türkçe", "tr"));
-        languages.add(new Language("中国的", "zh"));
+        //languages.add(new Language("中国的", "zh"));
         /*
         languages.add(new Language("Deutsch", "de"));
         languages.add(new Language("Suomi", "fn"));
